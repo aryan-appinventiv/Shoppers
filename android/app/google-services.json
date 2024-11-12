@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573593665454",
+    "project_id": "shoppers-91436",
+    "storage_bucket": "shoppers-91436.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573593665454:android:5b2dc7634a1092a192123f",
+        "android_client_info": {
+          "package_name": "com.shoppers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573593665454-25946c057aqvdf3rfrfcqk7e6lajq7mq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9ZDCaJuJnedb1hF3EoZxOH0pSvvrXDwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573593665454-25946c057aqvdf3rfrfcqk7e6lajq7mq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
