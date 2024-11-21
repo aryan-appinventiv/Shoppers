@@ -58,7 +58,7 @@ GoogleSignin.configure({
 });
 
 export async function onGoogleButtonPress() {
-  try {
+ 
     // Check if your device supports Google Play
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
@@ -75,12 +75,8 @@ export async function onGoogleButtonPress() {
     }
 
     // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    const googleCredential = auth.GoogleAuthProvider.credential(signInResult.data?.idToken);
 
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
-  } catch (error) {
-    console.error("Google Sign-In Error:", error);
-    throw error;
   }
-}

@@ -1,23 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import AppHeader from '../../components/appHeader';
+import SearchBar from '../../components/searchBar';
+import axios from 'axios';
+import BreakingNews from '../../components/breakingNews.tsx';
+import Categories from '../../components/categories/index.tsx';
+import NewsList from '../../components/newsList/index.tsx';
+import Loading from '../../components/loading/index.tsx';
 
 const Home = () => {
-  const [username, setUsername] = useState('');
+  const [breakingNews, setBreakingNews] = useState([]);
+  const [news, setNews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(()=>{
+    getBreakingNews();
+    getNews();
+  },[])
 
-  useEffect(() => {
-    // Fetch the current user's displayName (username) from Firebase Auth
-    const currentUser = auth().currentUser;
-    if (currentUser) {
-      setUsername(currentUser.displayName);
+  const getBreakingNews=async()=>{
+    try{
+      const URL = `https://newsdata.io/api/1/news?apikey=pub_58618a7cc7260bd7721baed946811425b8473&country=in&language=en&image=1&removeduplicate=1&size=5`
+      const response = await axios .get(URL);
+      if(response && response.data){
+        setIsLoading(false);
+        setBreakingNews(response.data.results)
+      }
+    } catch(err){
+      console.log('error', err);
+      setIsLoading(true);
     }
-  }, []);
+  }
+
+  const getNews=async(category:string = '')=>{
+    try{
+      let categoryString = '';
+      if(category.length !== 0){
+        categoryString = `&category=${category}`;
+      }
+  
+      const URL = `https://newsdata.io/api/1/news?apikey=pub_58618a7cc7260bd7721baed946811425b8473&language=en&image=1&removeduplicate=1${categoryString}`;
+      const response = await axios .get(URL);
+      if(response && response.data){
+        setNews(response.data.results)
+      }
+    } catch(err){
+      console.log('error', err);
+    }
+  }
+
+  const onCatChanged = (category:string)=>{
+    setNews([]);
+    getNews(category);
+  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome, {username || 'User'}!</Text>
-      {/* Add other components or content here */}
-    </View>
+    <ScrollView style={styles.container}>
+      <AppHeader/>
+      <SearchBar/>
+      {isLoading? (<Loading/>) : (<BreakingNews newsList={breakingNews}/>)}
+      
+      <Categories onCategoryChanged={onCatChanged}/>
+      <NewsList newsList={news}/>
+    </ScrollView>
   );
 };
 
@@ -26,13 +74,5 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  welcome: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'black',
   },
 });

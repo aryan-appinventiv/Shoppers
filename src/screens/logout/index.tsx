@@ -2,19 +2,23 @@ import {
     Alert,
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
     View,
   } from 'react-native';
   import React, {useState} from 'react';
   import auth from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
   
   const Logout = () => {
-   
+      const Navigation = useNavigation();
     const onLogout = () => {
       auth().signOut().then(response=>{
         Alert.alert("User Signed out");
-        console.log(("User signed out"))
+        console.log(("User signed out"));
+        Navigation.reset({
+          index: 0,
+          routes: [{ name: 'Signin' }]
+     })        
       }).catch(error=>{
         Alert.alert("Cannot logout");
         console.log(error);

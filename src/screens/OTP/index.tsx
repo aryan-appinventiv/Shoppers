@@ -2,14 +2,21 @@ import { StyleSheet, Text, View , TouchableOpacity} from 'react-native'
 import React, { useState } from 'react'
 import { OtpInput } from "react-native-otp-entry";
 import { colors } from '../../utils/colors';
+import { useNavigation } from '@react-navigation/native';
 
 const OTP = (props) => {
     const [code, setCode] = useState('');
+    const Navigation = useNavigation();
 
     async function confirmCode(confirm) {
         try {
           await confirm.confirm(code);
           console.log("Logged in");
+          Navigation.reset({
+            index:0,
+            routes:[{name: 'BottomTabNavigator'}]
+          })
+
         } catch (error) {
           console.log('Invalid code.');
         }

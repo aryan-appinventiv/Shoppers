@@ -51,6 +51,7 @@ import Button from '../../components/button';
 const Phone = () => {
   const [confirm, setConfirm] = useState(null);
   const [number, setNumber] = useState('+44 7444 555666');
+  const Navigation = useNavigation();
   React.useEffect(() => {
     console.log('confirm', confirm);
   }, [confirm]);
@@ -64,7 +65,7 @@ const Phone = () => {
     }
   }
 
-  const Navigation = useNavigation();
+ 
   const goBack = () => {
     Navigation.goBack();
   };

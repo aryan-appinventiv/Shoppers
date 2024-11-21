@@ -17,4 +17,14 @@ export const images = {
     settings1: require('./images/settings.png'),
     saved: require('./images/saved.png'),
     saved1: require('./images/saved1.png'),
+    profile: require('./images/profile.png'),
+    bell: require('./images/bell.png'),
+    search: require('./images/magnifying-glass.png'),
+    like: require('./images/heart.png'),
+    goback: require('./images/back.png'),
+    checked : require('./images/checked.png'),
+    next: require('./images/next.png'),
+    logout: require('./images/logout.png'),
 }
+
+export const fallback = require('./images/tutorial.jpg');

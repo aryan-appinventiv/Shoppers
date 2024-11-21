@@ -10,6 +10,8 @@ import RegisterWithEmail from '../screens/registerWithEmail';
 import Signin from '../screens/signin';
 import Phone from '../screens/phone';
 import ForgotPassword from '../screens/forgotPassword';
+import Detail from '../screens/detail';
+import Search from '../screens/search';
 
 const RootNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -23,6 +25,16 @@ const RootNavigator = () => {
         <Stack.Screen
           component={Splash}
           name="Splash"
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          component={Search}
+          name="Search"
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          component={Detail}
+          name="Detail"
           options={{headerShown: false}}
         />
          <Stack.Screen

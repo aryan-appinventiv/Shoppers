@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Platform } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform, Dimensions } from 'react-native'
 import React from 'react'
 import { images } from '../../assets'
 import { useNavigation } from '@react-navigation/native'
 
+const Wwidth = Dimensions.get('window').width;
 const Header = ({onPress}) => {
     const Navigation = useNavigation();
    
@@ -27,8 +28,8 @@ const styles = StyleSheet.create({
         flex:1
     },
     back:{
-        height:30,
-        width:30,
+        height:25,
+        width:25,
     },
     backCont:{
         position:'absolute',
