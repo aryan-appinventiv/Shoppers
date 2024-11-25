@@ -20,10 +20,18 @@ const Settings = () => {
 
   const Navigation = useNavigation();
 
-  const gotoAbout=()=>{}
-  const gotoFeedback=()=>{}
-  const gotoPrivacy=()=>{}
-  const gotoTerms=()=>{}
+  const gotoAbout=()=>{
+    Navigation.navigate('Profile');
+  }
+  const gotoFeedback=()=>{
+    Navigation.navigate('Feedback');
+  }
+  const gotoPrivacy=()=>{
+    Navigation.navigate('PrivacyPolicy');
+  }
+  const gotoTerms=()=>{
+    Navigation.navigate('TermsOfUse');
+  }
   const gotoMode=()=>{
     toggleSwitch();
   }

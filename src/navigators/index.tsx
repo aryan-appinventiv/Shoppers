@@ -12,6 +12,10 @@ import Phone from '../screens/phone';
 import ForgotPassword from '../screens/forgotPassword';
 import Detail from '../screens/detail';
 import Search from '../screens/search';
+import TermsOfUse from '../screens/termsOfUse';
+import PrivacyPolicy from '../screens/privacyPolicy';
+import Feedback from '../screens/feedback';
+import Profile from '../screens/profile';
 
 const RootNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -30,6 +34,26 @@ const RootNavigator = () => {
         <Stack.Screen
           component={Search}
           name="Search"
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          component={TermsOfUse}
+          name="TermsOfUse"
+          options={{headerShown: false}}
+        />
+          <Stack.Screen
+          component={PrivacyPolicy}
+          name="PrivacyPolicy"
+          options={{headerShown: false}}
+        />
+          <Stack.Screen
+          component={Feedback}
+          name="Feedback"
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          component={Profile}
+          name="Profile"
           options={{headerShown: false}}
         />
         <Stack.Screen
