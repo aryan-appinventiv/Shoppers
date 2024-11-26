@@ -10,9 +10,11 @@ import {
     View,
     TouchableWithoutFeedback,
     ScrollView,
+    KeyboardAvoidingView,
+    Keyboard,
   } from 'react-native';
   import React, {useEffect, useState} from 'react';
-  //import ImagePicker from 'react-native-image-crop-picker';
+  import ImagePicker from 'react-native-image-crop-picker';
   import {images} from '../../assets';
   import {colors} from '../../utils/colors';
   import {vh, vw} from '../../utils/dimensions';
@@ -38,33 +40,33 @@ import {
     }, []);
   
     const takePhotoFromCamera = () => {
-    //   ImagePicker.openCamera({
-    //     width: 300,
-    //     height: 400,
-    //     cropping: true,
-    //   })
-    //     .then(image => {
-    //       setProfileImage(image.path);
-    //       setModalVisible(false);
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
+      ImagePicker.openCamera({
+        width: 300,
+        height: 400,
+        cropping: true,
+      })
+        .then(image => {
+          setProfileImage(image.path);
+          setModalVisible(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     };
   
     const choosePhotoFromLibrary = () => {
-    //   ImagePicker.openPicker({
-    //     width: 300,
-    //     height: 400,
-    //     cropping: true,
-    //   })
-    //     .then(image => {
-    //       setProfileImage(image.path);
-    //       setModalVisible(false);
-    //     })
-    //     .catch(error => {
-    //       console.log(error);
-    //     });
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true,
+      })
+        .then(image => {
+          setProfileImage(image.path);
+          setModalVisible(false);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     };
   
     const toggleModal = () => {
@@ -110,112 +112,125 @@ import {
     };
   
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.backCont}>
-          <TouchableOpacity onPress={goback} style={styles.back}>
-            <Image source={images.back} style={styles.backImg} />
-          </TouchableOpacity>
-        </View>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView style={styles.container} bounces={false}>
+            <View style={styles.backCont}>
+              <TouchableOpacity onPress={goback} style={styles.back}>
+                <Image source={images.back} style={styles.backImg} />
+              </TouchableOpacity>
+            </View>
   
-        <View style={styles.header}>
-          <TouchableOpacity onPress={toggleModal}>
-            {profileImage ? (
-              <Image source={{uri: profileImage}} style={styles.profileImage} />
-            ) : (
-              <Image source={images.profile} style={styles.profileImage} />
-            )}
-          </TouchableOpacity>
-          <Text style={styles.changeImg} onPress={toggleModal}>
-            Change Profile Picture
-          </Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.username}>{name || 'No Username'}</Text>
-          <TouchableOpacity
-            onPress={() => setShowName(!showName)}
-            style={styles.changeUsername}>
-            <Text style={styles.changeUsernameText}>Change Username</Text>
-          </TouchableOpacity>
-          {showName && (
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Enter new username"
-                placeholderTextColor={'gray'}
-                style={styles.textInputUsername}
-                value={newName}
-                onChangeText={setNewName}
-              />
-              <TouchableOpacity
-                style={[styles.button,{opacity: newName.trim().length<5 ? 0.8: 1}]}
-                onPress={updateName}
-                disabled={newName.trim().length < 5}>
-                <Text style={styles.buttonText}>Change</Text>
+            <View style={styles.header}>
+              <TouchableOpacity onPress={toggleModal}>
+                {profileImage ? (
+                  <Image source={{uri: profileImage}} style={styles.profileImage} />
+                ) : (
+                  <Image source={images.profile} style={styles.profileImage} />
+                )}
               </TouchableOpacity>
-              {newName.trim().length < 5 && (
-                <Text style={styles.caution}>
-                  Username should be at least 5 characters long.
-                </Text>
-              )}
+              <Text style={styles.changeImg} onPress={toggleModal}>
+                Change Profile Picture
+              </Text>
             </View>
-          )}
-          <View style={styles.separator} />
-          <Text style={styles.passwordLabel}>********</Text>
-          <TouchableOpacity
-            onPress={() => setShowPass(!showPass)}
-            style={styles.changeUsername}>
-            <Text style={styles.changeUsernameText}>Change Password</Text>
-          </TouchableOpacity>
-          {showPass && (
-            <View style={styles.inputContainer}>
-              <View style={styles.textInput}>
-                <TextInput
-                  value={newPassword}
-                  onChangeText={setNewPassword}
-                  placeholder="Enter new Password"
-                  secureTextEntry={!passwordVisible}
-                />
-                <TouchableOpacity
-                  onPress={() => setPasswordVisible(!passwordVisible)}>
-                  <Image
-                    source={passwordVisible ? images.hide : images.view}
-                    style={styles.icon}
+            <ScrollView style={styles.infoContainer}>
+              <Text style={styles.username}>{name || 'No Username'}</Text>
+              <TouchableOpacity
+                onPress={() => setShowName(!showName)}
+                style={styles.changeUsername}>
+                <Text style={styles.changeUsernameText}>Change Username</Text>
+              </TouchableOpacity>
+              {showName && (
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Enter new username"
+                    placeholderTextColor={'gray'}
+                    style={styles.textInputUsername}
+                    value={newName}
+                    onChangeText={setNewName}
                   />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity
-                style={[styles.button,{opacity: newName.trim().length<5 ? 0.8: 1}]}
-                onPress={updatePassword}
-                disabled={newPassword.trim().length < 6}>
-                <Text style={styles.buttonText}>Change</Text>
-              </TouchableOpacity>
-              {newPassword.trim().length < 6 && (
-                <Text style={styles.caution}>
-                  Password should be at least 6 characters.
-                </Text>
+                  <TouchableOpacity
+                    style={[
+                      styles.button,
+                      {opacity: newName.trim().length < 5 ? 0.8 : 1},
+                    ]}
+                    onPress={updateName}
+                    disabled={newName.trim().length < 5}>
+                    <Text style={styles.buttonText}>Change</Text>
+                  </TouchableOpacity>
+                  {newName.trim().length < 5 && (
+                    <Text style={styles.caution}>
+                      Username should be at least 5 characters long.
+                    </Text>
+                  )}
+                </View>
               )}
-            </View>
-          )}
-        </View>
-        <Modal transparent visible={modalVisible} animationType="fade">
-          <TouchableWithoutFeedback onPress={toggleModal}>
-            <View style={styles.modalOverlay}>
-              <View style={styles.modalContent}>
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={takePhotoFromCamera}>
-                  <Text style={styles.modalButtonText}>Open Camera</Text>
-                </TouchableOpacity>
-                <View style={styles.separator} />
-                <TouchableOpacity
-                  style={styles.modalButton}
-                  onPress={choosePhotoFromLibrary}>
-                  <Text style={styles.modalButtonText}>Choose from Gallery</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-      </ScrollView>
+              <View style={styles.separator} />
+              <Text style={styles.passwordLabel}>********</Text>
+              <TouchableOpacity
+                onPress={() => setShowPass(!showPass)}
+                style={styles.changeUsername}>
+                <Text style={styles.changeUsernameText}>Change Password</Text>
+              </TouchableOpacity>
+              {showPass && (
+                <View style={styles.inputContainer}>
+                  <View style={styles.textInput}>
+                    <TextInput
+                      value={newPassword}
+                      onChangeText={setNewPassword}
+                      placeholder="Enter new Password"
+                      secureTextEntry={!passwordVisible}
+                      style={{flex: 1}}
+                    />
+                    <TouchableOpacity
+                      onPress={() => setPasswordVisible(!passwordVisible)}>
+                      <Image
+                        source={passwordVisible ? images.hide : images.view}
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <TouchableOpacity
+                    style={[
+                      styles.button,
+                      {opacity: newName.trim().length < 5 ? 0.8 : 1},
+                    ]}
+                    onPress={updatePassword}
+                    disabled={newPassword.trim().length < 6}>
+                    <Text style={styles.buttonText}>Change</Text>
+                  </TouchableOpacity>
+                  {newPassword.trim().length < 6 && (
+                    <Text style={styles.caution}>
+                      Password should be at least 6 characters.
+                    </Text>
+                  )}
+                </View>
+              )}
+            </ScrollView>
+            <Modal transparent visible={modalVisible} animationType="fade">
+              <TouchableWithoutFeedback onPress={toggleModal}>
+                <View style={styles.modalOverlay}>
+                  <View style={styles.modalContent}>
+                    <TouchableOpacity
+                      style={styles.modalButton}
+                      onPress={takePhotoFromCamera}>
+                      <Text style={styles.modalButtonText}>Open Camera</Text>
+                    </TouchableOpacity>
+                    <View style={styles.separator} />
+                    <TouchableOpacity
+                      style={styles.modalButton}
+                      onPress={choosePhotoFromLibrary}>
+                      <Text style={styles.modalButtonText}>Choose from Gallery</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+            </Modal>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     );
   };
   

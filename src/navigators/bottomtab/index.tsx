@@ -36,7 +36,7 @@ const TabIcon = ({ focused, source, activeSource }) => {
   }));
 
   return (
-    <Animated.View style={focused ? animatedStyle : {}}>
+    <View>
       <Image
         source={focused ? activeSource : source}
         style={{ width: focused ? 30 : 25, height: focused ? 30 : 25, tintColor: focused ? colors.primary : '#808080' }}
@@ -45,7 +45,7 @@ const TabIcon = ({ focused, source, activeSource }) => {
       {focused ? (
         <View style={{ height: 10, width: 30, backgroundColor: colors.primary, marginTop: 5 }} />
       ) : null}
-    </Animated.View>
+    </View>
   );
 };
 
