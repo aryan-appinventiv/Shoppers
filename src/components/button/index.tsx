@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     registerTitle: {
-        color: 'white',
+        color: colors.white,
         fontSize: 16,
         fontWeight: '600',
     },

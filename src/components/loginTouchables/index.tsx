@@ -2,6 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
+import { vh, vw } from '../../utils/dimensions';
 
 const LoginTouchable = ({title, img, onPress}) => {
   console.log(img);
@@ -17,23 +18,23 @@ export default LoginTouchable;
 
 const styles = StyleSheet.create({
   touchable: {
-    marginVertical: 10,
+    marginVertical: vh(10),
     borderWidth: 1,
-    borderRadius: 20,
-    borderColor: 'darkgray',
+    borderRadius: vw(20),
+    borderColor: colors.darkgray,
     flexDirection: 'row',
-    gap: 10,
-    paddingVertical: 10,
+    gap: vh(10),
+    paddingVertical: vh(10),
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
   },
   icon: {
-    height: 20,
-    width: 20,
+    height: vh(20),
+    width: vh(20),
   },
   iconDesc: {
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: vw(16),
   },
 });

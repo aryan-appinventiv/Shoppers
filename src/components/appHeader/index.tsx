@@ -1,19 +1,23 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image, Platform} from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
 import { images } from '../../assets'
 import auth from '@react-native-firebase/auth'
 import {vw, vh} from '../../utils/dimensions'
+import { useFocusEffect } from '@react-navigation/native'
+import { colors } from '../../utils/colors'
 
 const AppHeader = () => {
     const [username, setUsername] = useState('');
 
-    useEffect(() => {
-      // Fetch the current user's displayName (username) from Firebase Auth
-      const currentUser = auth().currentUser;
-      if (currentUser) {
-        setUsername(currentUser.displayName);
-      }
-    }, []);
+    useFocusEffect(
+      useCallback(() => {
+        const currentUser = auth().currentUser;
+        if (currentUser) {
+          setUsername(currentUser.displayName);
+        }
+      }, [])
+    );
+  
   return (
     <View style={styles.userCont}>
         <View style={styles.userCont1}>
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
       },
       welcome:{
-        color:'gray',
+        color: colors.gray,
         fontWeight:'600',
       },
       name:{

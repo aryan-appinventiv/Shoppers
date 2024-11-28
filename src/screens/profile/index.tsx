@@ -20,6 +20,7 @@ import {
   import {vh, vw} from '../../utils/dimensions';
   import {useNavigation} from '@react-navigation/native';
   import auth from '@react-native-firebase/auth';
+  import Toast from 'react-native-simple-toast';
   
   const Profile = () => {
     const [profileImage, setProfileImage] = useState(null);
@@ -83,11 +84,15 @@ import {
           .then(() => {
             setName(newName);
             setNewName('');
-            Alert.alert('Username updated successfully');
+            Toast.show('Username updated successfully', Toast.SHORT, {
+              backgroundColor: colors.green,
+            });
           })
           .catch(error => {
             console.error(error);
-            Alert.alert('Error updating username');
+            Toast.show('Error updating username', Toast.SHORT, {
+              backgroundColor: colors.red,
+            });
           });
       }
     };
@@ -99,11 +104,15 @@ import {
           .updatePassword(newPassword)
           .then(() => {
             setNewPassword('');
-            Alert.alert('Password updated successfully');
+            Toast.show('Password updated successfully', Toast.SHORT, {
+              backgroundColor: colors.green,
+            });
           })
           .catch(error => {
             console.error(error);
-            Alert.alert('Error updating password');
+            Toast.show('Error updating password', Toast.SHORT, {
+              backgroundColor: colors.red,
+            });
           });
       }
     };
@@ -239,7 +248,6 @@ import {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#f5f5f5',
     },
     header: {
       backgroundColor: colors.primary,
@@ -255,15 +263,15 @@ import {
       marginBottom: vh(10),
     },
     changeImg: {
-      color: 'white',
+      color: colors.white,
       fontWeight: '600',
     },
     infoContainer: {
       padding: vw(20),
-      backgroundColor: 'white',
+      backgroundColor: colors.white,
       borderRadius: 10,
       margin: vw(10),
-      shadowColor: '#000',
+      shadowColor: colors.black,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.1,
       shadowRadius: 4,
@@ -286,7 +294,7 @@ import {
     },
     textInput: {
       borderWidth: 1,
-      borderColor: 'lightgray',
+      borderColor: colors.lightgray,
       borderRadius: 5,
       paddingVertical: Platform.OS === 'ios' ? vh(7) : vh(2),
       marginBottom: vh(10),
@@ -297,7 +305,7 @@ import {
     },
     textInputUsername: {
       borderWidth: 1,
-      borderColor: 'lightgray',
+      borderColor: colors.lightgray,
       borderRadius: 5,
       paddingVertical: vh(10),
       marginBottom: vh(10),
@@ -310,16 +318,16 @@ import {
       alignItems: 'center',
     },
     buttonText: {
-      color: 'white',
+      color: colors.white,
       fontSize: vw(16),
     },
     caution: {
-      color: 'red',
+      color: colors.red,
       marginTop: vh(5),
     },
     separator: {
       height: 1,
-      backgroundColor: 'lightgray',
+      backgroundColor: colors.lightgray,
       marginVertical: vh(10),
     },
     passwordLabel: {
@@ -330,10 +338,10 @@ import {
     modalOverlay: {
       flex: 1,
       justifyContent: 'flex-end',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor: colors.modalBackground,
     },
     modalContent: {
-      backgroundColor: 'white',
+      backgroundColor: colors.white,
       padding: vw(25),
       borderTopLeftRadius: vw(30),
       borderTopRightRadius: vw(30),
@@ -351,7 +359,6 @@ import {
       height: vw(20),
     },
     backCont: {
-      //backgroundColor: '#343434',
       backgroundColor: colors.primary,
       paddingVertical: vh(10),
     },

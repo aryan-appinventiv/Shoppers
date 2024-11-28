@@ -58,7 +58,7 @@ const Home = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <AppHeader/>
       <SearchBar/>
       {isLoading? (<Loading/>) : (<BreakingNews newsList={breakingNews}/>)}

@@ -4,6 +4,7 @@ import { images } from '../../assets'
 import {Wwidth, Wheight, vw, vh} from '../../utils/dimensions'
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
+import { colors } from '../../utils/colors'
 
 const Tutorial = () => {
     const Navigation = useNavigation();
@@ -44,14 +45,14 @@ const styles = StyleSheet.create({
     },
     wrapper:{
         flex:1,
-        backgroundColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: colors.modalBackground,
         justifyContent:'flex-end',
         gap:vh(10),
         paddingBottom: vh(50),
         paddingHorizontal:Wwidth/20,
     },
     title:{
-        color:'white',
+        color: colors.white,
         fontSize:vw(24),
         fontWeight:'600',
         letterSpacing:1.5,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
         textAlign:'center',
     },
     desc:{
-        color:'white',
+        color: colors.white,
         fontWeight:'500',
         fontSize:vw(16),
         letterSpacing:1.2,
@@ -67,14 +68,14 @@ const styles = StyleSheet.create({
         textAlign:'center',
     },
     btn:{
-        backgroundColor:'#A52A2A',
+        backgroundColor:colors.primary,
         paddingVertical:15,
         marginVertical:vh(20),
         alignItems:'center',
         borderRadius:10,
     },
     btntxt:{
-        color:'white',
+        color: colors.white,
         fontSize:vw(16),
         fontWeight:'600',
     }

@@ -1,51 +1,8 @@
-// import { FlatList, StyleSheet, Text, View } from 'react-native'
-// import React, { useState } from 'react'
-// import SliderItem from '../sliderItem';
-// import {vw, vh} from '../../utils/dimensions';
-
-// const BreakingNews = ({newsList}) => {
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Breaking News</Text>
-//       <View style={styles.slideWrapper}>
-//         <FlatList
-//           data={newsList}
-//           keyExtractor={({_, index})=> `list_item${index}`}
-//           renderItem={({item,index})=>(
-//             <SliderItem slideItem={item} index={index} />
-//           )}
-//           horizontal={true}
-//           showsHorizontalScrollIndicator={false}
-//           bounces={false}
-//         />
-//       </View>
-//     </View>
-//   )
-// }
-
-// export default BreakingNews
-
-// const styles = StyleSheet.create({
-//     slideWrapper:{
-//         justifyContent:'center',
-//         alignItems:'center',
-//     },
-//     container:{
-//        paddingHorizontal: vw(15),
-//     },
-//     title:{
-//         fontSize: vw(16),
-//         fontWeight:'600',
-//         letterSpacing: 1.2,
-//         padding: vw(5),
-//         marginBottom: vh(5),
-//     },
-// })
-
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useRef, useEffect, useState } from 'react';
 import SliderItem from '../sliderItem';
 import { vw, vh } from '../../utils/dimensions';
+import { colors } from '../../utils/colors';
 
 const BreakingNews = ({ newsList }) => {
   const flatListRef = useRef(null);
@@ -119,10 +76,10 @@ const styles = StyleSheet.create({
     width: vw(8),
     height: vw(8),
     borderRadius: vw(4),
-    backgroundColor: 'lightgray',
+    backgroundColor: colors.lightgray,
     marginHorizontal: vw(2),
   },
   activeDot: {
-    backgroundColor: 'black', 
+    backgroundColor: colors.black, 
   },
 });

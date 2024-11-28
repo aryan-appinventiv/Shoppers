@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   title: {
     fontSize: 24,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 16,
-    color: '#666',
+    color: colors.gray,
     marginBottom: 20,
   },
   sectionTitle: {
@@ -86,19 +86,9 @@ const styles = StyleSheet.create({
   sectionText: {
     fontSize: 14,
     lineHeight: 20,
-    color: '#333',
+    color: colors.desc,
   },
-  button: {
-    marginTop: 20,
-    backgroundColor: '#6200ea',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
+
 });
 
 export default TermsOfUse;

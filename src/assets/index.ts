@@ -1,7 +1,6 @@
 export const images = {
     splash_gif :require('./images/global-news.gif'),
     tutorial: require('./images/tutorial.jpg'),
-    appLogo: require('./images/appLogo.png'),
     mail: require('./images/mail.png'),
     google: require('./images/google.png'),
     otp: require('./images/otp.png'),
@@ -25,6 +24,7 @@ export const images = {
     checked : require('./images/checked.png'),
     next: require('./images/next.png'),
     logout: require('./images/logout.png'),
+    user: require('./images/user.png'),
 }
 
 export const fallback = require('./images/tutorial.jpg');

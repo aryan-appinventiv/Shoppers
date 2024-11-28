@@ -14,6 +14,7 @@ import {vh, vw} from '../../utils/dimensions';
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';
+import Toast from 'react-native-simple-toast';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState('');
@@ -25,7 +26,9 @@ const Feedback = () => {
     console.log('Feedback submitted:', feedback);
     setSubmitted(true);
     setFeedback('');
-    Alert.alert('FeedBack Submitted');
+    Toast.show('Feedback Submitted', Toast.SHORT, {
+      backgroundColor: colors.primary,
+    });
   };
   const goback = () => {
     Navigation.goBack();
@@ -60,7 +63,7 @@ const Feedback = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   title: {
     fontSize: 24,
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 100,
-    borderColor: '#ccc',
+    borderColor: colors.borderClr,
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
   },
   successMessage: {
     fontSize: 18,
-    color: 'green',
+    color: colors.green,
     textAlign: 'center',
     marginTop: 20,
   },

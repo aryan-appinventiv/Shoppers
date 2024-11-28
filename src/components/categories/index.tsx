@@ -65,13 +65,13 @@ const styles = StyleSheet.create({
   },
   item: {
     borderWidth: 1,
-    borderColor: 'darkgray',
+    borderColor: colors.darkgray,
     paddingVertical: vh(10),
     paddingHorizontal: vw(16),
     borderRadius: vw(10),
   },
   itemText: {
-    color: 'gray',
+    color: colors.gray,
     letterSpacing: 0.5,
   },
   itemActive:{
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
   },
   itemTextActive:{
     fontWeight: '600',
-    color: 'white',
+    color: colors.white,
   }
 });

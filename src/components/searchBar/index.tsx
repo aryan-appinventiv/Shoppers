@@ -2,6 +2,7 @@ import {StyleSheet, View, TextInput, Image, Platform} from 'react-native';
 import React from 'react';
 import {vw, vh} from '../../utils/dimensions'
 import { images } from '../../assets';
+import { colors } from '../../utils/colors';
 
 const SearchBar = () => {
   return (
@@ -9,7 +10,7 @@ const SearchBar = () => {
       <Image source={images.search} style={styles.logo} />
       <TextInput
         placeholder="Search"
-        placeholderTextColor={'darkgray'}
+        placeholderTextColor={colors.darkgray}
         autoCapitalize="none"
         style={styles.searchTxt}
       />
@@ -21,7 +22,7 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
     searchBar:{
-        backgroundColor:'#e4e4e4',
+        backgroundColor:colors.searchbar,
         marginHorizontal: vw(15),
         flexDirection:'row',
         alignItems:'center',
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
       },
       searchTxt:{
         flex:1,
-        color: 'darkgray',
+        color: colors.darkgray,
       },
       logo: {
         width: vw(20),

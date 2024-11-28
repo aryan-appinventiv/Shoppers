@@ -1,42 +1,9 @@
-// import { StyleSheet, Text, View, Button } from 'react-native'
-// import React, { useState } from 'react'
-// import auth from '@react-native-firebase/auth'
-// import OTP from '../OTP';
-
-// const Phone = () => {
-//     const [confirm, setConfirm] = useState(null);
-//     React.useEffect(() => {
-//       console.log("confirm", confirm);
-//   }, [confirm]);
-
-//   async function signInWithPhoneNumber(phoneNumber) {
-//     try {
-//         const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-//         setConfirm(confirmation);
-//     } catch (error) {
-//         console.error("Phone sign-in error:", error);
-//     }
-// }
-
-//   return (
-//     <View>
-//         {confirm? <OTP confirm={confirm}/> : <Button
-//         title="Phone Number Sign In"
-//         onPress={() => signInWithPhoneNumber('+44 7444 555666')}
-//       />}
-//     </View>
-//   )
-// }
-
-// export default Phone
-
 import {
   Image,
   Platform,
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
@@ -105,7 +72,7 @@ export default Phone;
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
   },
   secondCont: {
     flex: 2,
@@ -121,8 +88,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingVertical: Platform.OS === 'ios' ? 10 : 0,
     paddingHorizontal: 10,
-    backgroundColor: 'white',
-    borderColor: 'lightgray',
+    backgroundColor: colors.white,
+    borderColor: colors.lightgray,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,

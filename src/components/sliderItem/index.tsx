@@ -3,6 +3,7 @@ import React from 'react'
 import { Wwidth, vw, vh } from '../../utils/dimensions'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
+import { colors } from '../../utils/colors'
 
 
 const SliderItem = ({slideItem, index}) => {
@@ -10,7 +11,6 @@ const SliderItem = ({slideItem, index}) => {
     const gotoDetail=(item)=>{
         Navigation.navigate('Detail',{item});
     }
-   // console.log(slideItem)
   return (
     <TouchableOpacity style={styles.itemWrapper} onPress={()=>gotoDetail(slideItem)}>
       <Image source={{uri: slideItem.image_url}} style={styles.image}/>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         borderRadius:vw(20),
     },
     title:{
-        color:'white',
+        color:colors.white,
         fontSize:17,
         fontWeight:'700',
         marginHorizontal: vw(8),
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         gap: vw(10),
     },
     sourceName:{
-        color: 'white',
+        color: colors.white,
         fontSize: vw(13),
         fontWeight: '600',
     },

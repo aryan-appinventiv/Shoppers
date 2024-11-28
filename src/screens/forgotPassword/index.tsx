@@ -5,6 +5,7 @@ import Header from '../../components/header';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../utils/colors';
 import { images } from '../../assets';
+import Toast from 'react-native-simple-toast';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -15,14 +16,18 @@ const ForgotPassword = () => {
   
     const handlePasswordReset = async () => {
         if (!email) {
-            Alert.alert('Please enter your email address');
+            Toast.show('Please enter your email address', Toast.SHORT, {
+                backgroundColor: colors.orange,
+              });
             return;
         }
 
         setLoading(true);
         try {
             await auth().sendPasswordResetEmail(email);
-            Alert.alert('Password reset email sent!', 'Please check your email.');
+            Toast.show('Password reset email sent!, Please check your email.', Toast.LONG, {
+                backgroundColor: colors.green,
+              });
             setEmail(''); 
             Navigation.navigate('Signin')
         } catch (error) {
@@ -65,7 +70,7 @@ export default ForgotPassword;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: colors.white,
     },
     title: {
         color: colors.primary,
@@ -95,14 +100,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingVertical: Platform.OS === 'ios' ? 10 : 0,
         paddingHorizontal: 10,
-        backgroundColor: 'white',
-        borderColor: 'lightgray',
+        backgroundColor: colors.white,
+        borderColor: colors.lightgray,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 10,
     },
     desc:{
-        color:'gray',
+        color:colors.gray,
         fontWeight:'600',
         marginVertical:10,
         fontSize: 15,
@@ -116,49 +121,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     registerTitle: {
-        color: 'white',
+        color: colors.white,
         fontSize: 16,
         fontWeight: '600',
     },
 });
-
-
-// import React from 'react';
-// import { Button, Alert, Platform } from 'react-native';
-// import RNFS from 'react-native-fs';
-// import Share from 'react-native-share';
-
-// const PDFButton = () => {
-//   const copyAndSharePDF = async () => {
-//     const fileName = 'sample.pdf'; // Replace with your actual file name
-//     const sourcePath = `${RNFS.MainBundlePath}/${fileName}`; // For iOS
-//     const destPath = `${RNFS.DocumentDirectoryPath}/${fileName}`; // For Android and iOS
-
-//     try {
-//       // Copy file from the bundle to a shareable location
-//       await RNFS.copyFileAssets(fileName, destPath); // For Android
-      
-//       // On iOS, use copyFile if not using assets (sourcePath)
-//       if (Platform.OS === 'ios') {
-//         await RNFS.copyFile(sourcePath, destPath);
-//       }
-
-//       // Share the file or open it in an external app
-//       await Share.open({
-//         url: `file://${destPath}`,
-//         title: 'Open PDF',
-//       });
-
-//       Alert.alert('PDF Ready', 'Your PDF has been opened or shared successfully.');
-//     } catch (error) {
-//       console.error('Error accessing PDF:', error);
-//       Alert.alert('Error', 'Failed to access the PDF file.');
-//     }
-//   };
-
-//   return (
-//     <Button title="Open PDF" onPress={copyAndSharePDF} />
-//   );
-// };
-
-// export default PDFButton;

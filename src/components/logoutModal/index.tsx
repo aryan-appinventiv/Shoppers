@@ -1,0 +1,95 @@
+import React from 'react';
+import {
+  Modal,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import {colors} from '../../utils/colors';
+import {vh, vw} from '../../utils/dimensions';
+
+const LogoutModal = ({visible, onClose, onConfirm, title, desc}) => {
+  return (
+    <Modal
+      transparent
+      visible={visible}
+      animationType="fade"
+      onRequestClose={onClose}>
+      <View style={styles.modalOverlay}>
+        <View style={styles.modalContent}>
+          <Text style={styles.modalTitle}>{title}</Text>
+          <Text style={styles.modalSubtitle}>
+            {desc}
+          </Text>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={onClose} style={styles.cancelButton}>
+              <Text style={styles.buttonText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onConfirm} style={styles.okButton}>
+              <Text style={styles.buttonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+export default LogoutModal;
+
+const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: colors.modalBackground,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: colors.white,
+    borderRadius: vw(10),
+    padding: vw(20),
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: vw(18),
+    fontWeight: 'bold',
+    marginBottom: vh(10),
+    textAlign: 'center',
+  },
+  modalSubtitle: {
+    fontSize: vw(14),
+    color: colors.gray,
+    textAlign: 'center',
+    marginBottom: vh(20),
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  cancelButton: {
+    backgroundColor: colors.lightgray,
+    paddingVertical: vh(10),
+    paddingHorizontal: vw(20),
+    borderRadius: 5,
+    flex: 1,
+    marginRight: vw(5),
+    alignItems: 'center',
+  },
+  okButton: {
+    backgroundColor: colors.primary,
+    paddingVertical: vh(10),
+    paddingHorizontal: vw(20),
+    borderRadius: vw(5),
+    flex: 1,
+    marginLeft: vw(5),
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: vw(16),
+    fontWeight: '600',
+  },
+});

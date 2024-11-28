@@ -20,29 +20,17 @@ import LoginTouchable from '../../components/loginTouchables';
 import Animated, { FadeInDown, FadeInLeft, FadeInRight } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 import { onGoogleButtonPress } from '../google';
+import Toast from 'react-native-simple-toast';
 
 const LoginMenu = () => {
   const Navigation = useNavigation();
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
-  // const onLogin = () => {
-  //   auth()
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then(response => {
-  //       console.log(response);
-  //       Alert.alert('User Logged in');
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       Alert.alert('Problem in login');
-  //     });
-  // };
   const gotoGoogle=async()=>{
     try {
       await onGoogleButtonPress();
-      Alert.alert("Signed in with Google!");
-      Navigation.navigate(''); 
+      Toast.show('Signed in with Google', Toast.SHORT, {
+        backgroundColor: colors.green,
+      });
+      Navigation.navigate('BottomTabNavigator'); 
     } catch (error) {
       Alert.alert("Google Sign-In Failed", error.message);
     }
@@ -89,23 +77,6 @@ const LoginMenu = () => {
                 <Text style={styles.alreadyAccText2}>Signin</Text>
                 </TouchableOpacity>
               </Animated.View>
-              {/* <TextInput
-                value={email}
-                onChangeText={text => setEmail(text)}
-                placeholder="Email"
-                style={styles.inputBox}
-                autoCapitalize="none"
-              />
-              <TextInput
-                value={password}
-                onChangeText={text => setPassword(text)}
-                placeholder="Password"
-                style={styles.inputBox}
-                autoCapitalize="none"
-              /> */}
-              {/* <TouchableOpacity onPress={onLogin} style={styles.register}>
-                <Text style={styles.registerTitle}>Login</Text>
-              </TouchableOpacity> */}
             </View>
           </LinearGradient>
         </View>
@@ -148,7 +119,7 @@ const styles = StyleSheet.create({
     lineHeight:25,
   },
   desc:{
-    color:'gray',
+    color: colors.gray,
     letterSpacing:2,
     fontWeight:'600',
     marginVertical:20,
@@ -160,11 +131,11 @@ const styles = StyleSheet.create({
     paddingTop:30
   },
   alreadyAccText1:{
-    color:'gray',
+    color: colors.gray,
     fontWeight:'500',
   },
   alreadyAccText2:{
-    color:'purple',
+    color:colors.purple,
     fontWeight:'600',
   },
   animatedView:{

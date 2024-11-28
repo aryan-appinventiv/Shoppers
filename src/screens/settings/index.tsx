@@ -13,9 +13,13 @@ import {images} from '../../assets';
 import {vh, vw} from '../../utils/dimensions';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import LogoutModal from '../../components/logoutModal';
+import Toast from 'react-native-simple-toast';
+import { colors } from '../../utils/colors';
 
 const Settings = () => {
   const [isEnabled, setIsEnabled] = useState(false);
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const Navigation = useNavigation();
@@ -36,28 +40,28 @@ const Settings = () => {
     toggleSwitch();
   }
   const gotoLogout = () => {
-    Alert.alert('Are you sure want to logout?', 'You will be redirected to the Signin screen.', [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'OK', onPress: () => onLogout()},
-    ]);
+    setLogoutModalVisible(true);
   }
   const onLogout = () => {
     auth().signOut().then(response=>{
-      Alert.alert("User Signed out");
+      Toast.show('User Signed out', Toast.SHORT, {
+        backgroundColor: colors.orange,
+      });
       console.log(("User signed out"));
       Navigation.reset({
         index: 0,
         routes: [{ name: 'Signin' }]
    })        
     }).catch(error=>{
-      Alert.alert("Cannot logout");
+      Toast.show('Cannot logout', Toast.SHORT, {
+        backgroundColor: colors.red,
+      });
       console.log(error);
     })
   };
+  const closeLogoutModal =()=>{
+    setLogoutModalVisible(false);
+  }
 
   const items = [
     {id: 1, name: 'About', img: images.next, go: gotoAbout},
@@ -70,9 +74,9 @@ const Settings = () => {
   return (
     // <Logout/>
     <View style={styles.container}>
-      {items.map(item => {
+      {items.map((item, id) => {
         return (
-          <TouchableOpacity style={styles.itemBtn} onPress={item.go}>
+          <TouchableOpacity style={styles.itemBtn} onPress={item.go} key={id}>
             <Text style={styles.itemBtnTxt}>{item.name}</Text>
             {item.img ? (
               <Image source={item.img} style={styles.itemImg} />
@@ -89,6 +93,13 @@ const Settings = () => {
           </TouchableOpacity>
         );
       })}
+        <LogoutModal
+          visible={logoutModalVisible}
+          onClose={closeLogoutModal}
+          onConfirm={onLogout}
+          title={"Are you sure you want to logout?"}
+          desc={"You will be redirected to the Signin screen."}
+      />
     </View>
   );
 };
@@ -103,7 +114,7 @@ const styles = StyleSheet.create({
   itemBtn: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     paddingHorizontal: vw(16),
     paddingVertical: vh(20),
     marginBottom: 1,

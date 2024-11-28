@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
   },
   loginTitle: {
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '600',
   },
