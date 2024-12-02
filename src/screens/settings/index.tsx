@@ -1,7 +1,5 @@
 import {
   Image,
-  StatusBar,
-  StyleSheet,
   Switch,
   Text,
   TouchableOpacity,
@@ -9,13 +7,14 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {images} from '../../assets';
-import {vh, vw} from '../../utils/dimensions';
+import {vw} from '../../utils/dimensions';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import LogoutModal from '../../components/logoutModal';
 import Toast from 'react-native-simple-toast';
 import {colors} from '../../utils/colors';
 import {useTheme} from '../../utils/ThemeContext';
+import styles from './styles';
 
 const Settings = () => {
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
@@ -79,7 +78,6 @@ const Settings = () => {
         styles.container,
         {backgroundColor: isDarkMode ? colors.black : colors.white},
       ]}>
-      {/* <StatusBar backgroundColor={colors.primary} /> */}
       {items.map((item, id) => {
         return (
           <TouchableOpacity style={styles.itemBtn} onPress={item.go} key={id}>
@@ -118,25 +116,3 @@ const Settings = () => {
 
 export default Settings;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: vw(16),
-  },
-  itemBtn: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: vw(16),
-    paddingVertical: vh(20),
-    marginBottom: 1,
-    alignItems: 'center',
-  },
-  itemBtnTxt: {
-    fontSize: vw(14),
-    fontWeight: '500',
-  },
-  itemImg: {
-    height: vw(15),
-    width: vw(15),
-  },
-});

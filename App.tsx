@@ -1,13 +1,13 @@
 import React from 'react';
 import RootNavigator from './src/navigators';
-import { StatusBar } from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 import { ThemeProvider } from './src/utils/ThemeContext';
 import { colors } from './src/utils/colors';
 
 const App = () => {
   return(
     <ThemeProvider>
-    <StatusBar backgroundColor={colors.primary} barStyle="dark-content"/>
+    <StatusBar backgroundColor={colors.primary} barStyle={Platform.OS === "android"? "light-content": "dark-content"} />
   <RootNavigator />
   </ThemeProvider>
 )};

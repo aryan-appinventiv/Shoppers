@@ -2,23 +2,29 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../utils/colors";
 import { vh, vw } from "../../utils/dimensions";
 
-export const getNewslistStyles = (isDarkMode: string) =>{
+export const getResultListStyles = (isDarkMode: string) =>{
     return StyleSheet.create({
         container: {
-          paddingHorizontal: vw(15),
-          paddingVertical: vh(20),
-          backgroundColor: isDarkMode? colors.black : colors.white,
+          flex: 1,
+          backgroundColor: isDarkMode? colors.blackBackground : colors.searchbar,
         },
-        itemContainer: {
+        newsItem: {
+          padding: vw(16),
+          borderBottomWidth: 1,
+          borderBottomColor: colors.borderClr,
           flexDirection: 'row',
           alignItems: 'center',
-          flex: 1,
           gap: vh(10),
-          marginBottom: vh(20),
+          backgroundColor: isDarkMode? colors.black : colors.white,
+        },
+        emptyMessage: {
+          fontSize: 16,
+          textAlign: 'center',
+          marginTop: 20,
         },
         itemImg: {
-          height: vw(110),
-          width: vw(100),
+          height: vw(80),
+          width: vw(80),
           borderRadius: vw(20),
         },
         itemInfo: {
@@ -28,7 +34,7 @@ export const getNewslistStyles = (isDarkMode: string) =>{
         },
         itemCategory: {
           fontSize: vw(12),
-          color: colors.gray,
+          color: isDarkMode? colors.lightgray : colors.gray,
           textTransform: 'capitalize',
         },
         itemTitle: {
@@ -51,6 +57,5 @@ export const getNewslistStyles = (isDarkMode: string) =>{
           fontWeight: '400',
           color: isDarkMode? colors.lightgray : colors.gray,
         },
-      
-      });
+      });      
     }      

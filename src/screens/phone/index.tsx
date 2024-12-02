@@ -1,7 +1,5 @@
 import {
   Image,
-  Platform,
-  StyleSheet,
   Text,
   TextInput,
   View,
@@ -9,11 +7,11 @@ import {
 import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {images} from '../../assets';
-import {colors} from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import OTP from '../OTP';
 import Header from '../../components/header';
 import Button from '../../components/button';
+import styles from './styles';
 
 const Phone = () => {
   const [confirm, setConfirm] = useState(null);
@@ -69,48 +67,3 @@ const Phone = () => {
 
 export default Phone;
 
-const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  secondCont: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingVertical: 50,
-    paddingHorizontal: 20,
-  },
-  inputBox: {
-    width: '100%',
-    borderRadius: 5,
-    marginVertical: 10,
-    borderBottomWidth: 1,
-    paddingVertical: Platform.OS === 'ios' ? 10 : 0,
-    paddingHorizontal: 10,
-    backgroundColor: colors.white,
-    borderColor: colors.lightgray,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-
-  heading: {
-    color: colors.primary,
-    fontSize: 25,
-    fontWeight: '700',
-    letterSpacing: 1.8,
-    lineHeight: 25,
-    marginBottom: 50,
-  },
-
-  icon: {
-    height: 20,
-    width: 20,
-  },
-  textInput: {
-    flex: 1,
-    paddingRight: 25,
-    fontSize:18,
-  },
-});

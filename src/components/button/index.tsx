@@ -1,6 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity} from 'react-native'
+import { Text, TouchableOpacity} from 'react-native'
 import React from 'react'
-import { colors } from '../../utils/colors'
+import styles from './styles'
 
 const Button = ({onPress, title}) => {
   return (
@@ -12,18 +12,3 @@ const Button = ({onPress, title}) => {
 
 export default Button
 
-const styles = StyleSheet.create({
-    register: {
-        backgroundColor: colors.primary,
-        width: '100%',
-        padding: 15,
-        alignItems: 'center',
-        marginVertical: 30,
-        borderRadius: 10,
-    },
-    registerTitle: {
-        color: colors.white,
-        fontSize: 16,
-        fontWeight: '600',
-    },
-})

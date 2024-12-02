@@ -1,8 +1,6 @@
-import {StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
+import {Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import {images} from '../../assets';
-import {colors} from '../../utils/colors';
-import { vh, vw } from '../../utils/dimensions';
+import styles from './styles';
 
 const LoginTouchable = ({title, img, onPress}) => {
   console.log(img);
@@ -16,25 +14,3 @@ const LoginTouchable = ({title, img, onPress}) => {
 
 export default LoginTouchable;
 
-const styles = StyleSheet.create({
-  touchable: {
-    marginVertical: vh(10),
-    borderWidth: 1,
-    borderRadius: vw(20),
-    borderColor: colors.darkgray,
-    flexDirection: 'row',
-    gap: vh(10),
-    paddingVertical: vh(10),
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
-  icon: {
-    height: vh(20),
-    width: vh(20),
-  },
-  iconDesc: {
-    fontWeight: '600',
-    fontSize: vw(16),
-  },
-});

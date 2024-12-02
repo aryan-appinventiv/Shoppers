@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  StyleSheet,
   ScrollView,
 } from 'react-native';
 import AppHeader from '../../components/appHeader';
@@ -15,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { strings } from '../../utils/strings/index.ts';
 import { useTheme } from '../../utils/ThemeContext.js';
 import { colors } from '../../utils/colors/index.ts';
+import styles from './styles.ts';
 
 const Home = () => {
   const [breakingNews, setBreakingNews] = useState([]);
@@ -80,8 +79,4 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+

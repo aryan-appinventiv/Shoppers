@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View , TouchableOpacity} from 'react-native'
+import { Text, View , TouchableOpacity} from 'react-native'
 import React, { useState } from 'react'
 import { OtpInput } from "react-native-otp-entry";
-import { colors } from '../../utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import { strings } from '../../utils/strings';
+import styles from './styles';
 
 const OTP = (props) => {
     const [code, setCode] = useState('');
@@ -37,19 +37,3 @@ const OTP = (props) => {
 
 export default OTP
 
-const styles = StyleSheet.create({
-  login: {
-    backgroundColor: colors.primary,
-    width: '100%',
-    padding: 15,
-    alignItems: 'center',
-    marginVertical: 30,
-    borderRadius: 10,
-    alignSelf:'center',
-  },
-  loginTitle: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-})

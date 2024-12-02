@@ -1,10 +1,9 @@
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { images } from '../../assets'
-import {Wwidth, Wheight, vw, vh} from '../../utils/dimensions'
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
-import { colors } from '../../utils/colors'
+import styles from './styles';
 
 const Tutorial = () => {
     const Navigation = useNavigation();
@@ -36,47 +35,3 @@ const Tutorial = () => {
 
 export default Tutorial
 
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-    },
-    tutorial:{
-        flex:1,
-    },
-    wrapper:{
-        flex:1,
-        backgroundColor: colors.modalBackground,
-        justifyContent:'flex-end',
-        gap:vh(10),
-        paddingBottom: vh(50),
-        paddingHorizontal:Wwidth/20,
-    },
-    title:{
-        color: colors.white,
-        fontSize:vw(24),
-        fontWeight:'600',
-        letterSpacing:1.5,
-        lineHeight:36,
-        textAlign:'center',
-    },
-    desc:{
-        color: colors.white,
-        fontWeight:'500',
-        fontSize:vw(16),
-        letterSpacing:1.2,
-        lineHeight:22,
-        textAlign:'center',
-    },
-    btn:{
-        backgroundColor:colors.primary,
-        paddingVertical:15,
-        marginVertical:vh(20),
-        alignItems:'center',
-        borderRadius:10,
-    },
-    btntxt:{
-        color: colors.white,
-        fontSize:vw(16),
-        fontWeight:'600',
-    }
-})

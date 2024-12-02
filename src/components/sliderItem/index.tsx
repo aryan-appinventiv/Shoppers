@@ -1,10 +1,8 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Wwidth, vw, vh } from '../../utils/dimensions'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
-import { colors } from '../../utils/colors'
-
+import styles from './styles'
 
 const SliderItem = ({slideItem, index}) => {
     const Navigation = useNavigation();
@@ -30,51 +28,5 @@ const SliderItem = ({slideItem, index}) => {
   )
 }
 
-export default SliderItem
+export default SliderItem;
 
-const styles = StyleSheet.create({
-    itemWrapper:{
-        width:Wwidth,
-    },
-    image:{
-        width: Wwidth-40,
-        height:Wwidth/2,
-        borderRadius:vw(20),
-    },
-    title:{
-        color:colors.white,
-        fontSize:17,
-        fontWeight:'700',
-        marginHorizontal: vw(8),
-    },
-    background:{
-        position:'absolute',
-        top:0,
-        borderRadius:20,
-        width: Wwidth-40,
-        height: Wwidth/2,
-    },
-    sourceIcon:{
-        width: vw(25),
-        height: vw(25),
-        borderRadius: vw(20),
-        resizeMode: 'stretch',
-    },
-    sourceInfo:{
-        flexDirection:'row',
-        paddingHorizontal:vw(20),
-        alignItems:'center',
-        gap: vw(10),
-    },
-    sourceName:{
-        color: colors.white,
-        fontSize: vw(13),
-        fontWeight: '600',
-    },
-    sourceCont:{
-        flex:1,
-        justifyContent:'flex-end',
-        paddingBottom: vh(20),
-        gap:vh(10),
-    }
-})

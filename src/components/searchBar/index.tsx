@@ -1,18 +1,36 @@
-import {StyleSheet, View, TextInput, Image, Platform} from 'react-native';
-import React from 'react';
-import {vw, vh} from '../../utils/dimensions'
+import { View, TextInput, Image } from 'react-native';
+import React, { useRef } from 'react';
 import { images } from '../../assets';
 import { colors } from '../../utils/colors';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import styles from './styles';
 
 const SearchBar = () => {
+  const Navigation = useNavigation();
+  const textInputRef = useRef(null); 
+
+  const gotoSearch = () => {
+    Navigation.navigate('SearchPage');
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (textInputRef.current) {
+        textInputRef.current.blur();
+      }
+    }, [])
+  );
+
   return (
     <View style={styles.searchBar}>
       <Image source={images.search} style={styles.logo} />
       <TextInput
+        ref={textInputRef}
         placeholder="Search"
         placeholderTextColor={colors.darkgray}
         autoCapitalize="none"
         style={styles.searchTxt}
+        onFocus={gotoSearch} 
       />
     </View>
   );
@@ -20,24 +38,3 @@ const SearchBar = () => {
 
 export default SearchBar;
 
-const styles = StyleSheet.create({
-    searchBar:{
-        backgroundColor:colors.searchbar,
-        marginHorizontal: vw(15),
-        flexDirection:'row',
-        alignItems:'center',
-        paddingHorizontal:vw(10),
-        paddingVertical: Platform.OS==="ios"? vh(10): vh(6),
-        borderRadius:vh(10),
-        gap:vh(10),
-        marginVertical:10,
-      },
-      searchTxt:{
-        flex:1,
-        color: colors.darkgray,
-      },
-      logo: {
-        width: vw(20),
-        height: vw(20),
-      },
-});

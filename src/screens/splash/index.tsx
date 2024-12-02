@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { images } from '../../assets';
-import { Wwidth } from '../../utils/dimensions';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import { colors } from '../../utils/colors';
+import styles from './styles';
 
 const Splash = () => {
   const navigation = useNavigation();
@@ -50,15 +49,4 @@ const Splash = () => {
 
 export default Splash;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.white,
-  },
-  splashGif: {
-    height: Wwidth / 2,
-    width: Wwidth / 2,
-  }
-});
+
