@@ -16,13 +16,37 @@ import {
   import Header from '../../components/header';
   import Button from '../../components/button';
   import Toast from 'react-native-simple-toast';
+import { vh } from '../../utils/dimensions';
 
   const Signin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
     const Navigation = useNavigation();
+    const validateLogin = () =>{
+       let flag = true;
+       if(password.trim().length<6){
+        setPasswordError('Please Enter Password with 6 or more characters');
+        flag = false;
+       }
+       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       if (!email.trim()) {
+        setEmailError('Email cannot be empty');
+        flag = false;
+       } else if(!emailPattern.test(email)){
+        setEmailError('Please Enter Valid Email');
+        flag = false;
+       }
+      
+       if(flag){
+        setEmailError('');
+        setPasswordError('');
+        onLogin();
+       }
+    }
   
     const onLogin = () => {
       auth()
@@ -52,8 +76,8 @@ import {
         })
         .catch(error => {
           console.log(error);
-          Toast.show('Problem in login', Toast.SHORT, {
-            backgroundColor: colors.primary,
+          Toast.show('Email or Password does not match!', Toast.SHORT, {
+            backgroundColor: colors.red,
           });
         });
     };
@@ -75,18 +99,25 @@ import {
             <Image source={images.mail} style={styles.icon} />
             <TextInput
               value={email}
-              onChangeText={text => setEmail(text)}
+              onChangeText={text => {
+                setEmail(text);
+                setEmailError(''); 
+              }}
               placeholder="Email Address"
               autoCapitalize="none"
               style={styles.textInput}
             />
           </View>
+          {emailError && emailError.length>0 && (<Text style={styles.error}>{emailError}</Text>)}
   
           <View style={styles.inputBox}>
             <Image source={images.password} style={styles.icon} />
             <TextInput
               value={password}
-              onChangeText={text => setPassword(text)}
+             onChangeText={text => {
+              setPassword(text);
+              setPasswordError(''); 
+            }}
               placeholder="Password"
               autoCapitalize="none"
               secureTextEntry={!passwordVisible}
@@ -99,8 +130,9 @@ import {
               />
             </TouchableOpacity>
           </View>
+          {passwordError && passwordError.length>0 && (<Text style={styles.error}>{passwordError}</Text>)}
 
-          <Button onPress={onLogin} title={"Login"}/>
+          <Button onPress={validateLogin} title={"Login"}/>
 
           <TouchableOpacity style={styles.forgotCont} onPress={gotoForgot}>
             <Text style={styles.forgotText}>Forgot Password?</Text>
@@ -161,8 +193,19 @@ import {
     },
     forgotText:{
       fontWeight: '600'
+    },
+    error:{
+      color: colors.red,
+      marginBottom: vh(10),
     }
    
   });
   
   
+
+
+
+
+
+
+

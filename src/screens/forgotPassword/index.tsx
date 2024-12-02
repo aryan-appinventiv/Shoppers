@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../utils/colors';
 import { images } from '../../assets';
 import Toast from 'react-native-simple-toast';
+import { strings } from '../../utils/strings';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const ForgotPassword = () => {
   
     const handlePasswordReset = async () => {
         if (!email) {
-            Toast.show('Please enter your email address', Toast.SHORT, {
+            Toast.show(strings.enter_email, Toast.SHORT, {
                 backgroundColor: colors.orange,
               });
             return;
@@ -25,14 +26,15 @@ const ForgotPassword = () => {
         setLoading(true);
         try {
             await auth().sendPasswordResetEmail(email);
-            Toast.show('Password reset email sent!, Please check your email.', Toast.LONG, {
+            Toast.show(strings.reset_email_send, Toast.LONG, {
                 backgroundColor: colors.green,
               });
             setEmail(''); 
             Navigation.navigate('Signin')
-        } catch (error) {
-            console.error("Error resetting password:", error);
-            Alert.alert("Error", error.message);
+        } catch (error: any) {
+            Toast.show(error.message, Toast.SHORT, {
+                backgroundColor: colors.red,
+            });
         } finally {
             setLoading(false);
         }
@@ -45,20 +47,20 @@ const ForgotPassword = () => {
         <View style={styles.container}>
             <Header onPress={goBack}/>
             <View style={styles.secondCont}>
-            <Text style={styles.title}>Reset Password</Text>
-            <Text style={styles.desc}>A reset password link will be sent on this email.</Text>
+            <Text style={styles.title}>{strings.reset_password}</Text>
+            <Text style={styles.desc}>{strings.reset_pass_link_send}</Text>
             <View style={styles.inputBox}>
                     <Image source={images.mail} style={styles.icon} />
                     <TextInput
                         value={email}
                         onChangeText={text => setEmail(text)}
-                        placeholder="Email Address"
+                        placeholder= {strings.email_address}
                         autoCapitalize="none"
                         style={styles.textInput}
                     />
                 </View>
              <TouchableOpacity onPress={handlePasswordReset} style={styles.register} disabled={loading}>
-                    <Text style={styles.registerTitle}>{loading ? "Sending..." : "Send Password Reset Email"}</Text>
+                    <Text style={styles.registerTitle}>{loading ? strings.sending : strings.send_password_reset_email}</Text>
              </TouchableOpacity>
             </View>
         </View>

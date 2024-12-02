@@ -3,8 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet,
-  Alert,
   TouchableOpacity,
   Image,
 } from 'react-native';
@@ -15,19 +13,24 @@ import {images} from '../../assets';
 import {colors} from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
+import { strings } from '../../utils/strings';
+import { getFeedbackStyles } from './styles';
+import { useTheme } from '../../utils/ThemeContext';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const {top: safeTop} = useSafeAreaInsets();
   const Navigation = useNavigation();
+  const { isDarkMode } = useTheme(); 
+  const styles = getFeedbackStyles(isDarkMode);
 
   const handleSubmit = () => {
-    console.log('Feedback submitted:', feedback);
+    console.log(strings.feedback_submitted, feedback);
     setSubmitted(true);
     setFeedback('');
-    Toast.show('Feedback Submitted', Toast.SHORT, {
-      backgroundColor: colors.primary,
+    Toast.show(strings.feedback_submitted, Toast.SHORT, {
+      backgroundColor: colors.green,
     });
   };
   const goback = () => {
@@ -41,72 +44,24 @@ const Feedback = () => {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.title}>Send Us Your Feedback</Text>
+      <Text style={styles.title}>{strings.send_us_your_feedback}</Text>
       <View style={styles.mainCont}>
-        <Text style={styles.label}>Your Feedback:</Text>
+        <Text style={styles.label}>{strings.your_feedback}</Text>
         <TextInput
           style={styles.input}
           multiline
           numberOfLines={4}
           value={feedback}
           onChangeText={setFeedback}
-          placeholder="Type your feedback here..."
+          placeholder= {strings.type_your_feedback}
+          placeholderTextColor={isDarkMode? colors.gray : colors.black}
         />
         {feedback.trim().length > 0 && (
-          <Button title={'Submit Feedback'} onPress={handleSubmit} />
+          <Button title={strings.submit_feedback} onPress={handleSubmit} />
         )}
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    paddingHorizontal: vw(10),
-    marginTop: vh(20),
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  input: {
-    height: 100,
-    borderColor: colors.borderClr,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 20,
-  },
-  successMessage: {
-    fontSize: 18,
-    color: colors.green,
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  mainCont: {
-    paddingHorizontal: vw(10),
-  },
-  backCont: {
-    backgroundColor: colors.primary,
-    paddingBottom: vh(20),
-    paddingHorizontal: vw(10),
-  },
-  back: {
-    height: vw(20),
-    width: vw(20),
-  },
-  backImg: {
-    height: vw(20),
-    width: vw(20),
-  },
-});
-
 export default Feedback;
 

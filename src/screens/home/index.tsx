@@ -11,15 +11,24 @@ import BreakingNews from '../../components/breakingNews.tsx';
 import Categories from '../../components/categories/index.tsx';
 import NewsList from '../../components/newsList/index.tsx';
 import Loading from '../../components/loading/index.tsx';
+import { useNavigation } from '@react-navigation/native';
+import { strings } from '../../utils/strings/index.ts';
+import { useTheme } from '../../utils/ThemeContext.js';
+import { colors } from '../../utils/colors/index.ts';
 
 const Home = () => {
   const [breakingNews, setBreakingNews] = useState([]);
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(()=>{
     getBreakingNews();
     getNews();
   },[])
+
+  const {isDarkMode} = useTheme();
+
+  const Navigation = useNavigation();
 
   const getBreakingNews=async()=>{
     try{
@@ -30,7 +39,7 @@ const Home = () => {
         setBreakingNews(response.data.results)
       }
     } catch(err){
-      console.log('error', err);
+      console.log(strings.error, err);
       setIsLoading(true);
     }
   }
@@ -48,7 +57,7 @@ const Home = () => {
         setNews(response.data.results)
       }
     } catch(err){
-      console.log('error', err);
+      console.log(strings.error, err);
     }
   }
 
@@ -58,7 +67,7 @@ const Home = () => {
   }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={[styles.container,{backgroundColor:isDarkMode?colors.black:colors.white}]} showsVerticalScrollIndicator={false} bounces={false}>
       <AppHeader/>
       <SearchBar/>
       {isLoading? (<Loading/>) : (<BreakingNews newsList={breakingNews}/>)}

@@ -4,18 +4,20 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  StyleSheet,
   Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
-import {vh, vw} from '../../utils/dimensions';
 import { images } from '../../assets';
-import { colors } from '../../utils/colors';
+import { getSavedStyles } from './styles';
+import { useTheme } from '../../utils/ThemeContext'
 
 const Saved = () => {
   const [savedNews, setSavedNews] = useState([]);
   const navigation = useNavigation();
+
+  const {isDarkMode} = useTheme();
+  const styles = getSavedStyles(isDarkMode);
 
   const fetchSavedNews = async () => {
     try {
@@ -63,6 +65,8 @@ const Saved = () => {
           data={savedNews}
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderItem}
+          bounces={false}
+          showsVerticalScrollIndicator={false}
         />
       ) : (
         <Text style={styles.emptyMessage}>No saved news yet.</Text>
@@ -73,57 +77,3 @@ const Saved = () => {
 
 export default Saved;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  newsItem: {
-    padding: vw(16),
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderClr,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: vh(10),
-    backgroundColor: colors.white,
-  },
-  emptyMessage: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  itemImg: {
-    height: vw(80),
-    width: vw(80),
-    borderRadius: vw(20),
-  },
-  itemInfo: {
-    flex: 1,
-    gap: vh(10),
-    justifyContent: 'space-between',
-  },
-  itemCategory: {
-    fontSize: vw(12),
-    color: colors.gray,
-    textTransform: 'capitalize',
-  },
-  itemTitle: {
-    fontSize: vw(12),
-    fontWeight: '600',
-    color: colors.black,
-  },
-  itemSourceInfo: {
-    flexDirection: 'row',
-    gap: vw(8),
-    alignItems: 'center',
-  },
-  itemSourceImg: {
-    width: vw(20),
-    height: vw(20),
-    borderRadius: vw(20),
-  },
-  itemSourceName: {
-    fontSize: vh(10),
-    fontWeight: '400',
-    color: colors.gray,
-  },
-});

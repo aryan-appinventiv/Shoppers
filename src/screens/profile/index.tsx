@@ -1,9 +1,7 @@
 import {
-    Alert,
     Image,
     Modal,
     Platform,
-    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
@@ -17,11 +15,12 @@ import {
   import ImagePicker from 'react-native-image-crop-picker';
   import {images} from '../../assets';
   import {colors} from '../../utils/colors';
-  import {vh, vw} from '../../utils/dimensions';
   import {useNavigation} from '@react-navigation/native';
   import auth from '@react-native-firebase/auth';
   import Toast from 'react-native-simple-toast';
-  
+  import { strings } from '../../utils/strings';
+  import { getProfileStyles } from './styles';
+  import {useTheme} from '../../utils/ThemeContext';  
   const Profile = () => {
     const [profileImage, setProfileImage] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -39,6 +38,9 @@ import {
         setName(user.displayName || '');
       }
     }, []);
+
+    const {isDarkMode} = useTheme();
+    const styles = getProfileStyles(isDarkMode);
   
     const takePhotoFromCamera = () => {
       ImagePicker.openCamera({
@@ -84,13 +86,13 @@ import {
           .then(() => {
             setName(newName);
             setNewName('');
-            Toast.show('Username updated successfully', Toast.SHORT, {
+            Toast.show(strings.username_updated_successfully, Toast.SHORT, {
               backgroundColor: colors.green,
             });
           })
           .catch(error => {
             console.error(error);
-            Toast.show('Error updating username', Toast.SHORT, {
+            Toast.show(strings.error_updating_username, Toast.SHORT, {
               backgroundColor: colors.red,
             });
           });
@@ -104,13 +106,13 @@ import {
           .updatePassword(newPassword)
           .then(() => {
             setNewPassword('');
-            Toast.show('Password updated successfully', Toast.SHORT, {
+            Toast.show(strings.password_updated_successfully, Toast.SHORT, {
               backgroundColor: colors.green,
             });
           })
           .catch(error => {
             console.error(error);
-            Toast.show('Error updating password', Toast.SHORT, {
+            Toast.show(strings.error_updating_password, Toast.SHORT, {
               backgroundColor: colors.red,
             });
           });
@@ -141,21 +143,21 @@ import {
                 )}
               </TouchableOpacity>
               <Text style={styles.changeImg} onPress={toggleModal}>
-                Change Profile Picture
+                {strings.change_profile_pic}
               </Text>
             </View>
             <ScrollView style={styles.infoContainer}>
-              <Text style={styles.username}>{name || 'No Username'}</Text>
+              <Text style={styles.username}>{name || strings.no_username}</Text>
               <TouchableOpacity
                 onPress={() => setShowName(!showName)}
                 style={styles.changeUsername}>
-                <Text style={styles.changeUsernameText}>Change Username</Text>
+                <Text style={styles.changeUsernameText}>{strings.change_username}</Text>
               </TouchableOpacity>
               {showName && (
                 <View style={styles.inputContainer}>
                   <TextInput
-                    placeholder="Enter new username"
-                    placeholderTextColor={'gray'}
+                    placeholder={strings.enter_new_username}
+                    placeholderTextColor={colors.gray}
                     style={styles.textInputUsername}
                     value={newName}
                     onChangeText={setNewName}
@@ -167,21 +169,21 @@ import {
                     ]}
                     onPress={updateName}
                     disabled={newName.trim().length < 5}>
-                    <Text style={styles.buttonText}>Change</Text>
+                    <Text style={styles.buttonText}>{strings.change}</Text>
                   </TouchableOpacity>
-                  {newName.trim().length < 5 && (
+                  {newName.trim().length < 5 && newName.trim().length>0 && (
                     <Text style={styles.caution}>
-                      Username should be at least 5 characters long.
+                      {strings.username_caution}
                     </Text>
                   )}
                 </View>
               )}
               <View style={styles.separator} />
-              <Text style={styles.passwordLabel}>********</Text>
+              <Text style={styles.passwordLabel}>{strings.dummy_pass}</Text>
               <TouchableOpacity
                 onPress={() => setShowPass(!showPass)}
                 style={styles.changeUsername}>
-                <Text style={styles.changeUsernameText}>Change Password</Text>
+                <Text style={styles.changeUsernameText}>{strings.change_password}</Text>
               </TouchableOpacity>
               {showPass && (
                 <View style={styles.inputContainer}>
@@ -189,9 +191,9 @@ import {
                     <TextInput
                       value={newPassword}
                       onChangeText={setNewPassword}
-                      placeholder="Enter new Password"
+                      placeholder={strings.enter_new_password}
                       secureTextEntry={!passwordVisible}
-                      style={{flex: 1}}
+                      style={styles.inputStyle}
                     />
                     <TouchableOpacity
                       onPress={() => setPasswordVisible(!passwordVisible)}>
@@ -208,11 +210,11 @@ import {
                     ]}
                     onPress={updatePassword}
                     disabled={newPassword.trim().length < 6}>
-                    <Text style={styles.buttonText}>Change</Text>
+                    <Text style={styles.buttonText}>{strings.change}</Text>
                   </TouchableOpacity>
-                  {newPassword.trim().length < 6 && (
+                  {newPassword.trim().length < 6 && newPassword.trim().length>0 && (
                     <Text style={styles.caution}>
-                      Password should be at least 6 characters.
+                      {strings.password_caution}
                     </Text>
                   )}
                 </View>
@@ -225,13 +227,13 @@ import {
                     <TouchableOpacity
                       style={styles.modalButton}
                       onPress={takePhotoFromCamera}>
-                      <Text style={styles.modalButtonText}>Open Camera</Text>
+                      <Text style={styles.modalButtonText}>{strings.open_camera}</Text>
                     </TouchableOpacity>
                     <View style={styles.separator} />
                     <TouchableOpacity
                       style={styles.modalButton}
                       onPress={choosePhotoFromLibrary}>
-                      <Text style={styles.modalButtonText}>Choose from Gallery</Text>
+                      <Text style={styles.modalButtonText}>{strings.choose_from_gallery}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -245,133 +247,5 @@ import {
   
   export default Profile;
   
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    header: {
-      backgroundColor: colors.primary,
-      paddingVertical: vh(30),
-      alignItems: 'center',
-      borderBottomEndRadius: vw(30),
-      borderBottomStartRadius: vw(30),
-    },
-    profileImage: {
-      width: vw(120),
-      height: vw(120),
-      borderRadius: 60,
-      marginBottom: vh(10),
-    },
-    changeImg: {
-      color: colors.white,
-      fontWeight: '600',
-    },
-    infoContainer: {
-      padding: vw(20),
-      backgroundColor: colors.white,
-      borderRadius: 10,
-      margin: vw(10),
-      shadowColor: colors.black,
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.1,
-      shadowRadius: 4,
-      elevation: 5,
-    },
-    username: {
-      fontSize: vw(18),
-      fontWeight: 'bold',
-      marginBottom: vh(10),
-    },
-    changeUsername: {
-      marginTop: vh(10),
-    },
-    changeUsernameText: {
-      color: colors.primary,
-      fontSize: vw(16),
-    },
-    inputContainer: {
-      marginTop: vh(10),
-    },
-    textInput: {
-      borderWidth: 1,
-      borderColor: colors.lightgray,
-      borderRadius: 5,
-      paddingVertical: Platform.OS === 'ios' ? vh(7) : vh(2),
-      marginBottom: vh(10),
-      paddingHorizontal: vw(10),
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    textInputUsername: {
-      borderWidth: 1,
-      borderColor: colors.lightgray,
-      borderRadius: 5,
-      paddingVertical: vh(10),
-      marginBottom: vh(10),
-      paddingHorizontal: vw(10),
-    },
-    button: {
-      backgroundColor: colors.primary,
-      padding: vw(10),
-      borderRadius: 5,
-      alignItems: 'center',
-    },
-    buttonText: {
-      color: colors.white,
-      fontSize: vw(16),
-    },
-    caution: {
-      color: colors.red,
-      marginTop: vh(5),
-    },
-    separator: {
-      height: 1,
-      backgroundColor: colors.lightgray,
-      marginVertical: vh(10),
-    },
-    passwordLabel: {
-      fontSize: vw(16),
-      marginTop: vh(10),
-      fontWeight: 'bold',
-    },
-    modalOverlay: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      backgroundColor: colors.modalBackground,
-    },
-    modalContent: {
-      backgroundColor: colors.white,
-      padding: vw(25),
-      borderTopLeftRadius: vw(30),
-      borderTopRightRadius: vw(30),
-    },
-    modalButton: {
-      paddingVertical: vw(15),
-    },
-    modalButtonText: {
-      textAlign: 'center',
-      fontSize: vw(18),
-      color: colors.primary,
-    },
-    icon: {
-      width: vw(20),
-      height: vw(20),
-    },
-    backCont: {
-      backgroundColor: colors.primary,
-      paddingVertical: vh(10),
-    },
-    back: {
-      marginTop: Platform.OS === 'ios' ? vh(50) : vh(10),
-      marginLeft: vw(20),
-      width: vw(20),
-      height: vw(20),
-    },
-    backImg: {
-      width: vw(20),
-      height: vw(20),
-    },
-  });
   
   

@@ -14,5 +14,6 @@ export const colors = {
     modalBackground: 'rgba(0, 0, 0, 0.5)',
     searchbar : '#e4e4e4',
     orange: '#FFA07A',
-
+    redTitle : '#FF0800',
+    blackBackground : '#343434',
 }

@@ -1,7 +1,6 @@
 import {
-  Alert,
-  Button,
   Image,
+  StatusBar,
   StyleSheet,
   Switch,
   Text,
@@ -11,94 +10,107 @@ import {
 import React, {useState} from 'react';
 import {images} from '../../assets';
 import {vh, vw} from '../../utils/dimensions';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import LogoutModal from '../../components/logoutModal';
 import Toast from 'react-native-simple-toast';
-import { colors } from '../../utils/colors';
+import {colors} from '../../utils/colors';
+import {useTheme} from '../../utils/ThemeContext';
 
 const Settings = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const {isDarkMode, toggleTheme} = useTheme();
 
   const Navigation = useNavigation();
 
-  const gotoAbout=()=>{
+  const gotoAbout = () => {
     Navigation.navigate('Profile');
-  }
-  const gotoFeedback=()=>{
+  };
+  const gotoFeedback = () => {
     Navigation.navigate('Feedback');
-  }
-  const gotoPrivacy=()=>{
+  };
+  const gotoPrivacy = () => {
     Navigation.navigate('PrivacyPolicy');
-  }
-  const gotoTerms=()=>{
+  };
+  const gotoTerms = () => {
     Navigation.navigate('TermsOfUse');
-  }
-  const gotoMode=()=>{
-    toggleSwitch();
-  }
+  };
+  const gotoMode = () => {
+    toggleTheme();
+  };
   const gotoLogout = () => {
     setLogoutModalVisible(true);
-  }
-  const onLogout = () => {
-    auth().signOut().then(response=>{
-      Toast.show('User Signed out', Toast.SHORT, {
-        backgroundColor: colors.orange,
-      });
-      console.log(("User signed out"));
-      Navigation.reset({
-        index: 0,
-        routes: [{ name: 'Signin' }]
-   })        
-    }).catch(error=>{
-      Toast.show('Cannot logout', Toast.SHORT, {
-        backgroundColor: colors.red,
-      });
-      console.log(error);
-    })
   };
-  const closeLogoutModal =()=>{
+  const onLogout = () => {
+    auth()
+      .signOut()
+      .then(response => {
+        Toast.show('User Signed out', Toast.SHORT, {
+          backgroundColor: colors.orange,
+        });
+        console.log('User signed out');
+        Navigation.reset({
+          index: 0,
+          routes: [{name: 'Signin'}],
+        });
+      })
+      .catch(error => {
+        Toast.show('Cannot logout', Toast.SHORT, {
+          backgroundColor: colors.red,
+        });
+        console.log(error);
+      });
+  };
+  const closeLogoutModal = () => {
     setLogoutModalVisible(false);
-  }
+  };
 
   const items = [
-    {id: 1, name: 'About', img: images.next, go: gotoAbout},
-    {id: 2, name: 'Send Feedback', img: images.next, go: gotoFeedback},
-    {id: 3, name: 'Privacy Policy', img: images.next, go: gotoPrivacy},
-    {id: 4, name: 'Terms of Use', img: images.next, go: gotoTerms},
+    {id: 1, name: 'About', img: isDarkMode? images.nextWhite : images.next, go: gotoAbout},
+    {id: 2, name: 'Send Feedback', img: isDarkMode? images.nextWhite : images.next, go: gotoFeedback},
+    {id: 3, name: 'Privacy Policy', img: isDarkMode? images.nextWhite : images.next, go: gotoPrivacy},
+    {id: 4, name: 'Terms of Use', img: isDarkMode? images.nextWhite : images.next, go: gotoTerms},
     {id: 5, name: 'Dark Mode', go: gotoMode},
     {id: 6, name: 'Logout', img: images.logout, go: gotoLogout},
   ];
   return (
-    // <Logout/>
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: isDarkMode ? colors.black : colors.white},
+      ]}>
+      {/* <StatusBar backgroundColor={colors.primary} /> */}
       {items.map((item, id) => {
         return (
           <TouchableOpacity style={styles.itemBtn} onPress={item.go} key={id}>
-            <Text style={styles.itemBtnTxt}>{item.name}</Text>
+            <Text
+              style={[
+                styles.itemBtnTxt,
+                {color: isDarkMode ? colors.white : colors.black},
+              ]}>
+              {item.name}
+            </Text>
             {item.img ? (
               <Image source={item.img} style={styles.itemImg} />
             ) : (
               <Switch
                 trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                thumbColor={isDarkMode ? '#f5dd4b' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-                style={{transform:[{scale:0.8}], marginRight:-vw(10)}}
+                onValueChange={toggleTheme}
+                value={isDarkMode}
+                style={{transform: [{scale: 0.8}], marginRight: -vw(10)}}
               />
             )}
           </TouchableOpacity>
         );
       })}
-        <LogoutModal
-          visible={logoutModalVisible}
-          onClose={closeLogoutModal}
-          onConfirm={onLogout}
-          title={"Are you sure you want to logout?"}
-          desc={"You will be redirected to the Signin screen."}
+      <LogoutModal
+        visible={logoutModalVisible}
+        onClose={closeLogoutModal}
+        onConfirm={onLogout}
+        title={'Are you sure you want to logout?'}
+        desc={'You will be redirected to the Signin screen.'}
       />
     </View>
   );
@@ -114,10 +126,10 @@ const styles = StyleSheet.create({
   itemBtn: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: colors.white,
     paddingHorizontal: vw(16),
     paddingVertical: vh(20),
     marginBottom: 1,
+    alignItems: 'center',
   },
   itemBtnTxt: {
     fontSize: vw(14),

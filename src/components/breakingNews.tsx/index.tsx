@@ -1,8 +1,8 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import React, { useRef, useEffect, useState } from 'react';
 import SliderItem from '../sliderItem';
-import { vw, vh } from '../../utils/dimensions';
-import { colors } from '../../utils/colors';
+import { getBreakingStyle } from './styles';
+import {useTheme} from '../../utils/ThemeContext'
 
 const BreakingNews = ({ newsList }) => {
   const flatListRef = useRef(null);
@@ -19,6 +19,10 @@ const BreakingNews = ({ newsList }) => {
 
     return () => clearInterval(interval); 
   }, [newsList.length]);
+
+
+  const {isDarkMode} = useTheme();
+  const styles = getBreakingStyle(isDarkMode);
 
   return (
     <View style={styles.container}>
@@ -50,36 +54,3 @@ const BreakingNews = ({ newsList }) => {
 };
 
 export default BreakingNews;
-
-const styles = StyleSheet.create({
-  slideWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    paddingHorizontal: vw(15),
-  },
-  title: {
-    fontSize: vw(16),
-    fontWeight: '600',
-    letterSpacing: 1.2,
-    padding: vw(5),
-    marginBottom: vh(5),
-  },
-  dotsWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: vh(10),
-  },
-  dot: {
-    width: vw(8),
-    height: vw(8),
-    borderRadius: vw(4),
-    backgroundColor: colors.lightgray,
-    marginHorizontal: vw(2),
-  },
-  activeDot: {
-    backgroundColor: colors.black, 
-  },
-});

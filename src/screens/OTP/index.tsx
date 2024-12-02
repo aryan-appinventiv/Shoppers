@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { OtpInput } from "react-native-otp-entry";
 import { colors } from '../../utils/colors';
 import { useNavigation } from '@react-navigation/native';
+import { strings } from '../../utils/strings';
 
 const OTP = (props) => {
     const [code, setCode] = useState('');
@@ -11,14 +12,14 @@ const OTP = (props) => {
     async function confirmCode(confirm) {
         try {
           await confirm.confirm(code);
-          console.log("Logged in");
+          console.log(strings.log_in);
           Navigation.reset({
             index:0,
             routes:[{name: 'BottomTabNavigator'}]
           })
 
         } catch (error) {
-          console.log('Invalid code.');
+          console.log(strings.invalid_code);
         }
       }
 
@@ -28,7 +29,7 @@ const OTP = (props) => {
        <OtpInput numberOfDigits={6} value={code} onTextChange={(text) => setCode(text)} />
 
        <TouchableOpacity onPress={() => confirmCode(props.confirm)} style={styles.login}>
-          <Text style={styles.loginTitle}>Send OTP</Text>
+          <Text style={styles.loginTitle}>{strings.send_OTP}</Text>
         </TouchableOpacity>
     </View>
   )

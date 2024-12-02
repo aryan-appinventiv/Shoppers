@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         width: vw(25),
         height: vw(25),
         borderRadius: vw(20),
+        resizeMode: 'stretch',
     },
     sourceInfo:{
         flexDirection:'row',

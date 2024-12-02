@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, Platform} from 'react-native'
-import React, { useCallback, useEffect, useState } from 'react'
+import { Text, View, TouchableOpacity, Image} from 'react-native'
+import React, { useCallback, useState } from 'react'
 import { images } from '../../assets'
 import auth from '@react-native-firebase/auth'
-import {vw, vh} from '../../utils/dimensions'
 import { useFocusEffect } from '@react-navigation/native'
-import { colors } from '../../utils/colors'
+import {useTheme} from '../../utils/ThemeContext'
+import { getHeaderStyle } from './styles'
 
 const AppHeader = () => {
     const [username, setUsername] = useState('');
@@ -17,6 +17,9 @@ const AppHeader = () => {
         }
       }, [])
     );
+
+    const {isDarkMode} = useTheme();
+    const styles = getHeaderStyle(isDarkMode);
   
   return (
     <View style={styles.userCont}>
@@ -34,35 +37,4 @@ const AppHeader = () => {
   )
 }
 
-export default AppHeader
-
-const styles = StyleSheet.create({
-    userImg: {
-        width: vw(60),
-        height: vw(60),
-      },
-      userCont: {
-        paddingTop: Platform.OS === 'ios' ? vh(50) : vh(7),
-        paddingRight: vw(15),
-        paddingLeft: vw(7),
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center'
-      },
-      logo: {
-        width: vw(25),
-        height: vw(25),
-      },
-      userCont1:{
-        flexDirection:'row',
-        alignItems:'center',
-      },
-      welcome:{
-        color: colors.gray,
-        fontWeight:'600',
-      },
-      name:{
-        fontSize: vh(16),
-        fontWeight:'700',
-      },
-})
+export default AppHeader;

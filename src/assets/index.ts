@@ -25,6 +25,5 @@ export const images = {
     next: require('./images/next.png'),
     logout: require('./images/logout.png'),
     user: require('./images/user.png'),
+    nextWhite : require('./images/nextWhite.png'),
 }
-
-export const fallback = require('./images/tutorial.jpg');

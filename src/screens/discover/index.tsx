@@ -1,20 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useCallback, useState } from 'react'
+import { Text, View } from 'react-native'
+import React, { useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import SearchBar from '../../components/searchBar'
-import { vh, vw } from '../../utils/dimensions'
+import { vh } from '../../utils/dimensions'
 import newsCategoryList from '../../constants/Categories'
 import CheckBox from '../../components/checkBox'
 import CountryList from '../../constants/CountryList'
 import Button from '../../components/button'
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
-
+import { strings } from '../../utils/strings'
+import styles from './styles'
+import { useTheme } from '../../utils/ThemeContext'
+import { colors } from '../../utils/colors'
 
 const Discover = () => {
   const [categories, setCategories] = useState(newsCategoryList);
   const [countries, setCountries] = useState(CountryList);
   const [searchedNews, setSearchedNews] = useState([]);
+  const {isDarkMode} = useTheme();
   
   const {top: safeTop} = useSafeAreaInsets();
   const Navigation = useNavigation();
@@ -74,16 +78,16 @@ const Discover = () => {
   
 
   return (
-    <View style={[styles.container,{paddingTop: safeTop+vh(10)}]}>
+    <View style={[styles.container,{paddingTop: safeTop+vh(10), backgroundColor: isDarkMode? colors.black: colors.white}]}>
       <SearchBar/>
-      <Text style={styles.title}>Categories</Text>
+      <Text style={[styles.title,{color: isDarkMode? colors.white : colors.black}]}>{strings.categories}</Text>
       <View style={styles.listContainer}>
          {categories.map((item)=>(
             <CheckBox key={item.id} label={item.title} checked={item.selected} onPress={()=>{toggleCategory(item.id)}}/>
          ))}
       </View>
 
-      <Text style={styles.title}>Countries</Text>
+      <Text style={[styles.title,{color: isDarkMode? colors.white : colors.black}]}>{strings.countries}</Text>
       <View style={styles.listContainer}>
          {countries.map((item, index)=>(
             <CheckBox key={index} label={item.name} checked={item.selected} onPress={()=>{toggleCountry(index)}}/>
@@ -91,34 +95,11 @@ const Discover = () => {
       </View>
       
       <View style={styles.button}>
-      <Button onPress={search} title={"Search"}/>
+      <Button onPress={search} title={strings.search}/>
       </View>
 
     </View>
   )
 }
 
-export default Discover
-
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    
-  },
-  title:{
-    paddingHorizontal: vw(15),
-    fontSize: vw(18),
-    fontWeight: '600',
-    marginVertical: vh(10),
-  },
-  listContainer:{
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: vw(16),
-    paddingHorizontal: vw(15),
-    marginBottom: vh(20),
-  },
-  button:{
-    marginHorizontal: vw(15),
-  }
-})
+export default Discover;

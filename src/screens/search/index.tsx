@@ -1,8 +1,6 @@
 import {
   Image,
-  Platform,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -13,6 +11,9 @@ import NewsList from '../../components/newsList';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {vh, vw} from '../../utils/dimensions';
 import {images} from '../../assets';
+import styles from './styles';
+import {useTheme} from '../../utils/ThemeContext'
+import { colors } from '../../utils/colors';
 
 const Search = () => {
   const {top: safeTop} = useSafeAreaInsets();
@@ -23,13 +24,14 @@ const Search = () => {
   const goback = () => {
     Navigation.goBack();
   };
+  const {isDarkMode} = useTheme();
   return (
-    <View style={[styles.container, {paddingTop: safeTop + vh(10)}]}>
+    <View style={[styles.container, {paddingTop: safeTop + vh(10), backgroundColor: isDarkMode? colors.black: colors.white}]}>
       <View style={styles.headerCont}>
         <TouchableOpacity onPress={goback}>
-          <Image source={images.goback} style={styles.back} />
+          <Image source={images.goback} style={[styles.back,{tintColor: isDarkMode? colors.white: colors.black}]} />
         </TouchableOpacity>
-        <Text style={styles.title}>Search Results</Text>
+        <Text style={[styles.title, {color: isDarkMode? colors.white : colors.black}]}>Search Results</Text>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -41,24 +43,3 @@ const Search = () => {
 
 export default Search;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    fontSize: vw(22),
-    fontWeight: 'bold',
-  },
-  back: {
-    height: vw(25),
-    width: vw(25),
-  },
-  headerCont: {
-    paddingHorizontal: vw(15),
-    flexDirection: 'row',
-    gap: vw(20),
-    marginBottom: vw(5),
-    alignItems: 'center',
-    paddingTop: Platform.OS === 'android' ? vh(15) : vh(5),
-  },
-});

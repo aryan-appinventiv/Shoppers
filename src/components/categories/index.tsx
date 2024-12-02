@@ -1,13 +1,13 @@
 import {
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useRef, useState} from 'react';
-import {vw, vh} from '../../utils/dimensions';
 import newsCategoryList from '../../constants/Categories';
+import styles from './styles';
+import {useTheme} from '../../utils/ThemeContext';
 import { colors } from '../../utils/colors';
 
 const Categories = ({onCategoryChanged}) => {
@@ -23,10 +23,10 @@ const Categories = ({onCategoryChanged}) => {
 
     onCategoryChanged(newsCategoryList[index].slug);
   };
-
+  const {isDarkMode} = useTheme();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Trending Right Now</Text>
+      <Text style={[styles.title,{color: isDarkMode? colors.white: colors.black}]}>Trending Right Now</Text>
       <ScrollView
         ref={scrollRef}
         horizontal
@@ -49,37 +49,3 @@ const Categories = ({onCategoryChanged}) => {
 
 export default Categories;
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: vw(15),
-  },
-  title: {
-    fontSize: vw(16),
-    fontWeight: '600',
-    letterSpacing: 1.2,
-    padding: vw(5),
-    marginVertical: vh(10),
-  },
-  itemsWrapper: {
-    gap: 20,
-  },
-  item: {
-    borderWidth: 1,
-    borderColor: colors.darkgray,
-    paddingVertical: vh(10),
-    paddingHorizontal: vw(16),
-    borderRadius: vw(10),
-  },
-  itemText: {
-    color: colors.gray,
-    letterSpacing: 0.5,
-  },
-  itemActive:{
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-  itemTextActive:{
-    fontWeight: '600',
-    color: colors.white,
-  }
-});

@@ -16,6 +16,7 @@ import TermsOfUse from '../screens/termsOfUse';
 import PrivacyPolicy from '../screens/privacyPolicy';
 import Feedback from '../screens/feedback';
 import Profile from '../screens/profile';
+import SearchPage from '../screens/searchPage';
 
 const RootNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -39,6 +40,11 @@ const RootNavigator = () => {
          <Stack.Screen
           component={TermsOfUse}
           name="TermsOfUse"
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          component={SearchPage}
+          name="SearchPage"
           options={{headerShown: false}}
         />
           <Stack.Screen
