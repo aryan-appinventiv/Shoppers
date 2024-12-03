@@ -16,4 +16,11 @@ export const colors = {
     orange: '#FFA07A',
     redTitle : '#FF0800',
     blackBackground : '#343434',
+    transparent: 'transparent',
+    lg: 'rgba(0, 0, 0, 0.8)',
+    trackcolor_false : '#767577',
+    trackcolor_true : '#81b0ff',
+    thumbcolor_false : '#f5dd4b',
+    thumbcolor_true : '#f4f3f4',
+    ios_bg : '#3e3e3e',
 }

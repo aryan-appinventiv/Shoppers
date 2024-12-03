@@ -29,6 +29,7 @@ export const getFeedbackStyles = (isDarkMode: string) =>{
             padding: 10,
             marginBottom: 20,
             color: isDarkMode? colors.white : colors.black,
+            textAlignVertical: 'top',
           },
           mainCont: {
             paddingHorizontal: vw(10),

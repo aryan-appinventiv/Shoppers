@@ -18,8 +18,9 @@ export const getProfileStyles = (isDarkMode: string) =>{
           profileImage: {
             width: vw(120),
             height: vw(120),
-            borderRadius: 60,
+            borderRadius: vw(60),
             marginBottom: vh(10),
+            resizeMode: 'cover',
           },
           changeImg: {
             color: colors.white,
@@ -97,25 +98,6 @@ export const getProfileStyles = (isDarkMode: string) =>{
             fontWeight: 'bold',
             color : isDarkMode ? colors.white : colors.black,
           },
-          modalOverlay: {
-            flex: 1,
-            justifyContent: 'flex-end',
-            backgroundColor: colors.modalBackground,
-          },
-          modalContent: {
-            backgroundColor: isDarkMode? colors.gray : colors.white,
-            padding: vw(25),
-            borderTopLeftRadius: vw(30),
-            borderTopRightRadius: vw(30),
-          },
-          modalButton: {
-            paddingVertical: vw(15),
-          },
-          modalButtonText: {
-            textAlign: 'center',
-            fontSize: vw(18),
-            color: colors.primary,
-          },
           icon: {
             width: vw(20),
             height: vw(20),
@@ -138,7 +120,6 @@ export const getProfileStyles = (isDarkMode: string) =>{
           inputStyle: {
             flex: 1,
             color: isDarkMode ? colors.white : colors.black,
-          }
-      
+          },
       });
     }      

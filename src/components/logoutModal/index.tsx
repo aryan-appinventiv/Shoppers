@@ -9,7 +9,7 @@ import styles from './styles';
 import { colors } from '../../utils/colors';
 import { useTheme } from '../../utils/ThemeContext'
 
-const LogoutModal = ({visible, onClose, onConfirm, title, desc}) => {
+const LogoutModal = ({visible, onClose, onConfirm, title, desc}:{visible: boolean, onClose:()=>void, onConfirm: ()=>void, title: string, desc: string}) => {
   const {isDarkMode} = useTheme();
   return (
     <Modal

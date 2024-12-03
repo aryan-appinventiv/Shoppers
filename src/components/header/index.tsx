@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 
 const Wwidth = Dimensions.get('window').width;
-const Header = ({onPress}) => {
+const Header = ({onPress}: {onPress: () => void}) => {
   const Navigation = useNavigation();
 
   return (

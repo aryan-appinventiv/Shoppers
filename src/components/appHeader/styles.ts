@@ -2,16 +2,18 @@ import { Platform, StyleSheet } from "react-native"
 import { vh, vw } from "../../utils/dimensions"
 import { colors } from "../../utils/colors"
 
-export const getHeaderStyle = (isDarkMode) =>{
+export const getHeaderStyle = (isDarkMode: boolean) =>{
     return StyleSheet.create({
         userImg: {
             width: vw(60),
             height: vw(60),
+            borderRadius: vw(30),
+            marginRight: vw(10),
           },
           userCont: {
-            paddingTop: Platform.OS === 'ios' ? vh(50) : vh(7),
+            paddingTop: Platform.OS === 'ios' ? vh(50) : vh(10),
             paddingRight: vw(15),
-            paddingLeft: vw(7),
+            paddingLeft: vw(15),
             flexDirection:'row',
             justifyContent:'space-between',
             alignItems:'center',

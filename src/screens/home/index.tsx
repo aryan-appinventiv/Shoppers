@@ -9,11 +9,11 @@ import BreakingNews from '../../components/breakingNews.tsx';
 import Categories from '../../components/categories/index.tsx';
 import NewsList from '../../components/newsList/index.tsx';
 import Loading from '../../components/loading/index.tsx';
-import { useNavigation } from '@react-navigation/native';
 import { strings } from '../../utils/strings/index.ts';
 import { useTheme } from '../../utils/ThemeContext.js';
 import { colors } from '../../utils/colors/index.ts';
 import styles from './styles.ts';
+import { keyAPI } from '../../utils/newsKeyAPI/index.tsx';
 
 const Home = () => {
   const [breakingNews, setBreakingNews] = useState([]);
@@ -26,12 +26,9 @@ const Home = () => {
   },[])
 
   const {isDarkMode} = useTheme();
-
-  const Navigation = useNavigation();
-
   const getBreakingNews=async()=>{
     try{
-      const URL = `https://newsdata.io/api/1/news?apikey=pub_58618a7cc7260bd7721baed946811425b8473&country=in&language=en&image=1&removeduplicate=1&size=5`
+      const URL = `https://newsdata.io/api/1/news?apikey=${keyAPI}&country=in&language=en&image=1&removeduplicate=1&size=5`
       const response = await axios .get(URL);
       if(response && response.data){
         setIsLoading(false);
@@ -50,7 +47,7 @@ const Home = () => {
         categoryString = `&category=${category}`;
       }
   
-      const URL = `https://newsdata.io/api/1/news?apikey=pub_58618a7cc7260bd7721baed946811425b8473&language=en&image=1&removeduplicate=1${categoryString}`;
+      const URL = `https://newsdata.io/api/1/news?apikey=${keyAPI}&language=en&image=1&removeduplicate=1${categoryString}`;
       const response = await axios .get(URL);
       if(response && response.data){
         setNews(response.data.results)

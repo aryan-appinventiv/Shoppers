@@ -90,5 +90,8 @@ export const strings = {
     terms_desc_5 : `To the fullest extent permitted by law, we shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of [Newzz App].`,
     terms_desc_6 : `These Terms of Use shall be governed by and construed in accordance with the laws of India. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the courts in [Your Jurisdiction].`,
     terms_desc_7 : `If you have any questions about these Terms of Use, please contact us:${'\n'}- Email: [aryan.saxena@appinventiv.com]${'\n'}- Address: [Appinventiv Technologies Pvt. Ltd, Noida-201301]`,
-    
+    remove_img : 'Remove Profile Picture',
+    no_news_to_show : 'No news to show.',
+    title_logout : 'Are you sure you want to logout?',
+    desc_logout: 'You will be redirected to the Signin screen.',
 }

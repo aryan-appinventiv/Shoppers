@@ -11,9 +11,9 @@ import {useNavigation} from '@react-navigation/native';
 import {useTheme} from '../../utils/ThemeContext';
 import { getNewslistStyles } from './styles';
 
-const NewsList = ({newsList}) => {
+const NewsList = ({newsList}: {newsList: any}) => {
   const Navigation = useNavigation();
-  const gotoDetail = item => {
+  const gotoDetail = (item: any) => {
     Navigation.navigate('Detail', {item});
   };
   const {isDarkMode} = useTheme();
@@ -24,7 +24,7 @@ const NewsList = ({newsList}) => {
       {newsList.length == 0 ? (
         <Loading />
       ) : (
-        newsList.map((item,index)=>{
+        newsList.map((item: any,index: any)=>{
             return(
             <TouchableOpacity key = {index}  style={styles.itemContainer} activeOpacity={0.5} onPress={()=>gotoDetail(item)}>
                 <Image source = {!item.image_url ? images.tutorial : { uri: item.image_url }}  style={styles.itemImg}  />

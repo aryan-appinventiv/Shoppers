@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { vh, vw } from "../../utils/dimensions";
 import { colors } from "../../utils/colors";
 
-export const getBreakingStyle = (isDarkMode) => {
+export const getBreakingStyle = (isDarkMode: boolean) => {
     return StyleSheet.create({
         slideWrapper: {
           justifyContent: 'center',

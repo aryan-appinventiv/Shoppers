@@ -5,11 +5,11 @@ import { getResultListStyles } from './styles';
 import { useTheme } from '../../utils/ThemeContext'
 import { images } from '../../assets';
 
-const ResultList = ({data}) => {
+const ResultList = ({data}: {data:any}) => {
     const {isDarkMode} = useTheme();
     const styles = getResultListStyles(isDarkMode);
     const Navigation = useNavigation();
-    const renderItem = ({item}) => (
+    const renderItem = ({item}: {item:any}) => (
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.newsItem}

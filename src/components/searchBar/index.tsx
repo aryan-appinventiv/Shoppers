@@ -8,7 +8,7 @@ import styles from './styles';
 const SearchBar = () => {
   const Navigation = useNavigation();
   const textInputRef = useRef(null); 
-
+  
   const gotoSearch = () => {
     Navigation.navigate('SearchPage');
   };

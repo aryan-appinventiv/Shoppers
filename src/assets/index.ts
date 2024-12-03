@@ -26,4 +26,9 @@ export const images = {
     logout: require('./images/logout.png'),
     user: require('./images/user.png'),
     nextWhite : require('./images/nextWhite.png'),
+    backBlack : require('./images/backBlack.png'),
+    bin: require('./images/bin.png'),
+    camera: require('./images/camera.png'),
+    gallery: require('./images/gallery.png'),
+    close : require('./images/close.png'),
 }

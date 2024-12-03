@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Button from '../../components/button';
-import {vh, vw} from '../../utils/dimensions';
+import {vh} from '../../utils/dimensions';
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';

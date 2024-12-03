@@ -7,21 +7,19 @@ import newsCategoryList from '../../constants/Categories'
 import CheckBox from '../../components/checkBox'
 import CountryList from '../../constants/CountryList'
 import Button from '../../components/button'
-import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 import { strings } from '../../utils/strings'
 import styles from './styles'
 import { useTheme } from '../../utils/ThemeContext'
 import { colors } from '../../utils/colors'
 
-const Discover = () => {
+const Discover = ({navigation}:any) => {
   const [categories, setCategories] = useState(newsCategoryList);
   const [countries, setCountries] = useState(CountryList);
   const [searchedNews, setSearchedNews] = useState([]);
   const {isDarkMode} = useTheme();
   
   const {top: safeTop} = useSafeAreaInsets();
-  const Navigation = useNavigation();
 
   const getSearchedNews=async(selectedCategories:string = '', selectedCountries:string)=>{
     try{
@@ -44,7 +42,7 @@ const Discover = () => {
     }
   }
 
-  const toggleCategory = (id) => {
+  const toggleCategory = (id: number) => {
     setCategories((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, selected: !item.selected } : item
@@ -52,7 +50,7 @@ const Discover = () => {
     );
   };
   
-  const toggleCountry = (id) => {
+  const toggleCountry = (id: number) => {
     setCountries((prev) =>
       prev.map((item, index) =>
         index === id ? { ...item, selected: !item.selected } : item
@@ -73,7 +71,7 @@ const Discover = () => {
 
       getSearchedNews(selectedCategories, selectedCountries);
   
-    Navigation.navigate('Search', {searchedNews });
+    navigation.navigate('Search', {searchedNews });
   };
   
 

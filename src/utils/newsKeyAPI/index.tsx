@@ -1,0 +1,1 @@
+export const keyAPI = 'pub_58618a7cc7260bd7721baed946811425b8473';

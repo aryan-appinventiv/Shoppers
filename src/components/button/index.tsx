@@ -2,7 +2,7 @@ import { Text, TouchableOpacity} from 'react-native'
 import React from 'react'
 import styles from './styles'
 
-const Button = ({onPress, title}) => {
+const Button = ({onPress, title}: {onPress: () => void, title: string}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.register}>
        <Text style={styles.registerTitle}>{title}</Text>

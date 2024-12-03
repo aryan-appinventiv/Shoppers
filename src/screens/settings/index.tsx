@@ -15,6 +15,7 @@ import Toast from 'react-native-simple-toast';
 import {colors} from '../../utils/colors';
 import {useTheme} from '../../utils/ThemeContext';
 import styles from './styles';
+import { strings } from '../../utils/strings';
 
 const Settings = () => {
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
@@ -45,7 +46,7 @@ const Settings = () => {
       .signOut()
       .then(response => {
         Toast.show('User Signed out', Toast.SHORT, {
-          backgroundColor: colors.orange,
+          backgroundColor: colors.primary,
         });
         console.log('User signed out');
         Navigation.reset({
@@ -92,9 +93,9 @@ const Settings = () => {
               <Image source={item.img} style={styles.itemImg} />
             ) : (
               <Switch
-                trackColor={{false: '#767577', true: '#81b0ff'}}
-                thumbColor={isDarkMode ? '#f5dd4b' : '#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
+                trackColor={{false: colors.trackcolor_false, true: colors.trackcolor_true}}
+                thumbColor={isDarkMode ? colors.thumbcolor_false : colors.thumbcolor_true}
+                ios_backgroundColor={colors.ios_bg}
                 onValueChange={toggleTheme}
                 value={isDarkMode}
                 style={{transform: [{scale: 0.8}], marginRight: -vw(10)}}
@@ -107,8 +108,8 @@ const Settings = () => {
         visible={logoutModalVisible}
         onClose={closeLogoutModal}
         onConfirm={onLogout}
-        title={'Are you sure you want to logout?'}
-        desc={'You will be redirected to the Signin screen.'}
+        title={strings.title_logout}
+        desc={strings.desc_logout}
       />
     </View>
   );

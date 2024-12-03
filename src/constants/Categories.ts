@@ -1,5 +1,10 @@
 const newsCategoryList= [
-
+{
+    id: 7,
+    title: 'All',
+    slug: 'all',
+    selected: false,
+},    
 {
     id: 1,
     title: 'Politics',

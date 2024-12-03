@@ -3,16 +3,17 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from '@react-navigation/native'
 import styles from './styles'
+import { colors } from '../../utils/colors'
 
-const SliderItem = ({slideItem, index}) => {
+const SliderItem = ({slideItem, index}: {slideItem:any, index: number}) => {
     const Navigation = useNavigation();
-    const gotoDetail=(item)=>{
+    const gotoDetail=(item: any)=>{
         Navigation.navigate('Detail',{item});
     }
   return (
     <TouchableOpacity style={styles.itemWrapper} onPress={()=>gotoDetail(slideItem)}>
       <Image source={{uri: slideItem.image_url}} style={styles.image}/>
-      <LinearGradient colors ={['transparent','rgba(0,0,0,0.8)']} style={styles.background}>
+      <LinearGradient colors ={[colors.transparent,colors.lg]} style={styles.background}>
         <View style={styles.sourceCont}>
             <View style={styles.sourceInfo}>
                 {slideItem.source_icon && (
@@ -29,4 +30,3 @@ const SliderItem = ({slideItem, index}) => {
 }
 
 export default SliderItem;
-

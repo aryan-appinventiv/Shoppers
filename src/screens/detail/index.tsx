@@ -34,7 +34,7 @@ const Detail = () => {
     try {
       const savedItems = await AsyncStorage.getItem('savedNews');
       const savedList = savedItems ? JSON.parse(savedItems) : [];
-      const exists = savedList.some(news => news.title === item.title);
+      const exists = savedList.some((news:any) => news.title === item.title);
       setIsSaved(exists);
     } catch (error) {
       console.log(strings.error_checking_saved_news, error);
@@ -46,7 +46,7 @@ const Detail = () => {
       const savedItems = await AsyncStorage.getItem('savedNews');
       const savedList = savedItems ? JSON.parse(savedItems) : [];
       if (isSaved) {
-        const updatedList = savedList.filter(news => news.title !== item.title);
+        const updatedList = savedList.filter((news:any) => news.title !== item.title);
         await AsyncStorage.setItem('savedNews', JSON.stringify(updatedList));
         setIsSaved(false);
         Toast.show(strings.remove_news, Toast.SHORT, {
@@ -110,7 +110,7 @@ const Detail = () => {
          <Text style={styles.keyword}>{strings.keywords}</Text>
 
         {item.keywords && item.keywords.length > 0 ? (
-          item.keywords.map((keyword, index) => (
+          item.keywords.map((keyword : string | undefined, index: number) => (
             <Text key={index} style={styles.keywords}>
               {keyword}
               {index < item.keywords.length - 1 ? ', ' : ''}

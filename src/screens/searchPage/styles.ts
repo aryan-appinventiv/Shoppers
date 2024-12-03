@@ -52,6 +52,16 @@ import { vh, vw } from "../../utils/dimensions";
         },
         mainCont:{
             flex: 1,
-        }
+        },
+        crossCont : {
+          height: vw(20), 
+          width: vw(20), 
+          justifyContent:'center', 
+          alignItems:'center'
+        },
+        crossImg: {
+          height: vw(10), 
+          width: vw(10)
+        },
       });
 }
