@@ -15,9 +15,13 @@ import { onGoogleButtonPress } from '../google';
 import Toast from 'react-native-simple-toast';
 import { strings } from '../../utils/strings';
 import styles from './styles';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigators';
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'LoginMenu'>;
 
 const LoginMenu = () => {
-  const Navigation = useNavigation();
+  const Navigation = useNavigation<NavigationProps>();
   const gotoGoogle=async()=>{
     try {
       await onGoogleButtonPress();

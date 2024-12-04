@@ -8,12 +8,15 @@ import { images } from '../../assets';
 import Toast from 'react-native-simple-toast';
 import { strings } from '../../utils/strings';
 import styles from './styles';
+import { RootStackParamList } from '../../navigators';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'ForgotPassword'>;
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const Navigation = useNavigation();
+    const Navigation = useNavigation<NavigationProps>();
 
   
     const handlePasswordReset = async () => {

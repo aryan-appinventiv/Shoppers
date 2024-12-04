@@ -123,16 +123,13 @@ const RegisterWithEmail = () => {
   };
 
   return (
-    // <KeyboardAvoidingView
-    //   style={{flex: 1}}
-    //   behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <View style={styles.Container}>
         <Header onPress={goBack} />
         <ScrollView style={styles.secondCont} showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>Create an Account</Text>
 
           <View style={styles.inputBox}>
-            <Image source={images.user} style={styles.icon} />
+            <Image source={images.people} style={styles.icon} />
             <TextInput
               value={name}
               onChangeText={text => setName(text)}

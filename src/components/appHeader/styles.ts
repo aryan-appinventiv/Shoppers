@@ -5,9 +5,9 @@ import { colors } from "../../utils/colors"
 export const getHeaderStyle = (isDarkMode: boolean) =>{
     return StyleSheet.create({
         userImg: {
-            width: vw(60),
-            height: vw(60),
-            borderRadius: vw(30),
+            width: vw(50),
+            height: vw(50),
+            borderRadius: vw(25),
             marginRight: vw(10),
           },
           userCont: {

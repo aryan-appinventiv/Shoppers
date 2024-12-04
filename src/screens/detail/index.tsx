@@ -20,7 +20,7 @@ const Detail = () => {
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const route = useRoute();
-  const { item } = route.params;
+  const { item }: any = route.params;
   const Navigation = useNavigation();
 
   useEffect(() => {
@@ -95,7 +95,6 @@ const Detail = () => {
         <Image
           source={{ uri: item.image_url }}
           style={styles.image}
-          resizeMode="stretch"
         />
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.category}>{item.category}</Text>

@@ -5,11 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 import { strings } from '../../utils/strings';
 import styles from './styles';
 
-const OTP = (props) => {
+const OTP = (props : any) => {
     const [code, setCode] = useState('');
     const Navigation = useNavigation();
 
-    async function confirmCode(confirm) {
+    async function confirmCode(confirm:any) {
         try {
           await confirm.confirm(code);
           console.log(strings.log_in);

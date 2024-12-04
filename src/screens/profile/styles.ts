@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from "react-native";
 import { colors } from "../../utils/colors";
 import { vh, vw } from "../../utils/dimensions";
 
-export const getProfileStyles = (isDarkMode: string) =>{
+export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: number) =>{
     return StyleSheet.create({
         container: {
             flex: 1,
@@ -121,5 +121,28 @@ export const getProfileStyles = (isDarkMode: string) =>{
             flex: 1,
             color: isDarkMode ? colors.white : colors.black,
           },
+          picModalCont: {
+            flex:1, 
+            backgroundColor:colors.blackBackground,
+          },
+          picModalCross : {
+            alignSelf: 'flex-start', 
+            marginHorizontal: vw(20), 
+            marginVertical: Platform.OS==="ios"? vh(50): vh(20), 
+            backgroundColor:colors.borderClr, 
+            padding: vw(5), 
+            borderRadius: vw(20)
+          },
+          picModalPhotoCont : {
+            alignItems:'center', 
+            justifyContent:'center',
+            flex: 1,
+          },
+          picModalPhoto: {
+            width: myWidth* 0.9, 
+            height: myHeight* 0.8,
+            resizeMode: 'contain',
+          },
+
       });
     }      

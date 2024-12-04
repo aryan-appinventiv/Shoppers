@@ -9,6 +9,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Keyboard,
+  Modal,
+  useWindowDimensions
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -24,6 +26,7 @@ import {useTheme} from '../../utils/ThemeContext';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 import LogoutModal from '../../components/logoutModal';
 import ProfileModal from '../../components/profileModal';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
@@ -34,11 +37,14 @@ const Profile = () => {
   const [newName, setNewName] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [picModal, setPicModal] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
   const Navigation = useNavigation();
 
   const {isDarkMode} = useTheme();
-  const styles = getProfileStyles(isDarkMode);
+  const myWidth = useWindowDimensions().width;
+  const myHeight = useWindowDimensions().height;
+  const styles = getProfileStyles(isDarkMode, myWidth, myHeight);
 
   useEffect(() => {
     const loadProfileImage = async () => {
@@ -178,8 +184,9 @@ const Profile = () => {
       });
     }
   };
-  
-
+  const togglePicModal=()=>{
+    setPicModal(!picModal);
+  }
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -193,14 +200,14 @@ const Profile = () => {
           </View>
 
           <Animated.View style={styles.header} entering={FadeInUp.duration(800)}>
-            <TouchableOpacity onPress={toggleModal}>
+            <TouchableOpacity onPress={togglePicModal}>
               {profileImage ? (
                 <Image
                   source={{uri: profileImage}}
                   style={styles.profileImage}
                 />
               ) : (
-                <Image source={images.profile} style={styles.profileImage} />
+                <Image source={images.user} style={styles.profileImage} />
               )}
             </TouchableOpacity>
             <TouchableOpacity onPress={toggleModal} activeOpacity={0.5}>
@@ -294,16 +301,34 @@ const Profile = () => {
              toggleModal={toggleModal}
           />
           <LogoutModal
-             title = 'Remove Profile Picture?'
-             desc = 'Are you sure you want to remove profile picture?'
+             title = {strings.remove_pic_title}
+             desc = {strings.remove_pic_desc}
              onClose = {cancel}
              onConfirm={confirm}
              visible = {removeModal}
           />
+          <Modal visible={picModal}>
+             <View style={styles.picModalCont}>
+              <TouchableOpacity style={styles.picModalCross} onPress={togglePicModal}>
+              <Image source={images.close} style={[styles.icon]} />
+              </TouchableOpacity>
+              <View style={styles.picModalPhotoCont}>
+             {profileImage ? (
+                <ImageViewer 
+                imageUrls={[{url: profileImage}]} 
+                style={styles.picModalPhoto}
+                renderIndicator={() => null} 
+                backgroundColor= {colors.blackBackground} 
+                />
+              ) : (
+                <Image source={images.user} style={styles.picModalPhoto} />
+              )}
+              </View>
+             </View>
+          </Modal>
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
-
 export default Profile;

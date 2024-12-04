@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
-import {vh, vw} from '../../utils/dimensions';
+import {vh} from '../../utils/dimensions';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import axios from 'axios';
 import {strings} from '../../utils/strings';
@@ -17,6 +17,7 @@ import ResultList from '../../components/resultList';
 import {useTheme} from '../../utils/ThemeContext';
 import {getSearchedPageStyles} from './styles';
 import {keyAPI} from '../../utils/newsKeyAPI';
+import { useNavigation } from '@react-navigation/native';
 
 const SearchPage = () => {
   const [result, setResult] = useState('');
@@ -26,6 +27,8 @@ const SearchPage = () => {
   const {top: safeTop} = useSafeAreaInsets();
   const {isDarkMode} = useTheme();
   const styles = getSearchedPageStyles(isDarkMode, disable);
+  const Navigation = useNavigation();
+  const textInputRef = useRef<TextInput>(null); 
   const getSearchedNews = async (query: string = '') => {
     try {
       setIsLoading(true);
@@ -45,12 +48,13 @@ const SearchPage = () => {
     }
   };
   const goback = () => {
-    // Navigation.goBack();
-    setResult('');
+    Navigation.goBack();
   };
   const clear = () =>{
-    setSearch('')
+    setSearch('');
+    setResult('');
   }
+
   return (
     <View style={[styles.container, {paddingTop: safeTop + vh(20)}]}>
       <View style={styles.searchCont}>
@@ -59,6 +63,8 @@ const SearchPage = () => {
             <Image source={images.backBlack} style={styles.logo} />
           </TouchableOpacity>
           <TextInput
+            autoFocus={true}
+            ref={textInputRef}
             placeholder="Search"
             placeholderTextColor={colors.darkgray}
             autoCapitalize="none"
@@ -66,7 +72,7 @@ const SearchPage = () => {
             returnKeyType="go"
             value={search}
             onChangeText={txt => {
-              setSearch(txt), setDisable(txt.length === 0);
+              setSearch(txt), setDisable(txt.trim().length === 0);
             }}
             onSubmitEditing={() => {
               if (!disable) {

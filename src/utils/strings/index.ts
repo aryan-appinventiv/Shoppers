@@ -94,4 +94,6 @@ export const strings = {
     no_news_to_show : 'No news to show.',
     title_logout : 'Are you sure you want to logout?',
     desc_logout: 'You will be redirected to the Signin screen.',
+    remove_pic_title : 'Remove Profile Picture?',
+    remove_pic_desc : 'Are you sure you want to remove profile picture?',
 }

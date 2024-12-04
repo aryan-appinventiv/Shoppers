@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import SearchBar from '../../components/searchBar'
@@ -76,7 +76,7 @@ const Discover = ({navigation}:any) => {
   
 
   return (
-    <View style={[styles.container,{paddingTop: safeTop+vh(10), backgroundColor: isDarkMode? colors.black: colors.white}]}>
+    <ScrollView style={[styles.container,{paddingTop: safeTop+vh(10), backgroundColor: isDarkMode? colors.black: colors.white}]} showsVerticalScrollIndicator={false}>
       <SearchBar/>
       <Text style={[styles.title,{color: isDarkMode? colors.white : colors.black}]}>{strings.categories}</Text>
       <View style={styles.listContainer}>
@@ -96,7 +96,7 @@ const Discover = ({navigation}:any) => {
       <Button onPress={search} title={strings.search}/>
       </View>
 
-    </View>
+    </ScrollView>
   )
 }
 

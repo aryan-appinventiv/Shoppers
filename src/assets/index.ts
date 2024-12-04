@@ -31,4 +31,5 @@ export const images = {
     camera: require('./images/camera.png'),
     gallery: require('./images/gallery.png'),
     close : require('./images/close.png'),
+    people: require('./images/people.png'),
 }

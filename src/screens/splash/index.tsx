@@ -5,9 +5,11 @@ import { images } from '../../assets';
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import styles from './styles';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigators';
 
 const Splash = () => {
-  const navigation = useNavigation();
+  const Navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -16,20 +18,20 @@ const Splash = () => {
           const providerId = user.providerData[0]?.providerId;
 
           if (providerId === 'password' && !user.emailVerified) {
-            navigation.reset({
+            Navigation.reset({
               index: 0,
               routes: [{ name: 'Tutorial' }]
             });
           } else {
             console.log('User is already logged in');
-            navigation.reset({
+            Navigation.reset({
               index: 0,
               routes: [{ name: 'BottomTabNavigator' }] 
             });
           }
         } else {
          
-          navigation.reset({
+          Navigation.reset({
             index: 0,
             routes: [{ name: 'Tutorial' }]
           });
@@ -38,7 +40,7 @@ const Splash = () => {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [navigation]);
+  }, [Navigation]);
 
   return (
     <View style={styles.container}>

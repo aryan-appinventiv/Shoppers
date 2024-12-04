@@ -1,5 +1,6 @@
 import {
   Image,
+  ScrollView,
   Switch,
   Text,
   TouchableOpacity,
@@ -16,12 +17,14 @@ import {colors} from '../../utils/colors';
 import {useTheme} from '../../utils/ThemeContext';
 import styles from './styles';
 import { strings } from '../../utils/strings';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigators';
 
 const Settings = () => {
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
   const {isDarkMode, toggleTheme} = useTheme();
 
-  const Navigation = useNavigation();
+  const Navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Profile'>>();
 
   const gotoAbout = () => {
     Navigation.navigate('Profile');
@@ -74,7 +77,7 @@ const Settings = () => {
     {id: 6, name: 'Logout', img: images.logout, go: gotoLogout},
   ];
   return (
-    <View
+    <ScrollView
       style={[
         styles.container,
         {backgroundColor: isDarkMode ? colors.black : colors.white},
@@ -111,7 +114,7 @@ const Settings = () => {
         title={strings.title_logout}
         desc={strings.desc_logout}
       />
-    </View>
+    </ScrollView>
   );
 };
 

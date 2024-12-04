@@ -15,6 +15,8 @@ import {
   import Button from '../../components/button';
   import Toast from 'react-native-simple-toast';
   import styles from './styles';
+  import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+  import { RootStackParamList } from '../../navigators';
 
   const Signin = () => {
     const [email, setEmail] = useState('');
@@ -23,7 +25,7 @@ import {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const Navigation = useNavigation();
+    const Navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Signin'>>();
     const validateLogin = () =>{
        let flag = true;
        if(password.trim().length<6){

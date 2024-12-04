@@ -17,6 +17,7 @@ export const getDetailStyles = (isDarkMode: string) =>{
           height: vh(200),
           borderRadius: vw(10),
           marginVertical: vh(20),
+          resizeMode:'contain',
         },
         title: {
           fontSize: vw(20),
