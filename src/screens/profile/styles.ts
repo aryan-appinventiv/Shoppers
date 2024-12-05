@@ -130,8 +130,8 @@ export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: 
             marginHorizontal: vw(20), 
             marginVertical: Platform.OS==="ios"? vh(50): vh(20), 
             backgroundColor:colors.borderClr, 
-            padding: vw(5), 
-            borderRadius: vw(20)
+            padding: vh(5), 
+            borderRadius: vh(20)
           },
           picModalPhotoCont : {
             alignItems:'center', 

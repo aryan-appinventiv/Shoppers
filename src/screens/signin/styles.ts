@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from "react-native";
 import { colors } from "../../utils/colors";
-import { vh } from "../../utils/dimensions";
+import { vh, vw } from "../../utils/dimensions";
 
 const styles = StyleSheet.create({
     Container: {
@@ -10,41 +10,40 @@ const styles = StyleSheet.create({
 
     secondCont: {
       flex: 2,
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      paddingVertical: 50,
-      paddingHorizontal: 20,
+      paddingVertical: vh(50),
+      paddingHorizontal: vw(20),
     },
     inputBox: {
       width: '100%',
-      borderRadius: 5,
-      marginVertical: 10,
+      borderRadius: vw(5),
+      marginVertical: vh(10),
       borderBottomWidth: 1,
-      paddingVertical: Platform.OS === 'ios' ? 10 : 0,
-      paddingHorizontal: 10,
+      paddingVertical: Platform.OS === 'ios' ? vh(10) : 0,
+      paddingHorizontal: vw(10),
       backgroundColor: colors.white,
       borderColor: colors.lightgray,
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
+      gap: vw(10),
     },
   
     heading: {
       color: colors.primary,
-      fontSize: 25,
+      fontSize: vw(25),
       fontWeight: '700',
       letterSpacing: 1.8,
-      lineHeight: 25,
-      marginBottom: 50,
+      lineHeight: vw(25),
+      marginBottom: vh(30),
+      paddingHorizontal: vw(10),
     },
   
     icon: {
-      height: 20,
-      width: 20,
+      height: vh(20),
+      width: vh(20),
     },
     textInput: {
       flex: 1,
-      paddingRight: 25,
+      paddingRight: vw(25),
     },
     forgotCont:{
       alignSelf:'flex-end',
@@ -55,8 +54,10 @@ const styles = StyleSheet.create({
     error:{
       color: colors.red,
       marginBottom: vh(10),
+    },
+    keyboardAvoiding:{
+      flex: 1,
     }
-   
   });
 
   export default styles;

@@ -7,14 +7,14 @@ const styles = StyleSheet.create({
     },
     title:{
       paddingHorizontal: vw(15),
-      fontSize: vw(18),
+      fontSize: vh(18),
       fontWeight: '600',
-      marginVertical: vh(10),
+      marginVertical: vh(15),
     },
     listContainer:{
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: vw(16),
+      gap: vh(16),
       paddingHorizontal: vw(15),
       marginBottom: vh(20),
     },

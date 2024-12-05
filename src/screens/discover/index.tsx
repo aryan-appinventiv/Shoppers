@@ -82,7 +82,7 @@ const Discover = ({navigation}: any) => {
       style={[
         styles.container,
         {
-          paddingTop: safeTop + vh(10),
+          paddingTop: safeTop + vh(15),
           backgroundColor: isDarkMode ? colors.black : colors.white,
         },
       ]}

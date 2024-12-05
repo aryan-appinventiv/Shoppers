@@ -1,7 +1,7 @@
 import {Image, ScrollView, Switch, Text, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {images} from '../../assets';
-import {vw} from '../../utils/dimensions';
+import {vh, vw} from '../../utils/dimensions';
 import {useNavigation} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import LogoutModal from '../../components/logoutModal';
@@ -119,7 +119,7 @@ const Settings = () => {
                 ios_backgroundColor={colors.ios_bg}
                 onValueChange={toggleTheme}
                 value={isDarkMode}
-                style={{transform: [{scale: 0.8}], marginRight: -vw(10)}}
+                style={{transform: [{scale: vh(0.8)}], marginRight: -vw(10)}}
               />
             )}
           </TouchableOpacity>

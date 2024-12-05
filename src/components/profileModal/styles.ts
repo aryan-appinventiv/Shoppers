@@ -19,7 +19,6 @@ export const getProfileModalStyles = (isDarkMode: boolean)=>{
             paddingVertical: vw(15),
             flexDirection: 'row',
             gap: vw(20),
-            //justifyContent: 'center',
             paddingHorizontal: vw(20),
           },
           modalButtonText: {

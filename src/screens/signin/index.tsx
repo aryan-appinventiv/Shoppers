@@ -1,12 +1,17 @@
+import React, {useState} from 'react';
 import {
   Alert,
   Image,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {images} from '../../assets';
 import {colors} from '../../utils/colors';
@@ -28,6 +33,7 @@ const Signin = () => {
 
   const Navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Signin'>>();
+
   const validateLogin = () => {
     let flag = true;
     if (password.trim().length < 6) {
@@ -80,6 +86,7 @@ const Signin = () => {
         });
       });
   };
+
   const goBack = () => {
     Navigation.goBack();
   };
@@ -89,60 +96,68 @@ const Signin = () => {
   };
 
   return (
-    <View style={styles.Container}>
-      <Header onPress={goBack} />
-      <View style={styles.secondCont}>
-        <Text style={styles.heading}>{strings.login}</Text>
+    <KeyboardAvoidingView
+      style={styles.keyboardAvoiding}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.Container}>
+          <Header onPress={goBack} />
+          <ScrollView
+            style={styles.secondCont}
+            showsVerticalScrollIndicator={false}>
+            <Text style={styles.heading}>{strings.login}</Text>
 
-        <View style={styles.inputBox}>
-          <Image source={images.mail} style={styles.icon} />
-          <TextInput
-            value={email}
-            onChangeText={text => {
-              setEmail(text);
-              setEmailError('');
-            }}
-            placeholder={strings.email_address}
-            autoCapitalize="none"
-            style={styles.textInput}
-          />
+            <View style={styles.inputBox}>
+              <Image source={images.mail} style={styles.icon} />
+              <TextInput
+                value={email}
+                onChangeText={text => {
+                  setEmail(text);
+                  setEmailError('');
+                }}
+                placeholder={strings.email_address}
+                autoCapitalize="none"
+                style={styles.textInput}
+              />
+            </View>
+            {emailError && emailError.length > 0 && (
+              <Text style={styles.error}>{emailError}</Text>
+            )}
+
+            <View style={styles.inputBox}>
+              <Image source={images.password} style={styles.icon} />
+              <TextInput
+                value={password}
+                onChangeText={text => {
+                  setPassword(text);
+                  setPasswordError('');
+                }}
+                placeholder={strings.password}
+                autoCapitalize="none"
+                secureTextEntry={!passwordVisible}
+                style={styles.textInput}
+              />
+              <TouchableOpacity
+                onPress={() => setPasswordVisible(!passwordVisible)}>
+                <Image
+                  source={passwordVisible ? images.hide : images.view}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            </View>
+            {passwordError && passwordError.length > 0 && (
+              <Text style={styles.error}>{passwordError}</Text>
+            )}
+
+            <Button onPress={validateLogin} title={'Login'} />
+
+            <TouchableOpacity style={styles.forgotCont} onPress={gotoForgot}>
+              <Text style={styles.forgotText}>{strings.forgot_pass}</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
-        {emailError && emailError.length > 0 && (
-          <Text style={styles.error}>{emailError}</Text>
-        )}
-
-        <View style={styles.inputBox}>
-          <Image source={images.password} style={styles.icon} />
-          <TextInput
-            value={password}
-            onChangeText={text => {
-              setPassword(text);
-              setPasswordError('');
-            }}
-            placeholder={strings.password}
-            autoCapitalize="none"
-            secureTextEntry={!passwordVisible}
-            style={styles.textInput}
-          />
-          <TouchableOpacity
-            onPress={() => setPasswordVisible(!passwordVisible)}>
-            <Image
-              source={passwordVisible ? images.hide : images.view}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        </View>
-        {passwordError && passwordError.length > 0 && (
-          <Text style={styles.error}>{passwordError}</Text>
-        )}
-
-        <Button onPress={validateLogin} title={'Login'} />
-
-        <TouchableOpacity style={styles.forgotCont} onPress={gotoForgot}>
-          <Text style={styles.forgotText}>{strings.forgot_pass}</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

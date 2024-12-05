@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
       fontSize: vw(25),
       fontWeight: '700',
       letterSpacing: 1.8,
-      lineHeight: vh(25),
+      lineHeight: vw(25),
       marginBottom: vh(15),
+      paddingHorizontal: vw(10),
     },
     icon: {
       height: vw(20),

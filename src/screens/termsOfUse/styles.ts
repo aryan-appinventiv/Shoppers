@@ -1,34 +1,35 @@
 import {StyleSheet} from 'react-native';
 import {colors} from '../../utils/colors';
+import { vh, vw } from '../../utils/dimensions';
 
 export const getTermsStyles = (isDarkMode: string) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      padding: 20,
+      padding: vh(20),
       backgroundColor: isDarkMode ? colors.black : colors.white,
     },
     title: {
-      fontSize: 24,
+      fontSize: vh(28),
       fontWeight: 'bold',
-      marginBottom: 10,
+      marginBottom: vh(10),
       color: isDarkMode ? colors.redTitle : colors.primary,
     },
     date: {
-      fontSize: 16,
+      fontSize: vh(16),
       color: colors.gray,
-      marginBottom: 20,
+      marginBottom: vh(20),
     },
     sectionTitle: {
-      fontSize: 18,
+      fontSize: vw(18),
       fontWeight: 'bold',
-      marginTop: 15,
-      marginBottom: 5,
+      marginTop: vh(15),
+      marginBottom: vh(5),
       color: isDarkMode ? colors.white : colors.black,
     },
     sectionText: {
-      fontSize: 14,
-      lineHeight: 20,
+      fontSize: vw(14),
+      lineHeight: vw(20),
       color: isDarkMode ? colors.lightgray : colors.desc,
     },
   });

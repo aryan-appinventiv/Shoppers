@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, RefreshControl} from 'react-native';
 import AppHeader from '../../components/appHeader';
 import SearchBar from '../../components/searchBar';
 import axios from 'axios';
@@ -17,24 +17,30 @@ const Home = () => {
   const [breakingNews, setBreakingNews] = useState([]);
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    getBreakingNews();
-    getNews();
+    fetchAllData();
   }, []);
 
   const {isDarkMode} = useTheme();
+
+  const fetchAllData = async () => {
+    setIsLoading(true);
+    await getBreakingNews();
+    await getNews();
+    setIsLoading(false);
+  };
+
   const getBreakingNews = async () => {
     try {
       const URL = `https://newsdata.io/api/1/news?apikey=${keyAPI}&country=in&language=en&image=1&removeduplicate=1&size=5`;
       const response = await axios.get(URL);
       if (response && response.data) {
-        setIsLoading(false);
         setBreakingNews(response.data.results);
       }
     } catch (err) {
       console.log(strings.error, err);
-      setIsLoading(true);
     }
   };
 
@@ -60,6 +66,12 @@ const Home = () => {
     getNews(category);
   };
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchAllData();
+    setRefreshing(false);
+  };
+
   return (
     <ScrollView
       style={[
@@ -67,11 +79,17 @@ const Home = () => {
         {backgroundColor: isDarkMode ? colors.black : colors.white},
       ]}
       showsVerticalScrollIndicator={false}
-      bounces={false}>
+      //bounces={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor={isDarkMode ? colors.white : colors.black}
+        />
+      }>
       <AppHeader />
       <SearchBar />
       {isLoading ? <Loading /> : <BreakingNews newsList={breakingNews} />}
-
       <Categories onCategoryChanged={onCatChanged} />
       <NewsList newsList={news} />
     </ScrollView>
@@ -79,3 +97,4 @@ const Home = () => {
 };
 
 export default Home;
+
