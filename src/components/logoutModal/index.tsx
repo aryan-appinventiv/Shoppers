@@ -7,25 +7,64 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { colors } from '../../utils/colors';
-import { useTheme } from '../../utils/ThemeContext'
+import { useTheme } from '../../utils/ThemeContext';
 
-const LogoutModal = ({visible, onClose, onConfirm, title, desc}:{visible: boolean, onClose:()=>void, onConfirm: ()=>void, title: string, desc: string}) => {
-  const {isDarkMode} = useTheme();
+interface LogoutModalProps{
+  visible: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title: string;
+  desc: string;
+}
+
+const LogoutModal: React.FC<LogoutModalProps> = ({
+  visible,
+  onClose,
+  onConfirm,
+  title,
+  desc,
+}) => {
+  const { isDarkMode } = useTheme();
+
   return (
     <Modal
       transparent
       visible={visible}
       animationType="fade"
-      onRequestClose={onClose}>
+      onRequestClose={onClose}
+    >
       <View style={styles.modalOverlay}>
-        <View style={[styles.modalContent,{backgroundColor: isDarkMode? colors.darkgray : colors.white}]}>
+        <View
+          style={[
+            styles.modalContent,
+            { backgroundColor: isDarkMode ? colors.darkgray : colors.white },
+          ]}
+        >
           <Text style={styles.modalTitle}>{title}</Text>
-          <Text style={[styles.modalSubtitle,{color: isDarkMode? colors.white : colors.black}]}>
+          <Text
+            style={[
+              styles.modalSubtitle,
+              { color: isDarkMode ? colors.white : colors.black },
+            ]}
+          >
             {desc}
           </Text>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={onClose} style={[styles.cancelButton, {backgroundColor: isDarkMode? colors.black : colors.borderClr}]}>
-              <Text style={[styles.buttonText,{color: isDarkMode? colors.white : colors.black}]}>Cancel</Text>
+            <TouchableOpacity
+              onPress={onClose}
+              style={[
+                styles.cancelButton,
+                { backgroundColor: isDarkMode ? colors.black : colors.borderClr },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.buttonText,
+                  { color: isDarkMode ? colors.white : colors.black },
+                ]}
+              >
+                Cancel
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onConfirm} style={styles.okButton}>
               <Text style={styles.buttonText}>OK</Text>
@@ -38,5 +77,3 @@ const LogoutModal = ({visible, onClose, onConfirm, title, desc}:{visible: boolea
 };
 
 export default LogoutModal;
-
-

@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Modal,
-  useWindowDimensions
+  useWindowDimensions,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -23,7 +23,7 @@ import Toast from 'react-native-simple-toast';
 import {strings} from '../../utils/strings';
 import {getProfileStyles} from './styles';
 import {useTheme} from '../../utils/ThemeContext';
-import Animated, { FadeInUp } from 'react-native-reanimated';
+import Animated, {FadeInUp} from 'react-native-reanimated';
 import LogoutModal from '../../components/logoutModal';
 import ProfileModal from '../../components/profileModal';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -163,30 +163,30 @@ const Profile = () => {
         });
     }
   };
-  const removeImg = () =>{
+  const removeImg = () => {
     setRemoveModal(true);
-  }
-  const cancel = () =>{
+  };
+  const cancel = () => {
     setRemoveModal(false);
-  }
+  };
   const confirm = async () => {
     try {
-      await removeProfileImage(); 
-      setProfileImage(null); 
-      setRemoveModal(false); 
-      Toast.show("Profile Image removed successfully", Toast.SHORT, {
+      await removeProfileImage();
+      setProfileImage(null);
+      setRemoveModal(false);
+      Toast.show('Profile Image removed successfully', Toast.SHORT, {
         backgroundColor: colors.green,
       });
     } catch (error) {
       console.error('Failed to remove profile image', error);
-      Toast.show("Error removing profile image", Toast.SHORT, {
+      Toast.show('Error removing profile image', Toast.SHORT, {
         backgroundColor: colors.red,
       });
     }
   };
-  const togglePicModal=()=>{
+  const togglePicModal = () => {
     setPicModal(!picModal);
-  }
+  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -199,7 +199,9 @@ const Profile = () => {
             </TouchableOpacity>
           </View>
 
-          <Animated.View style={styles.header} entering={FadeInUp.duration(800)}>
+          <Animated.View
+            style={styles.header}
+            entering={FadeInUp.duration(800)}>
             <TouchableOpacity onPress={togglePicModal}>
               {profileImage ? (
                 <Image
@@ -211,9 +213,7 @@ const Profile = () => {
               )}
             </TouchableOpacity>
             <TouchableOpacity onPress={toggleModal} activeOpacity={0.5}>
-            <Text style={styles.changeImg}>
-              {strings.change_profile_pic}
-            </Text>
+              <Text style={styles.changeImg}>{strings.change_profile_pic}</Text>
             </TouchableOpacity>
           </Animated.View>
           <ScrollView style={styles.infoContainer} bounces={false}>
@@ -294,37 +294,41 @@ const Profile = () => {
             )}
           </ScrollView>
           <ProfileModal
-             modalVisible={modalVisible}
-             takePhotoFromCamera={takePhotoFromCamera}
-             choosePhotoFromLibrary={choosePhotoFromLibrary}
-             removeImg={removeImg}
-             toggleModal={toggleModal}
+            modalVisible={modalVisible}
+            takePhotoFromCamera={takePhotoFromCamera}
+            choosePhotoFromLibrary={choosePhotoFromLibrary}
+            removeImg={removeImg}
+            toggleModal={toggleModal}
           />
           <LogoutModal
-             title = {strings.remove_pic_title}
-             desc = {strings.remove_pic_desc}
-             onClose = {cancel}
-             onConfirm={confirm}
-             visible = {removeModal}
+            title={strings.remove_pic_title}
+            desc={strings.remove_pic_desc}
+            onClose={cancel}
+            onConfirm={confirm}
+            visible={removeModal}
           />
-          <Modal visible={picModal}>
-             <View style={styles.picModalCont}>
-              <TouchableOpacity style={styles.picModalCross} onPress={togglePicModal}>
-              <Image source={images.close} style={[styles.icon]} />
+          <Modal visible={picModal} onRequestClose={togglePicModal}>
+
+            <View style={styles.picModalCont}>
+              <TouchableOpacity
+                style={styles.picModalCross}
+                onPress={togglePicModal}>
+                <Image source={images.close} style={[styles.icon]} />
               </TouchableOpacity>
               <View style={styles.picModalPhotoCont}>
-             {profileImage ? (
-                <ImageViewer 
-                imageUrls={[{url: profileImage}]} 
-                style={styles.picModalPhoto}
-                renderIndicator={() => null} 
-                backgroundColor= {colors.blackBackground} 
-                />
-              ) : (
-                <Image source={images.user} style={styles.picModalPhoto} />
-              )}
+                {profileImage ? (
+                  <ImageViewer
+                    imageUrls={[{url: profileImage}]}
+                    style={styles.picModalPhoto}
+                    renderIndicator={() => null}
+                    backgroundColor={colors.blackBackground}
+                  />
+                ) : (
+                  <Image source={images.user} style={styles.picModalPhoto} />
+                )}
               </View>
-             </View>
+            </View>
+
           </Modal>
         </ScrollView>
       </TouchableWithoutFeedback>

@@ -139,8 +139,8 @@ export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: 
             flex: 1,
           },
           picModalPhoto: {
-            width: myWidth* 0.9, 
-            height: myHeight* 0.8,
+            width: myWidth, 
+            height: myHeight,
             resizeMode: 'contain',
           },
 

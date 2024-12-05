@@ -96,4 +96,20 @@ export const strings = {
     desc_logout: 'You will be redirected to the Signin screen.',
     remove_pic_title : 'Remove Profile Picture?',
     remove_pic_desc : 'Are you sure you want to remove profile picture?',
-}
+    go_to_home : 'Go to Home Screen',
+    stay_updated : 'Stay Updated!',
+    get_breaking_news : 'Get breaking news and personalized updated directly to your feed.',
+    forgot_pass : 'Forgot Password?',
+    login : 'Login',
+    password : 'Password',
+    login_pass_error : 'Please Enter Password with 6 or more characters',
+    login_email_error1 : 'Email cannot be empty',
+    login_email_error2: 'Please Enter Valid Email',
+    email_not_verified: 'Email not verified',
+    verify_email : 'Please verify your email before logging in. Check your inbox for the verification link.',
+    resend_email : 'Resend Email',
+    ok : 'OK',
+    email_pass_not_matched : 'Email or Password does not match!',
+    create_account : 'Create an Account',
+    
+}  

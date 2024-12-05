@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
       color: colors.red,
       fontSize: vw(12),
       marginBottom: vh(10),
+      textAlign: 'left',
     },
   });
   export default styles;

@@ -1,13 +1,11 @@
 import React, {useState, useCallback} from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import {View, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
-import { getSavedStyles } from './styles';
-import { useTheme } from '../../utils/ThemeContext'
+import {getSavedStyles} from './styles';
+import {useTheme} from '../../utils/ThemeContext';
 import ResultList from '../../components/resultList';
+import {strings} from '../../utils/strings';
 
 const Saved = () => {
   const [savedNews, setSavedNews] = useState([]);
@@ -34,13 +32,12 @@ const Saved = () => {
   return (
     <View style={styles.container}>
       {savedNews.length > 0 ? (
-        <ResultList data={savedNews}/>
+        <ResultList data={savedNews} />
       ) : (
-        <Text style={styles.emptyMessage}>No saved news yet.</Text>
+        <Text style={styles.emptyMessage}>{strings.no_news_to_show}</Text>
       )}
     </View>
   );
 };
 
 export default Saved;
-

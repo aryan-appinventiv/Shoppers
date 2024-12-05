@@ -1,9 +1,14 @@
-import {Text, TouchableOpacity, Image} from 'react-native';
+import { Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import styles from './styles';
 
-const LoginTouchable = ({title, img, onPress}: {title: string, img: any, onPress: () => void}) => {
-  console.log(img);
+interface LoginTouchableProps {
+  title: string;
+  img: string | any; 
+  onPress: () => void;
+}
+
+const LoginTouchable: React.FC<LoginTouchableProps> = ({ title, img, onPress }) => {
   return (
     <TouchableOpacity style={styles.touchable} onPress={onPress} activeOpacity={0.5}>
       <Image source={img} style={styles.icon} />
@@ -13,4 +18,3 @@ const LoginTouchable = ({title, img, onPress}: {title: string, img: any, onPress
 };
 
 export default LoginTouchable;
-

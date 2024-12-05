@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Button from '../../components/button';
 import {vh} from '../../utils/dimensions';
@@ -13,16 +7,16 @@ import {images} from '../../assets';
 import {colors} from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
-import { strings } from '../../utils/strings';
-import { getFeedbackStyles } from './styles';
-import { useTheme } from '../../utils/ThemeContext';
+import {strings} from '../../utils/strings';
+import {getFeedbackStyles} from './styles';
+import {useTheme} from '../../utils/ThemeContext';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const {top: safeTop} = useSafeAreaInsets();
   const Navigation = useNavigation();
-  const { isDarkMode } = useTheme(); 
+  const {isDarkMode} = useTheme();
   const styles = getFeedbackStyles(isDarkMode);
 
   const handleSubmit = () => {
@@ -53,8 +47,8 @@ const Feedback = () => {
           numberOfLines={4}
           value={feedback}
           onChangeText={setFeedback}
-          placeholder= {strings.type_your_feedback}
-          placeholderTextColor={isDarkMode? colors.gray : colors.black}
+          placeholder={strings.type_your_feedback}
+          placeholderTextColor={isDarkMode ? colors.gray : colors.black}
         />
         {feedback.trim().length > 0 && (
           <Button title={strings.submit_feedback} onPress={handleSubmit} />
@@ -64,4 +58,3 @@ const Feedback = () => {
   );
 };
 export default Feedback;
-

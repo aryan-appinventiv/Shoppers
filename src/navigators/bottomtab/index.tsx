@@ -1,18 +1,24 @@
 import React from 'react';
-import {Image, Platform, StyleSheet, View, Text} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { Image, Platform, StyleSheet, View, Text, ImageSourcePropType } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../../screens/home';
 import Discover from '../../screens/discover';
 import Saved from '../../screens/saved';
 import Settings from '../../screens/settings';
-import {images} from '../../assets';
-import {colors} from '../../utils/colors';
-import {vh, vw} from '../../utils/dimensions';
-import {useTheme} from '../../utils/ThemeContext';
+import { images } from '../../assets';
+import { colors } from '../../utils/colors';
+import { vh, vw } from '../../utils/dimensions';
+import { useTheme } from '../../utils/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 
-const TabIcon = ({focused, source, activeSource}) => {
+interface TabIconProps {
+  focused: boolean;
+  source: ImageSourcePropType;
+  activeSource: ImageSourcePropType;
+}
+
+const TabIcon: React.FC<TabIconProps> = ({ focused, source, activeSource }) => {
   return (
     <View style={styles.tabbarView}>
       <Image
@@ -24,25 +30,26 @@ const TabIcon = ({focused, source, activeSource}) => {
         }}
         resizeMode="contain"
       />
-      {focused ? <View style={styles.line} /> : null}
+      {focused && <View style={styles.line} />}
     </View>
   );
 };
 
-const BottomTabNavigator = () => {
-  const {isDarkMode} = useTheme();
+const BottomTabNavigator: React.FC = () => {
+  const { isDarkMode } = useTheme();
+
   return (
     <Tab.Navigator
-      screenOptions={({route}) => ({
+      screenOptions={({ route }) => ({
         tabBarStyle: {
-          backgroundColor: isDarkMode? colors.blackBackground : colors.white,
+          backgroundColor: isDarkMode ? colors.blackBackground : colors.white,
           height: Platform.OS === 'ios' ? vh(70) : vh(60),
           paddingTop: vh(10),
         },
         tabBarShowLabel: false,
-        tabBarIcon: ({focused}) => {
-          let source;
-          let activeSource;
+        tabBarIcon: ({ focused }) => {
+          let source: ImageSourcePropType | undefined;
+          let activeSource: ImageSourcePropType | undefined;
 
           if (route.name === 'Home') {
             source = images.home;
@@ -58,27 +65,20 @@ const BottomTabNavigator = () => {
             activeSource = images.settings1;
           }
 
-          return (
-            <TabIcon
-              focused={focused}
-              source={source}
-              activeSource={activeSource}
-            />
-          );
+          return source && activeSource ? (
+            <TabIcon focused={focused} source={source} activeSource={activeSource} />
+          ) : null;
         },
-      })}>
-      <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
-      <Tab.Screen
-        name="Discover"
-        component={Discover}
-        options={{headerShown: false}}
-      />
+      })}
+    >
+      <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Tab.Screen name="Discover" component={Discover} options={{ headerShown: false }} />
       <Tab.Screen
         name="Saved"
         component={Saved}
         options={{
           headerShown: true,
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerTitleStyle: {
             color: colors.white,
             fontWeight: 'bold',
@@ -91,7 +91,7 @@ const BottomTabNavigator = () => {
         component={Settings}
         options={{
           headerShown: true,
-          headerStyle: {backgroundColor: colors.primary},
+          headerStyle: { backgroundColor: colors.primary },
           headerTitleStyle: {
             color: colors.white,
             fontWeight: 'bold',

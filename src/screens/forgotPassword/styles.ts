@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     inputBox: {
         width: '100%',
         borderRadius: 5,
-        marginVertical: 30,
+        marginTop: 30,
+        marginBottom: 10,
         borderBottomWidth: 1,
         paddingVertical: Platform.OS === 'ios' ? 10 : 0,
         paddingHorizontal: 10,
@@ -59,5 +60,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
     },
+    error:{
+        color: colors.red,
+        alignSelf: 'flex-start'
+    }
 });
 export default styles;

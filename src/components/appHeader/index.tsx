@@ -6,8 +6,8 @@ import auth from '@react-native-firebase/auth';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useTheme} from '../../utils/ThemeContext';
 import {getHeaderStyle} from './styles';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigators';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../navigators';
 
 const AppHeader: React.FC = () => {
   const [username, setUsername] = useState<string>('');
@@ -34,7 +34,8 @@ const AppHeader: React.FC = () => {
       fetchUserData();
     }, []),
   );
-  const Navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const Navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const {isDarkMode} = useTheme();
   const styles = getHeaderStyle(isDarkMode);
   const gotoProfile = () => {

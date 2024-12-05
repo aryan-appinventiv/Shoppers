@@ -23,7 +23,7 @@ const RegisterWithEmail = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [errors, setErrors] = useState({}); 
+  const [errors, setErrors] = useState({});
 
   const Navigation = useNavigation();
 
@@ -58,7 +58,7 @@ const RegisterWithEmail = () => {
   };
 
   const onRegister = () => {
-    if (!validateInputs()) return; 
+    if (!validateInputs()) return;
 
     auth()
       .createUserWithEmailAndPassword(email, password)
@@ -69,7 +69,7 @@ const RegisterWithEmail = () => {
             displayName: name,
           })
           .then(() => {
-            console.log('User account created and name updated');
+            //console.log('User account created and name updated');
             user
               .sendEmailVerification()
               .then(() => {
@@ -123,85 +123,85 @@ const RegisterWithEmail = () => {
   };
 
   return (
-      <View style={styles.Container}>
-        <Header onPress={goBack} />
-        <ScrollView style={styles.secondCont} showsVerticalScrollIndicator={false}>
-          <Text style={styles.heading}>Create an Account</Text>
+    <View style={styles.Container}>
+      <Header onPress={goBack} />
+      <ScrollView
+        style={styles.secondCont}
+        showsVerticalScrollIndicator={false}>
+        <Text style={styles.heading}>Create an Account</Text>
 
-          <View style={styles.inputBox}>
-            <Image source={images.people} style={styles.icon} />
-            <TextInput
-              value={name}
-              onChangeText={text => setName(text)}
-              placeholder="Username"
-              autoCapitalize="none"
-              style={styles.textInput}
+        <View style={styles.inputBox}>
+          <Image source={images.people} style={styles.icon} />
+          <TextInput
+            value={name}
+            onChangeText={text => {
+              setName(text);
+            }}
+            placeholder="Username"
+            autoCapitalize="none"
+            style={styles.textInput}
+          />
+        </View>
+        {errors.name && <Text style={styles.error}>{errors.name}</Text>}
+
+        <View style={styles.inputBox}>
+          <Image source={images.mail} style={styles.icon} />
+          <TextInput
+            value={email}
+            onChangeText={text => setEmail(text)}
+            placeholder="Email Address"
+            autoCapitalize="none"
+            style={styles.textInput}
+          />
+        </View>
+        {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+
+        <View style={styles.inputBox}>
+          <Image source={images.password} style={styles.icon} />
+          <TextInput
+            value={password}
+            onChangeText={text => setPassword(text)}
+            placeholder="Password"
+            autoCapitalize="none"
+            secureTextEntry={!passwordVisible}
+            style={styles.textInput}
+          />
+          <TouchableOpacity
+            onPress={() => setPasswordVisible(!passwordVisible)}>
+            <Image
+              source={passwordVisible ? images.hide : images.view}
+              style={styles.icon}
             />
-          </View>
-          {errors.name && <Text style={styles.error}>{errors.name}</Text>}
+          </TouchableOpacity>
+        </View>
+        {errors.password && <Text style={styles.error}>{errors.password}</Text>}
 
-          <View style={styles.inputBox}>
-            <Image source={images.mail} style={styles.icon} />
-            <TextInput
-              value={email}
-              onChangeText={text => setEmail(text)}
-              placeholder="Email Address"
-              autoCapitalize="none"
-              style={styles.textInput}
+        <View style={styles.inputBox}>
+          <Image source={images.password} style={styles.icon} />
+          <TextInput
+            value={confirmPassword}
+            onChangeText={text => setConfirmPassword(text)}
+            placeholder="Confirm Password"
+            autoCapitalize="none"
+            secureTextEntry={!confirmPasswordVisible}
+            style={styles.textInput}
+          />
+          <TouchableOpacity
+            onPress={() => setConfirmPasswordVisible(!confirmPasswordVisible)}>
+            <Image
+              source={confirmPasswordVisible ? images.hide : images.view}
+              style={styles.icon}
             />
-          </View>
-          {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+          </TouchableOpacity>
+        </View>
+        {errors.confirmPassword && (
+          <Text style={styles.error}>{errors.confirmPassword}</Text>
+        )}
 
-          <View style={styles.inputBox}>
-            <Image source={images.password} style={styles.icon} />
-            <TextInput
-              value={password}
-              onChangeText={text => setPassword(text)}
-              placeholder="Password"
-              autoCapitalize="none"
-              secureTextEntry={!passwordVisible}
-              style={styles.textInput}
-            />
-            <TouchableOpacity
-              onPress={() => setPasswordVisible(!passwordVisible)}>
-              <Image
-                source={passwordVisible ? images.hide : images.view}
-                style={styles.icon}
-              />
-            </TouchableOpacity>
-          </View>
-          {errors.password && <Text style={styles.error}>{errors.password}</Text>}
-
-          <View style={styles.inputBox}>
-            <Image source={images.password} style={styles.icon} />
-            <TextInput
-              value={confirmPassword}
-              onChangeText={text => setConfirmPassword(text)}
-              placeholder="Confirm Password"
-              autoCapitalize="none"
-              secureTextEntry={!confirmPasswordVisible}
-              style={styles.textInput}
-            />
-            <TouchableOpacity
-              onPress={() =>
-                setConfirmPasswordVisible(!confirmPasswordVisible)
-              }>
-              <Image
-                source={confirmPasswordVisible ? images.hide : images.view}
-                style={styles.icon}
-              />
-            </TouchableOpacity>
-          </View>
-          {errors.confirmPassword && (
-            <Text style={styles.error}>{errors.confirmPassword}</Text>
-          )}
-
-          <Button onPress={onRegister} title={'Register'} />
-        </ScrollView>
-      </View>
-   // </KeyboardAvoidingView>
+        <Button onPress={onRegister} title={'Register'} />
+      </ScrollView>
+    </View>
   );
 };
 
 export default RegisterWithEmail;
-

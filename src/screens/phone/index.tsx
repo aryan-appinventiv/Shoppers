@@ -1,9 +1,4 @@
-import {
-  Image,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Image, Text, TextInput, View} from 'react-native';
 import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {images} from '../../assets';
@@ -12,6 +7,7 @@ import OTP from '../OTP';
 import Header from '../../components/header';
 import Button from '../../components/button';
 import styles from './styles';
+import {strings} from '../../utils/strings';
 
 const Phone = () => {
   const [confirm, setConfirm] = useState(null);
@@ -30,7 +26,6 @@ const Phone = () => {
     }
   }
 
- 
   const goBack = () => {
     Navigation.goBack();
   };
@@ -40,25 +35,25 @@ const Phone = () => {
     <View style={styles.Container}>
       <Header onPress={goBack} />
       <View style={styles.secondCont}>
-        <Text style={styles.heading}>Create an Account</Text>
+        <Text style={styles.heading}>{strings.create_account}</Text>
         {confirm ? (
           <OTP confirm={confirm} />
         ) : (
           <>
-          <View style={styles.inputBox}>
-            <Image source={images.otp} style={styles.icon} />
-            <TextInput
-              value={number}
-              onChangeText={text => setNumber(text)}
-              placeholder="Phone Number"
-              autoCapitalize="none"
-              style={styles.textInput}
-              keyboardType="decimal-pad"
-            />
-          </View>
-  
-        <Button onPress={onSubmit} title={"Send OTP"}/>
-        </>
+            <View style={styles.inputBox}>
+              <Image source={images.otp} style={styles.icon} />
+              <TextInput
+                value={number}
+                onChangeText={text => setNumber(text)}
+                placeholder="Phone Number"
+                autoCapitalize="none"
+                style={styles.textInput}
+                keyboardType="decimal-pad"
+              />
+            </View>
+
+            <Button onPress={onSubmit} title={strings.send_OTP} />
+          </>
         )}
       </View>
     </View>
@@ -66,4 +61,3 @@ const Phone = () => {
 };
 
 export default Phone;
-
