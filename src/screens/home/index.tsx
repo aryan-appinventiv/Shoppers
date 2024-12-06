@@ -79,7 +79,6 @@ const Home = () => {
         {backgroundColor: isDarkMode ? colors.black : colors.white},
       ]}
       showsVerticalScrollIndicator={false}
-      //bounces={false}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}

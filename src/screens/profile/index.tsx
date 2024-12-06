@@ -310,11 +310,14 @@ const Profile = () => {
           <Modal visible={picModal} onRequestClose={togglePicModal}>
 
             <View style={styles.picModalCont}>
+              <View style={styles.crossCont}>
               <TouchableOpacity
+                onPress={togglePicModal}
                 style={styles.picModalCross}
-                onPress={togglePicModal}>
-                <Image source={images.close} style={[styles.icon]} />
+              >
+                <Image source={images.close} style={styles.icon} />
               </TouchableOpacity>
+              </View>
               <View style={styles.picModalPhotoCont}>
                 {profileImage ? (
                   <ImageViewer

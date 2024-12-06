@@ -12,6 +12,7 @@ import styles from './styles';
 import {strings} from '../../utils/strings';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../navigators';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Settings = () => {
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
@@ -45,6 +46,7 @@ const Settings = () => {
         Toast.show('User Signed out', Toast.SHORT, {
           backgroundColor: colors.primary,
         });
+        AsyncStorage.removeItem('profileImage');
         Navigation.reset({
           index: 0,
           routes: [{name: 'Signin'}],

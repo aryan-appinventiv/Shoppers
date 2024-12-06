@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors } from "../../utils/colors";
 import { vh, vw } from "../../utils/dimensions";
 
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       paddingHorizontal: vw(10),
-      paddingVertical: Platform.OS === 'ios' ? vh(10) : vh(6),
+      paddingVertical: vh(10),
       borderRadius: vh(10),
       gap: vh(10),
       marginVertical: 10,

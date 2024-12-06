@@ -32,7 +32,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   const styles = getProfileModalStyles(isDarkMode);
 
   return (
-    <Modal transparent visible={modalVisible} animationType="fade">
+    <Modal transparent visible={modalVisible} animationType="fade" onRequestClose={toggleModal}>
       <TouchableWithoutFeedback onPress={toggleModal}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>

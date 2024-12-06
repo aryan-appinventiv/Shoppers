@@ -53,6 +53,7 @@ const SearchPage = () => {
   const clear = () =>{
     setSearch('');
     setResult('');
+    setDisable(true);
   }
 
   return (
@@ -71,6 +72,7 @@ const SearchPage = () => {
             style={styles.searchTxt}
             returnKeyType="go"
             value={search}
+            autoComplete='off'
             onChangeText={txt => {
               setSearch(txt), setDisable(txt.trim().length === 0);
             }}
@@ -87,7 +89,7 @@ const SearchPage = () => {
           )}
         </View>
         <TouchableOpacity
-          disabled={disable}
+          disabled={search.trim().length>0? false: true}
           style={styles.searchBtn}
           activeOpacity={0.5}
           onPress={() => getSearchedNews(search)}>

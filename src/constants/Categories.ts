@@ -2,7 +2,7 @@ const newsCategoryList= [
 {
     id: 7,
     title: 'All',
-    slug: 'all',
+    slug: '',
     selected: false,
 },    
 {

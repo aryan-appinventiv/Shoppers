@@ -126,12 +126,12 @@ export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: 
             backgroundColor:colors.blackBackground,
           },
           picModalCross : {
-            alignSelf: 'flex-start', 
-            marginHorizontal: vw(20), 
-            marginVertical: Platform.OS==="ios"? vh(50): vh(20), 
-            backgroundColor:colors.borderClr, 
-            padding: vh(5), 
-            borderRadius: vh(20)
+            backgroundColor:colors.darkgray, 
+            borderRadius: vh(20),
+            width: vw(35),
+            height: vw(35),
+            justifyContent:'center',
+            alignItems:'center',
           },
           picModalPhotoCont : {
             alignItems:'center', 
@@ -143,6 +143,10 @@ export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: 
             height: myHeight,
             resizeMode: 'contain',
           },
-
+          crossCont:{
+            alignSelf:'flex-start', 
+            marginHorizontal: vw(20), 
+            marginVertical: Platform.OS==="ios"? vh(50): vh(20), 
+          }
       });
     }      
