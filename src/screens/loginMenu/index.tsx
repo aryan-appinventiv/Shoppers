@@ -24,20 +24,20 @@ type NavigationProps = NativeStackNavigationProp<
 
 const LoginMenu = () => {
   const Navigation = useNavigation<NavigationProps>();
-  const gotoGoogle = async () => {
+  const gotoGoogle=async()=>{
     try {
       await onGoogleButtonPress();
       Toast.show(strings.signin_with_google, Toast.SHORT, {
         backgroundColor: colors.green,
       });
-      Navigation.navigate('BottomTabNavigator');
+      Navigation.navigate('BottomTabNavigator'); 
     } catch (error: any) {
       console.log(strings.google_signin_failed, error.message);
       Toast.show(strings.google_signin_failed, Toast.SHORT, {
         backgroundColor: colors.red,
       });
     }
-  };
+  }
   const gotoMail = () => {
     Navigation.navigate('RegisterWithEmail');
   };

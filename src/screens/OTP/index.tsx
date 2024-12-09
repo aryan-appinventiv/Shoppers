@@ -4,6 +4,9 @@ import { OtpInput } from "react-native-otp-entry";
 import { useNavigation } from '@react-navigation/native';
 import { strings } from '../../utils/strings';
 import styles from './styles';
+import Toast from 'react-native-simple-toast';
+import { colors } from '../../utils/colors';
+import Button from '../../components/button';
 
 const OTP = (props : any) => {
     const [code, setCode] = useState('');
@@ -12,25 +15,26 @@ const OTP = (props : any) => {
     async function confirmCode(confirm:any) {
         try {
           await confirm.confirm(code);
-          console.log(strings.log_in);
+          Toast.show(strings.log_in, Toast.SHORT, {
+            backgroundColor: colors.green,
+          });
           Navigation.reset({
             index:0,
             routes:[{name: 'BottomTabNavigator'}]
           })
 
         } catch (error) {
-          console.log(strings.invalid_code);
+          Toast.show(strings.invalid_code, Toast.LONG, {
+            backgroundColor: colors.primary,
+          });
         }
       }
 
   return (
-    <View>
+    <View style={styles.cont}>
       
        <OtpInput numberOfDigits={6} value={code} onTextChange={(text) => setCode(text)} />
-
-       <TouchableOpacity onPress={() => confirmCode(props.confirm)} style={styles.login}>
-          <Text style={styles.loginTitle}>{strings.send_OTP}</Text>
-        </TouchableOpacity>
+       <Button title={"Send OTP"} onPress={() =>  confirmCode(props.confirm)} />
     </View>
   )
 }

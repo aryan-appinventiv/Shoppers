@@ -1,4 +1,3 @@
-
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import { WEBCLIENTID } from '../../utils/webClientID';
@@ -31,12 +30,3 @@ export async function onGoogleButtonPress() {
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   }
-
-
-
-
-
-
-
-
-

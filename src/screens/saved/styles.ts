@@ -11,6 +11,7 @@ export const getSavedStyles = (isDarkMode: string) =>{
           fontSize: 16,
           textAlign: 'center',
           marginTop: 20,
+          color: isDarkMode? colors.white: colors.black,
         },
       });      
     }      
