@@ -11,6 +11,7 @@ import {
   Keyboard,
   Modal,
   useWindowDimensions,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -39,8 +40,10 @@ const Profile = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [picModal, setPicModal] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
-  const Navigation = useNavigation();
+  const [nameLoader, setNameLoader] = useState(false);
+  const [passwordLoader, setPasswordLoader] = useState(false);
 
+  const Navigation = useNavigation();
   const {isDarkMode} = useTheme();
   const myWidth = useWindowDimensions().width;
   const myHeight = useWindowDimensions().height;
@@ -122,6 +125,7 @@ const Profile = () => {
   };
 
   const updateName = () => {
+    setNameLoader(true);
     const currentUser = auth().currentUser;
     if (currentUser) {
       currentUser
@@ -134,18 +138,21 @@ const Profile = () => {
           Toast.show(strings.username_updated_successfully, Toast.SHORT, {
             backgroundColor: colors.green,
           });
+          setNameLoader(false);
         })
         .catch(error => {
           console.error(error);
           Toast.show(strings.error_updating_username, Toast.SHORT, {
             backgroundColor: colors.red,
           });
+          setNameLoader(false);
         });
     }
   };
 
   const updatePassword = () => {
     const currentUser = auth().currentUser;
+    setPasswordLoader(true);
     if (currentUser) {
       currentUser
         .updatePassword(newPassword)
@@ -154,12 +161,14 @@ const Profile = () => {
           Toast.show(strings.password_updated_successfully, Toast.SHORT, {
             backgroundColor: colors.green,
           });
+          setPasswordLoader(false);
         })
         .catch(error => {
           console.error(error);
           Toast.show(strings.error_updating_password, Toast.SHORT, {
             backgroundColor: colors.red,
           });
+          setPasswordLoader(false);
         });
     }
   };
@@ -194,7 +203,7 @@ const Profile = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView style={styles.container} bounces={false}>
           <View style={styles.backCont}>
-            <TouchableOpacity onPress={goback} style={styles.back}>
+            <TouchableOpacity onPress={goback} style={styles.back} activeOpacity={0.7}>
               <Image source={images.back} style={styles.backImg} />
             </TouchableOpacity>
           </View>
@@ -220,6 +229,7 @@ const Profile = () => {
             <Text style={styles.username}>{name || strings.no_username}</Text>
             <TouchableOpacity
               onPress={() => setShowName(!showName)}
+              activeOpacity={0.7}
               style={styles.changeUsername}>
               <Text style={styles.changeUsernameText}>
                 {strings.change_username}
@@ -234,15 +244,17 @@ const Profile = () => {
                   value={newName}
                   onChangeText={setNewName}
                 />
-                <TouchableOpacity
+                {nameLoader ? (<ActivityIndicator size={'large'} color={colors.primary}/>): (<TouchableOpacity
+                  activeOpacity={0.7}
                   style={[
                     styles.button,
-                    {opacity: newName.trim().length < 5 ? 0.8 : 1},
+                    {opacity: newName.trim().length < 3 ? 0.5 : 1},
                   ]}
                   onPress={updateName}
                   disabled={newName.trim().length < 5}>
                   <Text style={styles.buttonText}>{strings.change}</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>)}
+                
                 {newName.trim().length < 5 && newName.trim().length > 0 && (
                   <Text style={styles.caution}>{strings.username_caution}</Text>
                 )}
@@ -252,6 +264,7 @@ const Profile = () => {
             <Text style={styles.passwordLabel}>{strings.dummy_pass}</Text>
             <TouchableOpacity
               onPress={() => setShowPass(!showPass)}
+              activeOpacity={0.7}
               style={styles.changeUsername}>
               <Text style={styles.changeUsernameText}>
                 {strings.change_password}
@@ -264,26 +277,30 @@ const Profile = () => {
                     value={newPassword}
                     onChangeText={setNewPassword}
                     placeholder={strings.enter_new_password}
+                    placeholderTextColor={colors.gray}
                     secureTextEntry={!passwordVisible}
                     style={styles.inputStyle}
                   />
                   <TouchableOpacity
-                    onPress={() => setPasswordVisible(!passwordVisible)}>
+                    onPress={() => setPasswordVisible(!passwordVisible)}
+                    activeOpacity={0.7}
+                  >
                     <Image
                       source={passwordVisible ? images.hide : images.view}
                       style={styles.icon}
                     />
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity
+                {passwordLoader? (<ActivityIndicator size={'large'} color={colors.primary}/>): (<TouchableOpacity
                   style={[
                     styles.button,
-                    {opacity: newName.trim().length < 5 ? 0.8 : 1},
+                    {opacity: newPassword.trim().length < 5 ? 0.5 : 1},
                   ]}
                   onPress={updatePassword}
                   disabled={newPassword.trim().length < 6}>
                   <Text style={styles.buttonText}>{strings.change}</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>)}
+                
                 {newPassword.trim().length < 6 &&
                   newPassword.trim().length > 0 && (
                     <Text style={styles.caution}>
@@ -299,6 +316,7 @@ const Profile = () => {
             choosePhotoFromLibrary={choosePhotoFromLibrary}
             removeImg={removeImg}
             toggleModal={toggleModal}
+            isImgPresent = {profileImage}
           />
           <LogoutModal
             title={strings.remove_pic_title}
@@ -308,30 +326,33 @@ const Profile = () => {
             visible={removeModal}
           />
           <Modal visible={picModal} onRequestClose={togglePicModal}>
-
             <View style={styles.picModalCont}>
-              <View style={styles.crossCont}>
+              <View style={styles.firstCont}>
               <TouchableOpacity
-                onPress={togglePicModal}
-                style={styles.picModalCross}
-              >
-                <Image source={images.close} style={styles.icon} />
-              </TouchableOpacity>
+                  onPress={togglePicModal}
+                  style={styles.closeCont}
+                  activeOpacity={0.7}
+                  >
+                  <Image source={images.close} 
+                  style={styles.icon} 
+                  />
+                </TouchableOpacity>
               </View>
-              <View style={styles.picModalPhotoCont}>
-                {profileImage ? (
+              <View style={styles.secondCont}>
+              {profileImage ? (
                   <ImageViewer
                     imageUrls={[{url: profileImage}]}
-                    style={styles.picModalPhoto}
                     renderIndicator={() => null}
-                    backgroundColor={colors.blackBackground}
+                    style={styles.uploadedImg}
                   />
                 ) : (
-                  <Image source={images.user} style={styles.picModalPhoto} />
+                  <Image source={images.user} 
+                  style={styles.noImg}
+                  resizeMode='contain'
+                  />
                 )}
               </View>
             </View>
-
           </Modal>
         </ScrollView>
       </TouchableWithoutFeedback>

@@ -1,4 +1,4 @@
-import {Image, ScrollView, Switch, Text, TouchableOpacity} from 'react-native';
+import {Image, Linking, ScrollView, Switch, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import {images} from '../../assets';
 import {vh, vw} from '../../utils/dimensions';
@@ -39,6 +39,16 @@ const Settings = () => {
   const gotoLogout = () => {
     setLogoutModalVisible(true);
   };
+  const gotoContact=()=>{
+    const email = 'aryan.saxena@appinventiv.com';
+    const mailto = `mailto:${email}`;
+    Linking.canOpenURL(mailto)
+      .then(supported => {
+          Linking.openURL(mailto);
+        }
+      )
+      .catch(error => console.error('Error opening email client:', error));
+  };
   const onLogout = () => {
     auth()
       .signOut()
@@ -69,27 +79,49 @@ const Settings = () => {
       name: 'About',
       img: isDarkMode ? images.nextWhite : images.next,
       go: gotoAbout,
+      icon : images.user,
     },
     {
       id: 2,
       name: 'Send Feedback',
       img: isDarkMode ? images.nextWhite : images.next,
       go: gotoFeedback,
+      icon : images.feedbackIcon,
     },
     {
       id: 3,
       name: 'Privacy Policy',
       img: isDarkMode ? images.nextWhite : images.next,
       go: gotoPrivacy,
+      icon : images.privacyIcon,
     },
     {
       id: 4,
       name: 'Terms of Use',
       img: isDarkMode ? images.nextWhite : images.next,
       go: gotoTerms,
+      icon : images.termsIcon,
     },
-    {id: 5, name: 'Dark Mode', go: gotoMode},
-    {id: 6, name: 'Logout', img: images.logout, go: gotoLogout},
+    {
+      id: 7,
+      name: 'Contact Us',
+      img: isDarkMode ? images.emailWhite : images.mail,
+      go: gotoContact,
+      icon : images.email,
+    },
+    {
+      id: 5, 
+      name: 'Dark Mode', 
+      go: gotoMode,
+      icon : images.darkmodeIcon,
+    },
+    {
+      id: 6, 
+      name: 'Logout', 
+      img: images.logout, 
+      go: gotoLogout,
+      icon : images.logoutIcon,
+    },
   ];
   return (
     <ScrollView
@@ -99,7 +131,9 @@ const Settings = () => {
       ]}>
       {items.map((item, id) => {
         return (
-          <TouchableOpacity style={styles.itemBtn} onPress={item.go} key={id}>
+          <TouchableOpacity style={styles.itemBtn} onPress={item.go} key={id} activeOpacity={0.7}>
+            <View style={styles.iconCont}>
+            <Image source={item.icon} style={styles.iconImg}/>
             <Text
               style={[
                 styles.itemBtnTxt,
@@ -107,6 +141,7 @@ const Settings = () => {
               ]}>
               {item.name}
             </Text>
+            </View>
             {item.img ? (
               <Image source={item.img} style={styles.itemImg} />
             ) : (

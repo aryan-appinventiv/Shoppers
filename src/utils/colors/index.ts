@@ -23,4 +23,6 @@ export const colors = {
     thumbcolor_false : '#f5dd4b',
     thumbcolor_true : '#f4f3f4',
     ios_bg : '#3e3e3e',
+    settingsBgc : '#1B1212',
+    blue: 'blue',
 }

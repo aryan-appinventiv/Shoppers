@@ -32,4 +32,12 @@ export const images = {
     gallery: require('./images/gallery.png'),
     close : require('./images/close.png'),
     people: require('./images/people.png'),
+    logoutIcon: require('./images/shutdown.png'),
+    darkmodeIcon: require('./images/darkmode.png'),
+    feedbackIcon: require('./images/feedback.png'),
+    privacyIcon : require('./images/privacy-policy.png'),
+    termsIcon: require('./images/termsOfUSe.png'),
+    imagePlaceholder: require('./images/imagePlaceholder.png'),
+    email : require('./images/email.png'),
+    emailWhite: require('./images/emailWhite.png'),
 }

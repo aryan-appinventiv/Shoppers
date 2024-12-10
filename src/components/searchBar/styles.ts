@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
       paddingVertical: vh(10),
       borderRadius: vh(10),
       gap: vh(10),
-      marginVertical: 10,
+      marginVertical: vh(15),
     },
     searchTxt: {
       flex: 1,

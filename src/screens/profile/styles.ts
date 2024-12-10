@@ -6,7 +6,7 @@ export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: 
     return StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: isDarkMode? colors.blackBackground : colors.searchbar,
+            backgroundColor: isDarkMode? colors.settingsBgc : colors.searchbar,
         },
           header: {
             backgroundColor: colors.primary,
@@ -99,8 +99,8 @@ export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: 
             color : isDarkMode ? colors.white : colors.black,
           },
           icon: {
-            width: vw(20),
-            height: vw(20),
+            width: vw(14),
+            height: vw(14),
             tintColor: isDarkMode? colors.white : colors.black,
           },
           backCont: {
@@ -123,30 +123,32 @@ export const getProfileStyles = (isDarkMode: string, myWidth: number, myHeight: 
           },
           picModalCont: {
             flex:1, 
-            backgroundColor:colors.blackBackground,
           },
-          picModalCross : {
-            backgroundColor:colors.darkgray, 
-            borderRadius: vh(20),
-            width: vw(35),
-            height: vw(35),
-            justifyContent:'center',
-            alignItems:'center',
+          firstCont:{
+            paddingTop: Platform.OS==="android"? vh(10):vh(70), 
+            paddingHorizontal: vw(20), 
+            paddingBottom: vh(10),
+            backgroundColor: colors.black,
           },
-          picModalPhotoCont : {
+          secondCont: {
+            flex:1, 
             alignItems:'center', 
             justifyContent:'center',
-            flex: 1,
+            backgroundColor: colors.black,
           },
-          picModalPhoto: {
-            width: myWidth, 
-            height: myHeight,
-            resizeMode: 'contain',
-          },
-          crossCont:{
+          closeCont: {
+            backgroundColor:'gray', 
             alignSelf:'flex-start', 
-            marginHorizontal: vw(20), 
-            marginVertical: Platform.OS==="ios"? vh(50): vh(20), 
-          }
+            padding: vh(8), 
+            borderRadius: vh(20)
+          },
+          uploadedImg: {
+            width: myWidth,
+            backgroundColor:colors.black,
+          },
+          noImg: {
+            width: myWidth*0.9,
+          },
+
       });
     }      

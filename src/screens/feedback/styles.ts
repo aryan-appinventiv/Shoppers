@@ -9,7 +9,7 @@ export const getFeedbackStyles = (isDarkMode: string) =>{
             backgroundColor: isDarkMode? colors.black : colors.white,
           },
           title: {
-            fontSize: vh(24),
+            fontSize: vh(22),
             fontWeight: 'bold',
             marginBottom: vh(20),
             paddingHorizontal: vw(10),
@@ -34,19 +34,5 @@ export const getFeedbackStyles = (isDarkMode: string) =>{
           mainCont: {
             paddingHorizontal: vw(10),
           },
-          backCont: {
-            backgroundColor: colors.primary,
-            paddingBottom: vh(20),
-            paddingHorizontal: vw(10),
-          },
-          back: {
-            height: vw(20),
-            width: vw(20),
-          },
-          backImg: {
-            height: vw(20),
-            width: vw(20),
-          },
-      
       });
     }      

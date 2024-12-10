@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     register: {
         backgroundColor: colors.primary,
         width: '100%',
-        padding: vh(15),
+        padding: vh(13),
         alignItems: 'center',
         marginVertical: vh(30),
         borderRadius: vh(10),

@@ -1,4 +1,4 @@
-import { Text, View , TouchableOpacity} from 'react-native'
+import { Text, View , TouchableOpacity, ActivityIndicator} from 'react-native'
 import React, { useState } from 'react'
 import { OtpInput } from "react-native-otp-entry";
 import { useNavigation } from '@react-navigation/native';
@@ -10,11 +10,14 @@ import Button from '../../components/button';
 
 const OTP = (props : any) => {
     const [code, setCode] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const Navigation = useNavigation();
 
     async function confirmCode(confirm:any) {
         try {
+          setIsLoading(true);
           await confirm.confirm(code);
+          setIsLoading(false);
           Toast.show(strings.log_in, Toast.SHORT, {
             backgroundColor: colors.green,
           });
@@ -22,8 +25,8 @@ const OTP = (props : any) => {
             index:0,
             routes:[{name: 'BottomTabNavigator'}]
           })
-
         } catch (error) {
+          setIsLoading(false);
           Toast.show(strings.invalid_code, Toast.LONG, {
             backgroundColor: colors.primary,
           });
@@ -34,7 +37,7 @@ const OTP = (props : any) => {
     <View style={styles.cont}>
       
        <OtpInput numberOfDigits={6} value={code} onTextChange={(text) => setCode(text)} />
-       <Button title={"Send OTP"} onPress={() =>  confirmCode(props.confirm)} />
+        {isLoading? (<ActivityIndicator size={'large'} color={colors.primary}/>):(<Button title={"Send OTP"} onPress={() =>  confirmCode(props.confirm)} />)}
     </View>
   )
 }

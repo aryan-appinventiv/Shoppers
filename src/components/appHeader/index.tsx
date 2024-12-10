@@ -35,7 +35,7 @@ const AppHeader: React.FC = () => {
     }, []),
   );
   const Navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const {isDarkMode} = useTheme();
   const styles = getHeaderStyle(isDarkMode);
   const gotoProfile = () => {

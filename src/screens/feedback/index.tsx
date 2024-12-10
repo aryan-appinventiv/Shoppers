@@ -1,20 +1,17 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {View, Text, TextInput} from 'react-native';
 import Button from '../../components/button';
-import {vh} from '../../utils/dimensions';
-import {images} from '../../assets';
 import {colors} from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import {strings} from '../../utils/strings';
 import {getFeedbackStyles} from './styles';
 import {useTheme} from '../../utils/ThemeContext';
+import InsideAppHeader from '../../components/insideAppHeader';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const {top: safeTop} = useSafeAreaInsets();
   const Navigation = useNavigation();
   const {isDarkMode} = useTheme();
   const styles = getFeedbackStyles(isDarkMode);
@@ -32,12 +29,7 @@ const Feedback = () => {
   };
   return (
     <View style={[styles.container]}>
-      <View style={[styles.backCont, {paddingTop: safeTop + vh(20)}]}>
-        <TouchableOpacity style={styles.back} onPress={goback}>
-          <Image source={images.back} style={styles.backImg} />
-        </TouchableOpacity>
-      </View>
-
+      <InsideAppHeader title={strings.feedback} onPress={goback}/>
       <Text style={styles.title}>{strings.send_us_your_feedback}</Text>
       <View style={styles.mainCont}>
         <Text style={styles.label}>{strings.your_feedback}</Text>

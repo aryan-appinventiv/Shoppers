@@ -11,7 +11,7 @@ export const getHeaderStyle = (isDarkMode: boolean) =>{
             marginRight: vw(10),
           },
           userCont: {
-            paddingTop: Platform.OS === 'ios' ? vh(50) : vh(10),
+            paddingTop: Platform.OS === 'ios' ? vh(50) : vh(20),
             paddingRight: vw(15),
             paddingLeft: vw(15),
             flexDirection:'row',

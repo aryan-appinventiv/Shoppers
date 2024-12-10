@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, RefreshControl} from 'react-native';
+import {ScrollView, RefreshControl, View} from 'react-native';
 import AppHeader from '../../components/appHeader';
 import SearchBar from '../../components/searchBar';
 import axios from 'axios';
 import BreakingNews from '../../components/breakingNews.tsx';
 import Categories from '../../components/categories/index.tsx';
 import NewsList from '../../components/newsList/index.tsx';
-import Loading from '../../components/loading/index.tsx';
 import {strings} from '../../utils/strings/index.ts';
 import {useTheme} from '../../utils/ThemeContext.js';
 import {colors} from '../../utils/colors/index.ts';
@@ -16,7 +15,6 @@ import {keyAPI} from '../../utils/newsKeyAPI/index.tsx';
 const Home = () => {
   const [breakingNews, setBreakingNews] = useState([]);
   const [news, setNews] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -26,10 +24,8 @@ const Home = () => {
   const {isDarkMode} = useTheme();
 
   const fetchAllData = async () => {
-    setIsLoading(true);
     await getBreakingNews();
     await getNews();
-    setIsLoading(false);
   };
 
   const getBreakingNews = async () => {
@@ -73,27 +69,28 @@ const Home = () => {
   };
 
   return (
-    <ScrollView
+    <View
       style={[
         styles.container,
         {backgroundColor: isDarkMode ? colors.black : colors.white},
-      ]}
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          tintColor={isDarkMode ? colors.white : colors.black}
-        />
-      }>
+      ]}>
       <AppHeader />
       <SearchBar />
-      {isLoading ? <Loading /> : <BreakingNews newsList={breakingNews} />}
-      <Categories onCategoryChanged={onCatChanged} />
-      <NewsList newsList={news} />
-    </ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={isDarkMode ? colors.white : colors.black}
+          />
+        }>
+        <BreakingNews newsList={breakingNews} />
+        <Categories onCategoryChanged={onCatChanged} />
+        <NewsList newsList={news} />
+      </ScrollView>
+    </View>
   );
 };
 
 export default Home;
-

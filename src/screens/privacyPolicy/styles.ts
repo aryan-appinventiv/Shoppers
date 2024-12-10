@@ -6,14 +6,7 @@ export const getPrivacyPolicyStyles = (isDarkMode: string) =>{
     return StyleSheet.create({
         container: {
           flex: 1,
-          paddingHorizontal: vw(20),
           backgroundColor: isDarkMode? colors.black : colors.white,
-        },
-        title: {
-          fontSize: vh(26),
-          fontWeight: 'bold',
-          marginBottom: vh(10),
-          color: isDarkMode? colors.redTitle : colors.primary,
         },
         date: {
           fontSize: vh(16),
@@ -30,7 +23,8 @@ export const getPrivacyPolicyStyles = (isDarkMode: string) =>{
         sectionText: {
           fontSize: vw(14),
           lineHeight: vw(20),
-          color: colors.desc,
+          color: isDarkMode ? colors.lightgray : colors.desc,
+
         },
       });
 } 

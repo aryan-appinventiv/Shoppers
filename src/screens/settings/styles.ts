@@ -22,5 +22,14 @@ const styles = StyleSheet.create({
       height: vw(15),
       width: vw(15),
     },
+    iconCont:{
+      flexDirection: 'row',
+      gap: vw(10),
+      alignItems:'center',
+    },
+    iconImg:{
+      width: vh(20),
+      height: vh(20),
+    }
   });
   export default styles;

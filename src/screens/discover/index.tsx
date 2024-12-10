@@ -78,60 +78,61 @@ const Discover = ({navigation}: any) => {
   };
 
   return (
-    <ScrollView
+    <View
       style={[
         styles.container,
         {
           paddingTop: safeTop + vh(15),
           backgroundColor: isDarkMode ? colors.black : colors.white,
         },
-      ]}
-      showsVerticalScrollIndicator={false}>
+      ]}>
       <SearchBar />
-      <Text
-        style={[
-          styles.title,
-          {color: isDarkMode ? colors.white : colors.black},
-        ]}>
-        {strings.categories}
-      </Text>
-      <View style={styles.listContainer}>
-        {categories.map(item => (
-          <CheckBox
-            key={item.id}
-            label={item.title}
-            checked={item.selected}
-            onPress={() => {
-              toggleCategory(item.id);
-            }}
-          />
-        ))}
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+        <Text
+          style={[
+            styles.title,
+            {color: isDarkMode ? colors.white : colors.black},
+          ]}>
+          {strings.categories}
+        </Text>
+        <View style={styles.listContainer}>
+          {categories.map(item => (
+            <CheckBox
+              key={item.id}
+              label={item.title}
+              checked={item.selected}
+              onPress={() => {
+                toggleCategory(item.id);
+              }}
+            />
+          ))}
+        </View>
 
-      <Text
-        style={[
-          styles.title,
-          {color: isDarkMode ? colors.white : colors.black},
-        ]}>
-        {strings.countries}
-      </Text>
-      <View style={styles.listContainer}>
-        {countries.map((item, index) => (
-          <CheckBox
-            key={index}
-            label={item.name}
-            checked={item.selected}
-            onPress={() => {
-              toggleCountry(index);
-            }}
-          />
-        ))}
-      </View>
+        <Text
+          style={[
+            styles.title,
+            {color: isDarkMode ? colors.white : colors.black},
+          ]}>
+          {strings.countries}
+        </Text>
+        <View style={styles.listContainer}>
+          {countries.map((item, index) => (
+            <CheckBox
+              key={index}
+              label={item.name}
+              checked={item.selected}
+              onPress={() => {
+                toggleCountry(index);
+              }}
+            />
+          ))}
+        </View>
 
-      <View style={styles.button}>
-        <Button onPress={search} title={strings.search} />
-      </View>
-    </ScrollView>
+        <View style={styles.button}>
+          <Button onPress={search} title={strings.search} />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 

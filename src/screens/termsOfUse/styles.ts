@@ -6,14 +6,7 @@ export const getTermsStyles = (isDarkMode: string) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      padding: vh(20),
       backgroundColor: isDarkMode ? colors.black : colors.white,
-    },
-    title: {
-      fontSize: vh(28),
-      fontWeight: 'bold',
-      marginBottom: vh(10),
-      color: isDarkMode ? colors.redTitle : colors.primary,
     },
     date: {
       fontSize: vh(16),

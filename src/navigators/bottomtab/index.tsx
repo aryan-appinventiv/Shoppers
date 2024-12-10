@@ -107,7 +107,7 @@ export default BottomTabNavigator;
 
 const styles = StyleSheet.create({
   line: {
-    height: vh(10),
+    height: vh(5),
     width: vw(30),
     backgroundColor: colors.primary,
     marginTop: vh(5),

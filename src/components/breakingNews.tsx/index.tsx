@@ -30,6 +30,7 @@ const BreakingNews = ({newsList}) => {
         <FlatList
           ref={flatListRef}
           data={newsList}
+          scrollEnabled={false}
           keyExtractor={(item, index) => `list_item${index}`}
           renderItem={({item, index}) => (
             <SliderItem slideItem={item} index={index} />

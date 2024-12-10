@@ -37,7 +37,7 @@ const ForgotPassword = () => {
         backgroundColor: colors.green,
       });
       setEmail('');
-      Navigation.navigate('Signin');
+      //Navigation.replace('Signin');
     } catch (error: any) {
       Toast.show(error.message, Toast.SHORT, {
         backgroundColor: colors.red,

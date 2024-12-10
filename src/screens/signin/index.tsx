@@ -11,6 +11,7 @@ import {
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {images} from '../../assets';
@@ -30,6 +31,7 @@ const Signin = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const Navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Signin'>>();
@@ -60,14 +62,17 @@ const Signin = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(response => {
+        setIsLoading(true);
         const user = response.user;
 
         if (user.emailVerified) {
           Toast.show(strings.log_in, Toast.SHORT, {
             backgroundColor: colors.green,
           });
+          setIsLoading(false);
           Navigation.navigate('BottomTabNavigator');
         } else {
+          setIsLoading(false);
           Alert.alert(strings.email_not_verified, strings.verify_email, [
             {
               text: strings.resend_email,
@@ -80,6 +85,7 @@ const Signin = () => {
         }
       })
       .catch(error => {
+        setIsLoading(false);
         console.log(error);
         Toast.show(strings.email_pass_not_matched, Toast.SHORT, {
           backgroundColor: colors.red,
@@ -148,9 +154,7 @@ const Signin = () => {
             {passwordError && passwordError.length > 0 && (
               <Text style={styles.error}>{passwordError}</Text>
             )}
-
-            <Button onPress={validateLogin} title={'Login'} />
-
+            {isLoading? (<ActivityIndicator size={'large'} color={colors.primary} />):(<Button onPress={validateLogin} title={'Login'} />)}
             <TouchableOpacity style={styles.forgotCont} onPress={gotoForgot}>
               <Text style={styles.forgotText}>{strings.forgot_pass}</Text>
             </TouchableOpacity>

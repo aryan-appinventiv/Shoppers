@@ -17,6 +17,7 @@ import PrivacyPolicy from '../screens/privacyPolicy';
 import Feedback from '../screens/feedback';
 import Profile from '../screens/profile';
 import SearchPage from '../screens/searchPage';
+import ContactUs from '../screens/contactUs';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -34,6 +35,7 @@ export type RootStackParamList = {
   LoginMenu: undefined;
   RegisterWithEmail: undefined;
   BottomTabNavigator: undefined;
+  ContactUs: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -53,6 +55,7 @@ const routes = [
   { name: 'Tutorial', component: Tutorial },
   { name: 'LoginMenu', component: LoginMenu },
   { name: 'RegisterWithEmail', component: RegisterWithEmail },
+  { name: 'ContactUs', component: ContactUs },
   { name: 'BottomTabNavigator', component: BottomTabNavigator },
 ];
 

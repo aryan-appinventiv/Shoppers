@@ -1,15 +1,12 @@
 import React from 'react';
-import {ScrollView, Text} from 'react-native';
-import Button from '../../components/button';
+import { ScrollView, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {vh} from '../../utils/dimensions';
 import {strings} from '../../utils/strings';
 import {useTheme} from '../../utils/ThemeContext';
 import {getTermsStyles} from './styles';
+import InsideAppHeader from '../../components/insideAppHeader';
 
 const TermsOfUse = () => {
-  const {top: safeTop} = useSafeAreaInsets();
   const Navigation = useNavigation();
   const goback = () => {
     Navigation.goBack();
@@ -17,11 +14,13 @@ const TermsOfUse = () => {
   const {isDarkMode} = useTheme();
   const styles = getTermsStyles(isDarkMode);
   return (
+    <View style={styles.container}>
+        <InsideAppHeader title={strings.terms_of_use} onPress={goback} />
     <ScrollView
-      style={[styles.container, {paddingTop: safeTop + vh(10)}]}
       showsVerticalScrollIndicator={false}
-      bounces={false}>
-      <Text style={styles.title}>{strings.terms_of_use}</Text>
+      bounces={false}
+      style={{padding: 20, marginBottom: 30}}
+      >
       <Text style={styles.date}>{strings.effective_date}</Text>
 
       <Text style={styles.sectionTitle}>{strings.terms_title_1}</Text>
@@ -44,9 +43,8 @@ const TermsOfUse = () => {
 
       <Text style={styles.sectionTitle}>{strings.terms_title_7}</Text>
       <Text style={styles.sectionText}>{strings.terms_desc_7}</Text>
-
-      <Button title={'Back to Home'} onPress={goback} />
     </ScrollView>
+    </View>
   );
 };
 

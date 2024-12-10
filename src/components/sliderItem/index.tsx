@@ -1,11 +1,11 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
-import { colors } from '../../utils/colors';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigators';
+import {colors} from '../../utils/colors';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../navigators';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, 'Detail'>;
 
@@ -19,28 +19,27 @@ interface SliderItemProps {
   index: number;
 }
 
-const SliderItem: React.FC<SliderItemProps> = ({ slideItem, index }) => {
+const SliderItem: React.FC<SliderItemProps> = ({slideItem, index}) => {
   const Navigation = useNavigation<NavigationProps>();
 
   const gotoDetail = (item: SliderItemProps['slideItem']) => {
-    Navigation.navigate('Detail', { item });
+    Navigation.navigate('Detail', {item});
   };
 
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       style={styles.itemWrapper}
-      onPress={() => gotoDetail(slideItem)}
-    >
-      <Image source={{ uri: slideItem.image_url }} style={styles.image} />
+      onPress={() => gotoDetail(slideItem)}>
+      <Image source={{uri: slideItem.image_url}} style={styles.image} />
       <LinearGradient
         colors={[colors.transparent, colors.lg]}
-        style={styles.background}
-      >
+        style={styles.background}>
         <View style={styles.sourceCont}>
           <View style={styles.sourceInfo}>
             {slideItem.source_icon && (
               <Image
-                source={{ uri: slideItem.source_icon }}
+                source={{uri: slideItem.source_icon}}
                 style={styles.sourceIcon}
               />
             )}

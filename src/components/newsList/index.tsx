@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -23,6 +23,7 @@ interface NewsListProps {
 }
 
 const NewsList: React.FC<NewsListProps> = ({ newsList }) => {
+  const [errorImages, setErrorImages] = useState<Record<number, boolean>>({});
   const Navigation = useNavigation<NavigationProps>();
 
   const gotoDetail = (item: NewsItem) => {
@@ -31,6 +32,10 @@ const NewsList: React.FC<NewsListProps> = ({ newsList }) => {
 
   const { isDarkMode } = useTheme();
   const styles = getNewslistStyles(isDarkMode);
+
+  const handleImageError = (index: number) => {
+    setErrorImages((prev) => ({ ...prev, [index]: true }));
+  };
 
   return (
     <View style={styles.container}>
@@ -45,8 +50,13 @@ const NewsList: React.FC<NewsListProps> = ({ newsList }) => {
             onPress={() => gotoDetail(item)}
           >
             <Image
-              source={!item.image_url ? images.tutorial : { uri: item.image_url }}
+              source={
+                errorImages[index]
+                  ? images.imagePlaceholder
+                  : { uri: item.image_url }
+              }
               style={styles.itemImg}
+              onError={() => handleImageError(index)}
             />
             <View style={styles.itemInfo}>
               <Text style={styles.itemCategory}>{item.category}</Text>
@@ -69,3 +79,4 @@ const NewsList: React.FC<NewsListProps> = ({ newsList }) => {
 };
 
 export default NewsList;
+

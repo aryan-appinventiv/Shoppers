@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     back: {
-      height: vw(25),
-      width: vw(25),
+      height: vw(20),
+      width: vw(20),
     },
     headerCont: {
       paddingHorizontal: vw(15),

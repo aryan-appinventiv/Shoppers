@@ -26,7 +26,7 @@ const ResultList: React.FC<ResultListProps> = ({ data }) => {
 
   const renderItem = ({ item }: { item: ResultListProps['data'][number] }) => (
     <TouchableOpacity
-      activeOpacity={0.5}
+      activeOpacity={0.7}
       style={styles.newsItem}
       onPress={() => Navigation.navigate('Detail', { item })}
     >

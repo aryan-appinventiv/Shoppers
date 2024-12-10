@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from "react-native";
 import { colors } from "../../utils/colors";
-import { vh, vw } from "../../utils/dimensions";
+import { vh, vw, Wheight, Wwidth } from "../../utils/dimensions";
 
 export const getDetailStyles = (isDarkMode: string) =>{
     return StyleSheet.create({
@@ -8,16 +8,17 @@ export const getDetailStyles = (isDarkMode: string) =>{
           flex: 1,
           paddingHorizontal: vw(16),
           backgroundColor: isDarkMode? colors.black: colors.white,
+          paddingBottom: vh(20),
         },
         content: {
           marginBottom: vh(20),
         },
         image: {
-          width: '100%',
-          height: vh(200),
+          width: Wwidth/1.1,
+          height: Wheight/5,
           borderRadius: vw(10),
           marginVertical: vh(20),
-          resizeMode:'contain',
+          overflow:'hidden'
         },
         title: {
           fontSize: vw(20),
@@ -39,7 +40,7 @@ export const getDetailStyles = (isDarkMode: string) =>{
           color:isDarkMode? colors.lightgray : colors.desc,
           letterSpacing: 1.2,
           textAlign: 'justify',
-          marginVertical: vh(10),
+          marginTop: vh(10),
           fontWeight: '600',
         },
         sourceIcon: {
@@ -82,6 +83,15 @@ export const getDetailStyles = (isDarkMode: string) =>{
         viewCont: {
           flexDirection: 'row',
           flexWrap: 'wrap',
+        },
+        linkContainer: {
+          paddingBottom: vh(10),
+          paddingTop: vh(3),
+        },
+        linkText: {
+          color: colors.primary,
+          textDecorationLine: 'underline',
+          fontSize: vh(16),
         },
       });
     }      

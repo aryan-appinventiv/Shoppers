@@ -19,6 +19,7 @@ type ProfileModalProps = {
   takePhotoFromCamera: () => void;
   choosePhotoFromLibrary: () => void;
   removeImg: () => void;
+  isImgPresent: any;
 };
 
 const ProfileModal: React.FC<ProfileModalProps> = ({
@@ -27,10 +28,10 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
   takePhotoFromCamera,
   choosePhotoFromLibrary,
   removeImg,
+  isImgPresent,
 }) => {
   const { isDarkMode } = useTheme();
   const styles = getProfileModalStyles(isDarkMode);
-
   return (
     <Modal transparent visible={modalVisible} animationType="fade" onRequestClose={toggleModal}>
       <TouchableWithoutFeedback onPress={toggleModal}>
@@ -54,12 +55,18 @@ const ProfileModal: React.FC<ProfileModalProps> = ({
               </Text>
             </TouchableOpacity>
             <View style={styles.separator} />
-            <TouchableOpacity style={styles.modalButton} onPress={removeImg}>
+            {isImgPresent? (<TouchableOpacity style={styles.modalButton} onPress={removeImg}>
               <Image source={images.bin} style={styles.icon} />
               <Text style={[styles.modalButtonText, styles.remove_img]}>
                 {strings.remove_img}
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity>): (<TouchableOpacity style={[styles.modalButton,{opacity: 0.5}]} onPress={removeImg} disabled={true}>
+              <Image source={images.bin} style={styles.icon} />
+              <Text style={[styles.modalButtonText, styles.remove_img]}>
+                {strings.remove_img}
+              </Text>
+            </TouchableOpacity>)}
+            
           </View>
         </View>
       </TouchableWithoutFeedback>

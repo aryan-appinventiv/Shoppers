@@ -1,27 +1,28 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TouchableOpacity, ScrollView, Linking } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {images} from '../../assets';
+import { images } from '../../assets';
 import LogoutModal from '../../components/logoutModal';
 import Toast from 'react-native-simple-toast';
-import {colors} from '../../utils/colors';
-import {strings} from '../../utils/strings';
-import {getDetailStyles} from './styles';
-import {useTheme} from '../../utils/ThemeContext';
+import { colors } from '../../utils/colors';
+import { strings } from '../../utils/strings';
+import { getDetailStyles } from './styles';
+import { useTheme } from '../../utils/ThemeContext';
 
 const Detail = () => {
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
+  const [error, setError] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const route = useRoute();
-  const {item}: any = route.params;
+  const { item }: any = route.params;
   const Navigation = useNavigation();
 
   useEffect(() => {
     checkIfSaved();
   }, []);
 
-  const {isDarkMode} = useTheme();
+  const { isDarkMode } = useTheme();
   const styles = getDetailStyles(isDarkMode);
 
   const checkIfSaved = async () => {
@@ -59,7 +60,9 @@ const Detail = () => {
         setLogoutModalVisible(false);
       }
     } catch (error) {
-      console.log(strings.error_saving_removing_news, error);
+      Toast.show(strings.error_saving_removing_news, Toast.SHORT, {
+        backgroundColor: colors.red,
+      });
       setLogoutModalVisible(false);
     }
   };
@@ -72,6 +75,23 @@ const Detail = () => {
   };
   const openLogoutModal = () => {
     setLogoutModalVisible(true);
+  };
+
+  const openLink = async (url: string) => {
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Toast.show(`Cannot open URL: ${url}`, Toast.SHORT, {
+          backgroundColor: colors.red,
+        });
+      }
+    } catch (error) {
+      Toast.show(`Error opening URL: ${error}`, Toast.SHORT, {
+        backgroundColor: colors.red,
+      });
+    }
   };
 
   return (
@@ -88,19 +108,23 @@ const Detail = () => {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        <Image source={{uri: item.image_url}} style={styles.image} />
+        <Image source={error? (images.imagePlaceholder) : { uri: item.image_url }} style={styles.image} resizeMode="cover" onError={()=>setError(true)} />
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.category}>{item.category}</Text>
         <View style={styles.sourceCont}>
           <Text style={styles.source}>{strings.source}</Text>
-          <Image source={{uri: item.source_icon}} style={styles.sourceIcon} />
+          <Image source={{ uri: item.source_icon }} style={styles.sourceIcon} />
           <Text style={styles.source}>{item.source_name}</Text>
         </View>
         <Text style={styles.desc}>{item.description}</Text>
         <Text style={styles.desc}>{strings.dummy}</Text>
+        {item.link && (
+          <TouchableOpacity onPress={() => openLink(item.link)} style={styles.linkContainer}>
+            <Text style={styles.linkText}>{strings.read_full_article}</Text>
+          </TouchableOpacity>
+        )}
         <View style={styles.viewCont}>
           <Text style={styles.keyword}>{strings.keywords}</Text>
-
           {item.keywords && item.keywords.length > 0 ? (
             item.keywords.map((keyword: string | undefined, index: number) => (
               <Text key={index} style={styles.keywords}>
